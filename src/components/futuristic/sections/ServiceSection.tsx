@@ -3,37 +3,31 @@ const services = [
     id: "01",
     title: "Sovereign AI Advisory",
     desc: "Use-case prioritization, model strategy, governance design, and architecture decisions before deployment begins.",
-    tag: "Strategy",
   },
   {
     id: "02",
     title: "Enterprise AI Buildouts",
     desc: "Custom agents, retrieval systems, orchestration layers, and human-in-the-loop controls built around real business needs.",
-    tag: "Engineering",
   },
   {
     id: "03",
     title: "Knowledge System Design",
     desc: "Controlled knowledge bases, retrieval architecture, source approvals, and governed information flow for trustworthy performance.",
-    tag: "Architecture",
   },
   {
     id: "04",
     title: "Workflow Automation",
     desc: "Automation across operations, customer handling, follow-up, and task execution with human review logic built in.",
-    tag: "Operations",
   },
   {
     id: "05",
     title: "Managed AI Operations",
     desc: "Monitoring, prompt and policy refinement, deployment updates, and operational tuning after launch.",
-    tag: "Ongoing",
   },
   {
     id: "06",
     title: "Integration-Led Delivery",
     desc: "Connecting AI into data sources, workflow platforms, communication layers, and operational tools where needed.",
-    tag: "Delivery",
   },
 ];
 
@@ -70,7 +64,7 @@ export function ServiceSection() {
         {services.map((svc) => (
           <div
             key={svc.title}
-            className="group grid grid-cols-[72px_1fr_360px_120px] items-center gap-6 border-b border-[#e8e8e8] py-7 transition-all duration-300 hover:bg-[#fafafa] hover:px-5 hover:rounded-[16px] hover:border-transparent"
+            className="group grid grid-cols-[72px_1fr_360px_auto] items-center gap-6 border-b border-[#e8e8e8] py-7 transition-all duration-300 hover:bg-[#fafafa] hover:px-5 hover:rounded-[16px] hover:border-transparent"
           >
             {/* Number */}
             <span className="text-[13px] font-medium text-[#c0c0c0] transition-colors duration-300 group-hover:text-[#8b71fe] [font-family:Poppins,sans-serif]">
@@ -87,11 +81,8 @@ export function ServiceSection() {
               {svc.desc}
             </p>
 
-            {/* Tag + Arrow */}
-            <div className="flex items-center justify-end gap-3">
-              <span className="rounded-[51px] bg-[#f0edff] px-4 py-1.5 text-[12px] text-[#8b71fe] transition-colors duration-300 group-hover:bg-[#8b71fe] group-hover:text-white [font-family:Poppins,sans-serif]">
-                {svc.tag}
-              </span>
+            {/* Arrow */}
+            <div className="flex justify-end">
               <span className="inline-grid size-9 shrink-0 place-items-center rounded-full border border-[#d9d9d9] text-[#9b9b9b] transition-all duration-300 group-hover:border-[#8b71fe] group-hover:bg-[#8b71fe] group-hover:text-white">
                 ↗
               </span>
