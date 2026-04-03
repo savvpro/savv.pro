@@ -46,6 +46,11 @@ const navigationSchema = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: [{ url: "/transparent-bg-white.png", type: "image/png" }],
+    apple: "/transparent-bg-white.png",
+    shortcut: "/transparent-bg-white.png",
+  },
   title: {
     default: "Savv Pro | Sovereign AI Enterprise",
     template: "%s | Savv Pro",

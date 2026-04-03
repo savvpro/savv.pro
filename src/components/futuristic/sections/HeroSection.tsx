@@ -4,7 +4,7 @@ import Grainient from "../Grainient";
 
 export function HeroSection() {
   return (
-    <section className="relative isolate h-[1064px] w-full max-w-none overflow-hidden px-[106px] pt-[42px] text-[#1f2327]">
+    <section className="relative isolate h-[1064px] w-full max-w-none overflow-hidden bg-gradient-to-br from-[#FF9FFC] via-[#6b4ce6] to-[#B19EEF] px-[106px] pt-[42px] text-[#1f2327]">
       <div className="pointer-events-none absolute inset-0 z-0">
         <Grainient
           color1="#FF9FFC"
