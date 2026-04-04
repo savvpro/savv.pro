@@ -43,8 +43,8 @@ const footerLinks = [
 
 export function FooterSection() {
   return (
-    <footer id="site-footer" className="relative h-[421px] bg-white px-[124px] pt-10 text-[#1f2327]">
-      <div className="flex items-start justify-between">
+    <footer id="site-footer" className="relative bg-white px-4 sm:px-8 md:px-[124px] pt-10 pb-10 text-[#1f2327]">
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10">
         <div className="max-w-[360px]">
           <Link href="/" className="mb-5 inline-block">
             <img src="/transparent-bg-black.png" alt="Savv Pro logo" className="h-[38px] w-auto" />
@@ -55,10 +55,10 @@ export function FooterSection() {
           <p className="text-[14px] leading-[1.5] text-[#5a5a5a] [font-family:Poppins,sans-serif]">Chicago, IL · Global Delivery</p>
         </div>
 
-        <div className="grid w-[920px] grid-cols-4 gap-10">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
           {footerLinks.map(({ title, items }) => (
             <div key={title}>
-              <p className="mb-6 text-[10px] uppercase tracking-[0.4px] text-[#5a5a5a] [font-family:Poppins,sans-serif]">{title}</p>
+              <p className="mb-4 md:mb-6 text-[10px] uppercase tracking-[0.4px] text-[#5a5a5a] [font-family:Poppins,sans-serif]">{title}</p>
               <ul className="space-y-1 text-[14px] [font-family:Poppins,sans-serif]">
                 {items.map(({ label, href }) => (
                   <li key={label}>
@@ -73,11 +73,11 @@ export function FooterSection() {
         </div>
       </div>
 
-      <div className="mt-12 border-t border-[#1f2327]/20 pt-7" />
+      <div className="mt-10 border-t border-[#1f2327]/20 pt-7" />
 
-      <div className="mt-10 flex items-end justify-between">
+      <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
         <p className="text-[10px] text-[#5a5a5a] [font-family:Poppins,sans-serif]">© 2026 Savv Pro. All rights reserved.</p>
-        <div className="flex items-center gap-5 text-[12px] text-[#5a5a5a] [font-family:Poppins,sans-serif]">
+        <div className="flex flex-wrap items-center gap-4 text-[12px] text-[#5a5a5a] [font-family:Poppins,sans-serif]">
           <Link
             href="/privacy-policy"
             target="_blank"
@@ -95,8 +95,8 @@ export function FooterSection() {
             Terms of Service
           </Link>
           <a href="#" className="transition-colors duration-150 hover:text-[#1f2327]">Accessibility</a>
-          <a href="#top" aria-label="Back to top" className="ml-4 inline-flex">
-            <img src={assets.scrollTop} alt="Back to top" className="size-[60px]" />
+          <a href="#top" aria-label="Back to top" className="inline-flex">
+            <img src={assets.scrollTop} alt="Back to top" className="size-[52px] md:size-[60px]" />
           </a>
         </div>
       </div>

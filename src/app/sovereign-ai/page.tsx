@@ -57,7 +57,7 @@ export default function SovereignAiPage() {
       description="For Savv Pro, sovereign AI means an organization retains meaningful control over how intelligence is deployed, governed, integrated, and operated across its business."
     >
       {/* ── Five layers dark section ── */}
-      <section className="relative mx-6 overflow-hidden rounded-[32px] bg-[#070b14] px-[120px] py-20 text-white">
+      <section className="relative mx-3 md:mx-6 overflow-hidden rounded-[24px] md:rounded-[32px] bg-[#070b14] px-4 sm:px-8 md:px-[120px] py-12 md:py-20 text-white">
         <div
           className="pointer-events-none absolute right-[-80px] top-[-80px] h-[600px] w-[600px] opacity-15"
           style={{ background: "radial-gradient(circle at 80% 20%, #8b71fe 0%, transparent 60%)" }}
@@ -65,13 +65,13 @@ export default function SovereignAiPage() {
         <p className="mb-4 text-[13px] uppercase tracking-[0.25em] text-[#8b71fe] [font-family:Poppins,sans-serif]">
           The Framework
         </p>
-        <h2 className="mb-3 text-[56px] uppercase leading-[1.0] [font-family:Montserrat,sans-serif]">
+        <h2 className="mb-3 text-[30px] sm:text-[42px] md:text-[56px] uppercase leading-[1.0] [font-family:Montserrat,sans-serif]">
           Five Layers of Sovereignty
         </h2>
-        <p className="mb-14 text-[17px] text-white/60 [font-family:Poppins,sans-serif]">
+        <p className="mb-10 md:mb-14 text-[15px] md:text-[17px] text-white/60 [font-family:Poppins,sans-serif]">
           What sovereignty means at Savv Pro, operationally defined.
         </p>
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {layers.map((layer, i) => (
             <article
               key={layer.id}
@@ -86,17 +86,17 @@ export default function SovereignAiPage() {
       </section>
 
       {/* ── Compatibility white section ── */}
-      <section className="bg-white px-[120px] py-20">
-        <div className="rounded-[24px] border border-[#d9d9d9] p-12 transition-shadow duration-300 hover:shadow-[0_4px_32px_rgba(31,35,39,0.08)]">
+      <section className="bg-white px-4 sm:px-8 md:px-[120px] py-12 md:py-20">
+        <div className="rounded-[24px] border border-[#d9d9d9] p-6 sm:p-8 md:p-12 transition-shadow duration-300 hover:shadow-[0_4px_32px_rgba(31,35,39,0.08)]">
           <p className="mb-3 text-[13px] uppercase tracking-[0.2em] text-[#8b71fe] [font-family:Poppins,sans-serif]">
             Open Stack
           </p>
-          <h2 className="mb-6 text-[44px] leading-[1.05] [font-family:Montserrat,sans-serif]">Open Stack Compatibility</h2>
-          <div className="h-px bg-[#d9d9d9] mb-8" />
-          <p className="mb-10 max-w-[900px] text-[17px] leading-[1.8] text-[#5a5a5a] [font-family:Poppins,sans-serif]">
+          <h2 className="mb-6 text-[28px] sm:text-[36px] md:text-[44px] leading-[1.05] [font-family:Montserrat,sans-serif]">Open Stack Compatibility</h2>
+          <div className="h-px bg-[#d9d9d9] mb-6 md:mb-8" />
+          <p className="mb-8 md:mb-10 text-[15px] md:text-[17px] leading-[1.8] text-[#5a5a5a] [font-family:Poppins,sans-serif]">
             Open source matters because sovereignty requires optionality. Frontier closed models still matter, but they should sit inside a broader strategy of control and choice — not as the only option.
           </p>
-          <div className="grid grid-cols-2 gap-3 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 md:mb-10">
             {compatibility.map(([label, value]) => (
               <div
                 key={label}

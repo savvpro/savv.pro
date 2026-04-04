@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const IDLE_HIDE_MS = 900;
 const VIEWPORT_PAD_PX = 48; /* matches top-6 bottom-6 */
+/** Keep thumb in the layout gutter (see root layout pr-*), not over content */
+const SCROLLBAR_EDGE_INSET_PX = 6;
 
 type Metrics = {
   showTrack: boolean;
@@ -86,9 +88,12 @@ export function CustomScrollbar() {
 
   return (
     <div
-      className={`pointer-events-none fixed right-3 top-6 bottom-6 z-[120] w-[5px] transition-opacity duration-300 ease-out ${
+      className={`pointer-events-none fixed top-6 bottom-6 z-[120] w-[5px] transition-opacity duration-300 ease-out ${
         visible ? "opacity-100" : "opacity-0"
       }`}
+      style={{
+        right: `max(${SCROLLBAR_EDGE_INSET_PX}px, env(safe-area-inset-right, 0px))`,
+      }}
       aria-hidden
     >
       <div className="relative h-full w-full overflow-hidden rounded-full bg-[#1f2327]/[0.08] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)]">

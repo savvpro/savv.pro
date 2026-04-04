@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <main id="top" className="w-full">
       <HeroSection />
-      <div className="mx-auto w-full max-w-[1512px] overflow-hidden bg-white">
+      <div className="scrollbar-gutter mx-auto w-full max-w-[1512px] overflow-hidden bg-white">
         <section id="home-next-section">
           <ServiceSection />
         </section>

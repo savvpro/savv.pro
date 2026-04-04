@@ -75,7 +75,7 @@ const sections = [
 export default function PrivacyPolicyPage() {
   return (
     <main id="top" className="min-h-screen bg-white text-[#1f2327]">
-      <div className="mx-auto w-full max-w-[1512px] px-6 pb-16 pt-[42px] md:px-[106px]">
+      <div className="scrollbar-gutter mx-auto w-full max-w-[1512px] pb-16 pl-6 pt-[42px] md:pl-[106px] md:pr-[106px]">
         <SiteHeader active="Privacy Policy" />
 
         <header className="mt-10 max-w-3xl">
@@ -115,7 +115,9 @@ export default function PrivacyPolicyPage() {
         </div>
       </div>
 
-      <SiteFooter />
+      <div className="bg-white scrollbar-gutter">
+        <SiteFooter />
+      </div>
     </main>
   );
 }

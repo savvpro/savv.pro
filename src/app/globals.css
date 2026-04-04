@@ -25,6 +25,9 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  max-width: 100%;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
 }
 
 html::-webkit-scrollbar {
@@ -39,6 +42,9 @@ body {
   font-family: var(--font-site);
   scrollbar-width: none;
   -ms-overflow-style: none;
+  max-width: 100%;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
 }
 
 body::-webkit-scrollbar {
@@ -49,6 +55,23 @@ body::-webkit-scrollbar {
 
 * {
   font-family: var(--font-site) !important;
+}
+
+/* Prevent wide images / media from forcing horizontal scroll on small viewports */
+img,
+video {
+  max-width: 100%;
+}
+
+/* Right inset for fixed CustomScrollbar — apply to content columns, not full-bleed heroes */
+.scrollbar-gutter {
+  padding-right: max(1.5rem, calc(env(safe-area-inset-right, 0px) + 0.875rem));
+}
+
+@media (max-width: 767px) {
+  .scrollbar-gutter {
+    padding-right: max(1.75rem, calc(env(safe-area-inset-right, 0px) + 1rem));
+  }
 }
 
 

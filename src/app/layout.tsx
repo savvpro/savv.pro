@@ -112,13 +112,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">
+    <html lang="en" className="h-full overflow-x-clip antialiased">
+      <body className="flex min-h-full min-w-0 flex-col overflow-x-clip">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationSchema) }} />
         <CustomScrollbar />
-        {children}
+        {/* Full-bleed sections (e.g. home hero) must stay unpadded; use .scrollbar-gutter on content columns instead */}
+        <div className="min-w-0 w-full flex-1 overflow-x-clip">{children}</div>
       </body>
     </html>
   );

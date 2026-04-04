@@ -33,7 +33,7 @@ export default function ContactPage() {
       description="Tell us about your business and what you're trying to solve. We'll come prepared with relevant context, not a generic pitch."
     >
       {/* ── Form section ── */}
-      <section className="relative mx-6 overflow-hidden rounded-[32px] bg-[#070b14] px-[80px] py-20 text-white">
+      <section className="relative mx-3 md:mx-6 overflow-hidden rounded-[24px] md:rounded-[32px] bg-[#070b14] px-4 sm:px-8 md:px-[80px] py-12 md:py-20 text-white">
         <div
           className="pointer-events-none absolute right-0 top-0 h-[600px] w-[600px] opacity-15"
           style={{ background: "radial-gradient(circle at 80% 10%, #8b71fe 0%, transparent 60%)" }}
@@ -43,7 +43,7 @@ export default function ContactPage() {
           style={{ background: "radial-gradient(circle at 20% 90%, #f97316 0%, transparent 60%)" }}
         />
 
-        <div className="relative grid grid-cols-[1fr_1.6fr] gap-20">
+        <div className="relative grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 md:gap-20">
           {/* Left — context */}
           <div className="self-start">
             <p className="mb-6 text-[13px] uppercase tracking-[0.25em] text-[#8b71fe] [font-family:Poppins,sans-serif]">
@@ -76,7 +76,7 @@ export default function ContactPage() {
           {/* Right — form */}
           <form className="space-y-6">
             {/* Name row */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="mb-2 block text-[12px] uppercase tracking-[0.15em] text-white/50 [font-family:Poppins,sans-serif]">
                   First Name
@@ -100,7 +100,7 @@ export default function ContactPage() {
             </div>
 
             {/* Email + Company row */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="mb-2 block text-[12px] uppercase tracking-[0.15em] text-white/50 [font-family:Poppins,sans-serif]">
                   Work Email

@@ -31,7 +31,7 @@ export function SiteHeader({ active }: { active: string }) {
     active === "Case Studies";
 
   return (
-    <header className="relative z-20 mb-14">
+    <header className="relative z-[60] mb-6 md:mb-14">
       {/* ── Desktop bar ── */}
       <div className="hidden items-center justify-between md:flex">
         {/* Logo */}
@@ -134,15 +134,16 @@ export function SiteHeader({ active }: { active: string }) {
           type="button"
           aria-label="Toggle menu"
           onClick={() => setMobileOpen((v) => !v)}
-          className="flex size-10 items-center justify-center rounded-[12px] border border-[#1f2327]/12 bg-white/70 text-[#1f2327]"
+          className="flex size-10 items-center justify-center rounded-[12px] text-white outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#8b71fe]/60"
+          style={{ background: mobileOpen ? "rgba(139,113,254,0.25)" : "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.2)" }}
         >
           {mobileOpen ? (
             <svg viewBox="0 0 24 24" className="size-5" fill="none">
-              <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+              <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
           ) : (
             <svg viewBox="0 0 24 24" className="size-5" fill="none">
-              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
           )}
         </button>
@@ -152,9 +153,13 @@ export function SiteHeader({ active }: { active: string }) {
       {mobileOpen && (
         <nav
           aria-label="Mobile primary"
-          className="absolute inset-x-0 top-[calc(100%+8px)] z-50 rounded-[20px] border border-[#1f2327]/10 bg-white/95 p-4 shadow-2xl backdrop-blur-md md:hidden"
+          className="absolute inset-x-0 top-[calc(100%+12px)] z-50 overflow-hidden rounded-[24px] border border-white/10 md:hidden"
+          style={{ background: "#0d1117", boxShadow: "0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(139,113,254,0.15)" }}
         >
-          <ul className="space-y-1">
+          {/* Header accent bar */}
+          <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, #8b71fe, #a78bfa, #8b71fe)" }} />
+
+          <ul className="p-3 pt-3">
             {[...navItems, ...moreItems].map((item) => (
               <li key={item.label}>
                 <Link
@@ -162,18 +167,38 @@ export function SiteHeader({ active }: { active: string }) {
                   onClick={() => setMobileOpen(false)}
                   className={
                     item.label === active
-                      ? "block rounded-[12px] bg-[#1f2327] px-4 py-2.5 text-[14px] font-medium text-white"
-                      : "block rounded-[12px] px-4 py-2.5 text-[14px] text-[#1f2327]/80 hover:bg-[#1f2327]/6"
+                      ? "flex items-center gap-3 rounded-[14px] px-4 py-3 text-[14px] font-semibold text-white transition-all duration-150"
+                      : "flex items-center gap-3 rounded-[14px] px-4 py-3 text-[14px] font-medium text-white/60 transition-all duration-150 hover:bg-white/5 hover:text-white"
                   }
+                  style={item.label === active ? { background: "rgba(139,113,254,0.18)", color: "#c4b5fd" } : {}}
                 >
+                  <span
+                    className="size-1.5 shrink-0 rounded-full"
+                    style={{ background: item.label === active ? "#8b71fe" : "rgba(255,255,255,0.2)" }}
+                  />
                   {item.label}
+                  {item.label === active && (
+                    <span className="ml-auto text-[10px] font-medium tracking-wider uppercase" style={{ color: "#8b71fe" }}>
+                      Active
+                    </span>
+                  )}
                 </Link>
               </li>
             ))}
           </ul>
-          <div className="mt-4 border-t border-[#1f2327]/8 pt-4">
-            <Link href="/contact" className="block w-full rounded-[14px] bg-[#1f2327] py-3 text-center text-[14px] font-medium text-white [font-family:Poppins,sans-serif]">
+
+          <div className="px-3 pb-3 pt-1">
+            <div className="mb-3 h-px w-full" style={{ background: "rgba(255,255,255,0.07)" }} />
+            <Link
+              href="/contact"
+              onClick={() => setMobileOpen(false)}
+              className="flex w-full items-center justify-center gap-2 rounded-[16px] py-4 text-[14px] font-semibold text-white transition-all duration-200 [font-family:Poppins,sans-serif]"
+              style={{ background: "linear-gradient(135deg, #8b71fe, #6d55e8)", boxShadow: "0 4px 20px rgba(139,113,254,0.4)" }}
+            >
               Book a Strategy Call
+              <svg viewBox="0 0 16 16" className="size-4" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </Link>
           </div>
         </nav>

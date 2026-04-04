@@ -35,34 +35,34 @@ export function ProductSection() {
   ];
 
   return (
-    <section className="relative h-[1404px] bg-white px-[119px] pt-[64px] text-[#1f2327]">
+    <section className="relative bg-white px-4 sm:px-8 md:px-[119px] pt-[56px] md:pt-[64px] pb-[60px] md:pb-[80px] text-[#1f2327]">
       <div className="mx-auto inline-flex items-center rounded-[51px] bg-[#fafafa] px-3 py-2">
         <span className="rounded-[51px] bg-white px-5 py-1 text-[16px] text-[#8b71fe] [font-family:Poppins,sans-serif]">Product</span>
         <span className="ml-3 text-[16px] [font-family:Poppins,sans-serif]">Savv Pro</span>
       </div>
 
-      <h2 className="mx-auto mt-8 w-[776px] text-center text-[48px] [font-family:Montserrat,sans-serif]">
+      <h2 className="mx-auto mt-6 md:mt-8 text-center text-[30px] sm:text-[38px] md:text-[48px] [font-family:Montserrat,sans-serif]">
         Productized where useful. Customized where necessary.
       </h2>
 
-      <div className="mt-14 grid grid-cols-2 gap-4">
+      <div className="mt-10 md:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-4">
         {topCards.map((item) => (
-          <article key={item.title} className="h-[452px] rounded-[24px] bg-[#fafafa]">
-            <img src={item.image} alt={item.title} className="h-[265px] w-full rounded-[24px] object-cover" />
-            <h3 className="mt-7 text-center text-[32px] [font-family:Montserrat,sans-serif]">{item.title}</h3>
-            <p className="mx-auto mt-4 w-[478px] text-center text-[16px] text-[#5a5a5a] [font-family:Poppins,sans-serif]">
+          <article key={item.title} className="rounded-[24px] bg-[#fafafa] pb-8">
+            <img src={item.image} alt={item.title} className="h-[200px] sm:h-[240px] md:h-[265px] w-full rounded-[24px] object-cover" />
+            <h3 className="mt-6 text-center text-[22px] sm:text-[26px] md:text-[32px] [font-family:Montserrat,sans-serif]">{item.title}</h3>
+            <p className="mx-auto mt-3 md:mt-4 max-w-[90%] text-center text-[14px] md:text-[16px] text-[#5a5a5a] [font-family:Poppins,sans-serif]">
               {item.description}
             </p>
           </article>
         ))}
       </div>
 
-      <div className="mt-5 grid grid-cols-3 gap-4">
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {bottomCards.map((item) => (
-          <article key={item.title} className="h-[452px] rounded-[24px] bg-[#fafafa]">
-            <img src={item.image} alt={item.title} className="h-[265px] w-full rounded-[24px] object-cover" />
-            <h3 className="mt-7 text-center text-[32px] [font-family:Montserrat,sans-serif]">{item.title}</h3>
-            <p className="mx-auto mt-4 w-[350px] text-center text-[16px] text-[#5a5a5a] [font-family:Poppins,sans-serif]">
+          <article key={item.title} className="rounded-[24px] bg-[#fafafa] pb-8">
+            <img src={item.image} alt={item.title} className="h-[200px] sm:h-[240px] md:h-[265px] w-full rounded-[24px] object-cover" />
+            <h3 className="mt-6 text-center text-[22px] sm:text-[26px] md:text-[32px] [font-family:Montserrat,sans-serif]">{item.title}</h3>
+            <p className="mx-auto mt-3 md:mt-4 max-w-[90%] text-center text-[14px] md:text-[16px] text-[#5a5a5a] [font-family:Poppins,sans-serif]">
               {item.description}
             </p>
           </article>
