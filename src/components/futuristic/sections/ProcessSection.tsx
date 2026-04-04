@@ -8,23 +8,23 @@ export function ProcessSection() {
   ];
 
   return (
-    <section className="relative bg-white px-[114px] pt-[64px] pb-[80px] text-[#1f2327]">
+    <section className="relative bg-white px-4 sm:px-8 md:px-[114px] pt-[56px] md:pt-[64px] pb-[60px] md:pb-[80px] text-[#1f2327]">
       <div className="inline-flex items-center rounded-[51px] bg-[#fafafa] px-3 py-2">
         <span className="rounded-[51px] bg-white px-5 py-1 text-[16px] text-[#8b71fe] [font-family:Poppins,sans-serif]">Process</span>
         <span className="ml-3 text-[16px] [font-family:Poppins,sans-serif]">Savv Pro</span>
       </div>
 
-      <div className="mt-6 mb-12 flex items-end justify-between">
-        <h2 className="max-w-[500px] text-[40px] [font-family:Montserrat,sans-serif]">Step-by-step AI integration for controlled growth</h2>
+      <div className="mt-6 mb-8 md:mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <h2 className="text-[28px] sm:text-[34px] md:text-[40px] [font-family:Montserrat,sans-serif] md:max-w-[500px]">Step-by-step AI integration for controlled growth</h2>
         <a
           href="/services"
-          className="rounded-[20px] border border-[#1f2327]/25 px-6 py-3 text-[15px] text-[#1f2327] transition-colors duration-200 hover:bg-[#1f2327] hover:text-white [font-family:Poppins,sans-serif]"
+          className="self-start sm:self-auto rounded-[20px] border border-[#1f2327]/25 px-6 py-3 text-[14px] md:text-[15px] text-[#1f2327] transition-colors duration-200 hover:bg-[#1f2327] hover:text-white [font-family:Poppins,sans-serif] shrink-0"
         >
           Full Delivery Model
         </a>
       </div>
 
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {steps.map(([id, title, desc], i) => (
           <article
             key={id}
