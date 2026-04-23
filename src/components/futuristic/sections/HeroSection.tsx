@@ -33,7 +33,7 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 h-full flex flex-col md:block">
-        <SiteHeader active="Home" />
+        <SiteHeader active="Home" mobileTheme="hero" />
 
         {/* ── Mobile layout (hidden on desktop) ── */}
         <div className="md:hidden flex flex-col gap-7 pb-12">
