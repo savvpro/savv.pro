@@ -13,7 +13,7 @@ function Bone({ className = "", style = {} }: { className?: string; style?: Reac
 
 function ShimmerSkeleton() {
   return (
-    <div className="w-full p-5 flex flex-col gap-4" style={{ height: "1220px" }}>
+    <div className="w-full p-5 flex flex-col gap-4 h-[2400px] md:h-[1600px]">
       {/* Top header: logo | title | google calendar */}
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-3">
@@ -123,7 +123,7 @@ export function CalendarEmbed({ src }: { src: string }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative w-full" style={{ height: "1220px" }}>
+    <div className="relative w-full h-[2400px] md:h-[1600px]">
       {!loaded && (
         <div className="absolute inset-0">
           <ShimmerSkeleton />
@@ -133,12 +133,10 @@ export function CalendarEmbed({ src }: { src: string }) {
       <iframe
         src={src}
         title="Savv Pro booking calendar"
-        scrolling="no"
         onLoad={() => setLoaded(true)}
+        className="block w-full h-[2400px] md:h-[1600px]"
         style={{
-          display: "block",
-          width: "100%",
-          height: "1220px",
+          overflow: "hidden",
           opacity: loaded ? 1 : 0,
           transition: "opacity 0.3s ease",
           border: "none",
