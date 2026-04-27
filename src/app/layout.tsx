@@ -23,7 +23,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Savv Pro",
   url: SITE_URL,
-  logo: `${SITE_URL}/transparent-bg-black.png`,
+  logo: `${SITE_URL}/transparent-bg-black.webp`,
   description:
     "Sovereign AI enterprise providing advisory, deployment, products, and sector-specific operating systems.",
 };
@@ -47,9 +47,9 @@ const navigationSchema = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   icons: {
-    icon: [{ url: "/transparent-bg-white.png", type: "image/png" }],
-    apple: "/transparent-bg-white.png",
-    shortcut: "/transparent-bg-white.png",
+    icon: [{ url: "/transparent-bg-white.webp", type: "image/png" }],
+    apple: "/transparent-bg-white.webp",
+    shortcut: "/transparent-bg-white.webp",
   },
   title: {
     default: "Savv Pro | Sovereign AI Enterprise",

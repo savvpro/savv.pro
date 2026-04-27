@@ -46,7 +46,7 @@ export function FooterSection() {
       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10">
         <div className="max-w-[360px]">
           <Link href="/" className="mb-5 inline-block">
-            <img src="/transparent-bg-black.png" alt="Savv Pro logo" className="h-[38px] w-auto" />
+            <img src="/transparent-bg-black.webp" alt="Savv Pro logo" className="h-[38px] w-auto" />
           </Link>
           <p className="mb-3 text-[14px] leading-[1.5] text-[#5a5a5a] [font-family:Poppins,sans-serif]">
             Sovereign AI enterprise. Designing, deploying, and governing AI systems for high-trust businesses.

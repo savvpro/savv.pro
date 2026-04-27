@@ -14,7 +14,7 @@ export function AboutSection() {
 
       <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[411px_1fr_196px_196px] gap-6 md:gap-8">
         <img
-          src="/generated/home/about-main.png"
+          src="/generated/home/about-main.webp"
           alt="Savv Pro enterprise AI operating model visual"
           className="h-[260px] sm:h-[320px] md:h-[389px] w-full rounded-[20px] object-cover sm:col-span-2 md:col-span-1"
         />
@@ -33,7 +33,7 @@ export function AboutSection() {
         </div>
         <div className="md:self-end">
           <img
-            src="/generated/home/about-technology.png"
+            src="/generated/home/about-technology.webp"
             alt="AI technology systems visual"
             className="mb-3 h-[180px] md:h-[200px] w-full rounded-[20px] object-cover"
           />
@@ -43,7 +43,7 @@ export function AboutSection() {
         </div>
         <div className="md:self-end">
           <img
-            src="/generated/home/about-artificial.png"
+            src="/generated/home/about-artificial.webp"
             alt="AI governance and orchestration visual"
             className="mb-3 h-[180px] md:h-[200px] w-full rounded-[20px] object-cover"
           />

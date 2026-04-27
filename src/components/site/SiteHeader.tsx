@@ -58,7 +58,7 @@ export function SiteHeader({ active, mobileTheme = "surface" }: SiteHeaderProps)
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <img
-            src="/transparent-bg-black.png"
+            src="/transparent-bg-black.webp"
             alt="Savv Pro logo"
             className="h-[38px] w-auto"
           />
@@ -146,7 +146,7 @@ export function SiteHeader({ active, mobileTheme = "surface" }: SiteHeaderProps)
       <div className="flex items-center justify-between md:hidden">
         <Link href="/">
           <img
-            src="/transparent-bg-black.png"
+            src="/transparent-bg-black.webp"
             alt="Savv Pro logo"
             className="h-[32px] w-auto"
           />

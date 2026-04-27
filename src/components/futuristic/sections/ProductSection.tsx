@@ -6,13 +6,13 @@ export function ProductSection() {
       title: "Savv Pro Voice",
       description:
         "Conversational AI grounded in approved enterprise knowledge and connected to business actions.",
-      image: "/generated/home/product-smart-chatbot.png",
+      image: "/generated/home/product-smart-chatbot.webp",
     },
     {
       title: "Savv Pro Signal",
       description:
         "Growth intelligence that turns market signals into content planning and publishing execution.",
-      image: "/generated/home/product-analytics-engine.png",
+      image: "/generated/home/product-analytics-engine.webp",
     },
   ];
 
@@ -20,17 +20,17 @@ export function ProductSection() {
     {
       title: "Savv Pro Flow",
       description: "Agentic workflow orchestration with visible control and execution accountability.",
-      image: "/generated/home/product-savv-flow.png",
+      image: "/generated/home/product-savv-flow.webp",
     },
     {
       title: "Custom AI Solutions",
       description: "Tailored deployment architecture for your specific sector and operating model.",
-      image: "/generated/home/product-custom-solutions.png",
+      image: "/generated/home/product-custom-solutions.webp",
     },
     {
       title: "Automation Hub",
       description: "Structured automation for intake, routing, follow-up, and repeatable delivery workflows.",
-      image: "/generated/home/product-automation-hub.png",
+      image: "/generated/home/product-automation-hub.webp",
     },
   ];
 

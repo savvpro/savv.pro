@@ -4,19 +4,19 @@ const cards = [
   {
     title: "Sovereign AI Architecture",
     desc: "Model, data, and workflow control designed from day one — no bolted-on governance, no vendor lock-in.",
-    image: "/generated/home/feature-sovereign-arch.png",
+    image: "/generated/home/feature-sovereign-arch.webp",
     offset: "mt-[60px]",
   },
   {
     title: "Governed Automation",
     desc: "Human review loops, policy boundaries, and accountable execution built into the operating layer.",
-    image: "/generated/home/feature-governed-automation.png",
+    image: "/generated/home/feature-governed-automation.webp",
     offset: "mt-[180px]",
   },
   {
     title: "Sector-Aware Delivery",
     desc: "Solutions aligned to healthcare, wealth & advisory, education, and service operations — reflecting real sector constraints.",
-    image: "/generated/home/feature-sector-delivery.png",
+    image: "/generated/home/feature-sector-delivery.webp",
     offset: "mt-[120px]",
   },
 ];
