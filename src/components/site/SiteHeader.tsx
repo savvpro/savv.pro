@@ -9,6 +9,11 @@ type NavItem = {
   label: string;
 };
 
+type SiteHeaderProps = {
+  active: string;
+  mobileTheme?: "hero" | "surface";
+};
+
 const navItems: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
@@ -23,12 +28,28 @@ const moreItems: NavItem[] = [
   { href: "/case-studies", label: "Case Studies" },
 ];
 
-export function SiteHeader({ active }: { active: string }) {
+export function SiteHeader({ active, mobileTheme = "surface" }: SiteHeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMoreActive =
     active === "More" ||
     active === "Resource Augmentation" ||
     active === "Case Studies";
+  const mobileButtonStyle =
+    mobileTheme === "hero"
+      ? {
+          color: "#ffffff",
+          background: mobileOpen ? "rgba(139,113,254,0.25)" : "rgba(255,255,255,0.12)",
+          border: "1px solid rgba(255,255,255,0.2)",
+          boxShadow: "none",
+          backdropFilter: "none",
+        }
+      : {
+          color: mobileOpen ? "#ffffff" : "#1f2327",
+          background: mobileOpen ? "rgba(31,35,39,0.92)" : "rgba(255,255,255,0.86)",
+          border: mobileOpen ? "1px solid rgba(31,35,39,0.92)" : "1px solid rgba(31,35,39,0.12)",
+          boxShadow: mobileOpen ? "0 12px 30px rgba(31,35,39,0.22)" : "0 8px 24px rgba(31,35,39,0.08)",
+          backdropFilter: "blur(12px)",
+        };
 
   return (
     <header className="relative z-[60] mb-6 md:mb-14">
@@ -134,8 +155,8 @@ export function SiteHeader({ active }: { active: string }) {
           type="button"
           aria-label="Toggle menu"
           onClick={() => setMobileOpen((v) => !v)}
-          className="flex size-10 items-center justify-center rounded-[12px] text-white outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#8b71fe]/60"
-          style={{ background: mobileOpen ? "rgba(139,113,254,0.25)" : "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.2)" }}
+          className="flex size-10 items-center justify-center rounded-[12px] outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#8b71fe]/60"
+          style={mobileButtonStyle}
         >
           {mobileOpen ? (
             <svg viewBox="0 0 24 24" className="size-5" fill="none">

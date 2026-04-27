@@ -50,9 +50,48 @@ export function SiteFooter() {
       <div className="grid gap-8 lg:grid-cols-[360px_1fr]">
         <div className="max-w-[360px] text-[14px] leading-[1.5] text-[#5a5a5a] [font-family:Poppins,sans-serif]">
           <p className="mb-3">
-            Chicago-based sovereign AI enterprise. Designing, deploying, and governing AI systems for high-trust businesses.
+            Sovereign AI enterprise. Designing, deploying, and governing AI systems for high-trust businesses.
           </p>
-          <p>Chicago, IL{"\u00b7"} Global Delivery</p>
+          <p>Islamabad, Pakistan{"\u00b7"} Global Delivery</p>
+          <div className="mt-5 flex items-center gap-3">
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=info@savv.pro"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email Savv Pro"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-[#1f2327]/12 text-[#1f2327] transition-colors duration-150 hover:border-[#8b71fe]/30 hover:bg-[#f0edff] hover:text-[#8b71fe]"
+            >
+              <svg viewBox="0 0 24 24" className="size-5" fill="none" aria-hidden>
+                <path
+                  d="M4 7.5l8 5.5 8-5.5"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <rect
+                  x="3.25"
+                  y="5.25"
+                  width="17.5"
+                  height="13.5"
+                  rx="2.25"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://www.linkedin.com/company/savv-pro/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Savv Pro on LinkedIn"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-[#1f2327]/12 text-[#1f2327] transition-colors duration-150 hover:border-[#8b71fe]/30 hover:bg-[#f0edff] hover:text-[#8b71fe]"
+            >
+              <svg viewBox="0 0 24 24" className="size-5" fill="currentColor" aria-hidden>
+                <path d="M6.94 8.5a1.44 1.44 0 1 1 0-2.88 1.44 1.44 0 0 1 0 2.88ZM5.7 10.03h2.48V18H5.7v-7.97Zm4.03 0h2.37v1.09h.03c.33-.63 1.14-1.3 2.35-1.3 2.5 0 2.96 1.64 2.96 3.77V18h-2.47v-3.9c0-.93-.02-2.12-1.29-2.12-1.3 0-1.5 1.01-1.5 2.05V18H9.73v-7.97Z" />
+              </svg>
+            </a>
+          </div>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -86,13 +125,27 @@ export function SiteFooter() {
           <Link href="/terms-of-service" target="_blank" rel="noopener noreferrer">
             Terms of Service
           </Link>
-          <Link href="#">Accessibility</Link>
           <a
             href="#top"
             aria-label="Back to top"
-            className="ml-1 inline-flex size-[58px] items-center justify-center rounded-full border border-[#1f2327] text-[24px] leading-none transition-transform duration-200 hover:-translate-y-1"
+            className="ml-1 inline-flex size-[58px] items-center justify-center rounded-full border-2 border-[#1f2327]/85 bg-[#1f2327] text-white shadow-[0_4px_24px_rgba(0,0,0,0.16)] transition-all duration-200 hover:-translate-y-1 hover:bg-[#2d3238]"
           >
-            {"\u2191"}
+            <svg viewBox="0 0 24 24" className="size-7" fill="none" aria-hidden>
+              <path
+                d="M6 15l6-6 6 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M6 10l6-6 6 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </a>
         </div>
       </div>
