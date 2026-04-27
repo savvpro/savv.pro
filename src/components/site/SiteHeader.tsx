@@ -52,7 +52,7 @@ export function SiteHeader({ active, mobileTheme = "surface" }: SiteHeaderProps)
         };
 
   return (
-    <header className="relative z-[60] mb-6 md:mb-14">
+    <header className="relative z-[60] mb-6 md:mb-14 w-full" style={{ maxWidth: "1300px", marginLeft: "auto", marginRight: "auto" }}>
       {/* ── Desktop bar ── */}
       <div className="hidden items-center justify-between md:flex">
         {/* Logo */}
@@ -67,7 +67,7 @@ export function SiteHeader({ active, mobileTheme = "surface" }: SiteHeaderProps)
         {/* Nav links */}
         <nav
           aria-label="Primary"
-          className="flex items-center gap-1 rounded-[20px] border border-[#1f2327]/10 bg-white/70 px-3 py-2 shadow-[0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-md"
+          className="flex items-center gap-1 rounded-[20px] border border-[#e2e4e7] bg-white px-3 py-2 shadow-[0_4px_20px_rgba(0,0,0,0.10)]"
         >
           {navItems.map((item) => (
             <Link

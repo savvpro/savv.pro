@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageTemplate } from "@/components/site";
+import { CalendarEmbed } from "@/components/site/CalendarEmbed";
 import { createPageMetadata } from "@/lib/seo";
 
 const CALENDAR_URL = "https://calendar.app.google/euWtAE4ETqsQgXfw8";
@@ -21,15 +22,9 @@ export default function ContactPage() {
       title="Book a Strategy Call"
       description="Choose a time that works for you and book directly into our calendar."
     >
-      <section className="mx-3 md:mx-6">
-        <iframe
-          src={CALENDAR_URL}
-          title="Savv Pro booking calendar"
-          className="min-h-[760px] w-full rounded-[24px] border border-[#1f2327]/10 bg-white md:rounded-[32px]"
-        />
+      <section className="mx-3 md:mx-6 overflow-hidden rounded-[24px] md:rounded-[32px] border border-[#1f2327]/10 bg-white">
+        <CalendarEmbed src={CALENDAR_URL} />
       </section>
-
-      <div className="h-20" />
     </PageTemplate>
   );
 }

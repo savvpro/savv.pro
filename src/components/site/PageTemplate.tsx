@@ -27,13 +27,13 @@ export function PageTemplate({
 }: PageTemplateProps) {
   return (
     <main id="top" className="w-full bg-white">
-      <div className="scrollbar-gutter mx-auto w-full max-w-[1512px] overflow-hidden bg-white text-[#1f2327]">
+      <div className="mx-auto w-full max-w-[1512px] overflow-hidden bg-white text-[#1f2327]">
         <section className="relative overflow-hidden bg-white">
           <div className="bg-transparent px-4 sm:px-6 md:px-[106px] pt-[42px]">
             <SiteHeader active={active} />
           </div>
 
-          <div className="bg-white px-4 sm:px-6 md:px-[106px] pb-12 md:pb-16 pt-2 md:pt-4">
+          <div className="scrollbar-gutter bg-white px-4 sm:px-6 md:px-[106px] pb-12 md:pb-16 pt-2 md:pt-4">
             <div className="inline-flex items-center rounded-[51px] bg-[#fafafa] px-3 py-2">
               <span className="rounded-[51px] bg-white px-5 py-1 text-[14px] md:text-[16px] text-[#8b71fe]">{pillLabel}</span>
               <span className="ml-3 text-[14px] md:text-[16px]">{pillCaption}</span>
@@ -60,7 +60,7 @@ export function PageTemplate({
           </div>
         </section>
 
-        <section id="page-next-section">{children}</section>
+        <section id="page-next-section" className="scrollbar-gutter">{children}</section>
 
         <SiteFooter />
       </div>

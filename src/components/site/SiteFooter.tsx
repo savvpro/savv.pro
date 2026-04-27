@@ -55,9 +55,7 @@ export function SiteFooter() {
           <p>Islamabad, Pakistan{"\u00b7"} Global Delivery</p>
           <div className="mt-5 flex items-center gap-3">
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=info@savv.pro"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:info@savv.pro"
               aria-label="Email Savv Pro"
               className="inline-flex size-10 items-center justify-center rounded-full border border-[#1f2327]/12 text-[#1f2327] transition-colors duration-150 hover:border-[#8b71fe]/30 hover:bg-[#f0edff] hover:text-[#8b71fe]"
             >
