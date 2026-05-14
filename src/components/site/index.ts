@@ -14,3 +14,4 @@ export { TitleTaunt } from "./TitleTaunt";
 export { TimeOfDay } from "./TimeOfDay";
 export { PinnedManifesto } from "./PinnedManifesto";
 export { TransitionLink } from "./TransitionLink";
+export { MacBookFrame } from "./MacBookFrame";

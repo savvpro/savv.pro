@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AgentTerminal } from "@/components/site/AgentTerminal";
 import { ImageSlot } from "@/components/site/ImageSlot";
 import { PinnedManifesto } from "@/components/site/PinnedManifesto";
+import { MacBookFrame } from "@/components/site/MacBookFrame";
 
 const PORTALS = [
   {
@@ -152,9 +153,11 @@ export default function HomePage() {
           </div>
 
           <div className="lg:col-span-8 order-2 lg:order-2">
-            <AgentTerminal />
+            <MacBookFrame>
+              <AgentTerminal />
+            </MacBookFrame>
             <p
-              className="mt-3 text-muted"
+              className="mt-4 text-muted"
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "0.68rem",
