@@ -1,9 +1,0 @@
-export { HeroSection } from "./sections/HeroSection";
-export { ServiceSection } from "./sections/ServiceSection";
-export { AboutSection } from "./sections/AboutSection";
-export { FeaturesSection } from "./sections/FeaturesSection";
-export { WhyChooseSection } from "./sections/WhyChooseSection";
-export { ProductSection } from "./sections/ProductSection";
-export { ProcessSection } from "./sections/ProcessSection";
-export { FaqSection } from "./sections/FaqSection";
-export { FooterSection } from "./sections/FooterSection";

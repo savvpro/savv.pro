@@ -1,3 +1,9 @@
-﻿export { SiteHeader } from "./SiteHeader";
+export { SiteHeader } from "./SiteHeader";
 export { SiteFooter } from "./SiteFooter";
-export { PageTemplate } from "./PageTemplate";
+export { AgentTerminal } from "./AgentTerminal";
+export { ImageSlot } from "./ImageSlot";
+export { TickerStrip } from "./TickerStrip";
+export { CommandPalette } from "./CommandPalette";
+export { PointerFx } from "./PointerFx";
+export { ReadingProgress } from "./ReadingProgress";
+export { MagneticLink } from "./MagneticLink";

@@ -1,125 +1,73 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { CustomScrollbar } from "@/components/site/CustomScrollbar";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { TickerStrip } from "@/components/site/TickerStrip";
+import { CommandPalette } from "@/components/site/CommandPalette";
+import { PointerFx } from "@/components/site/PointerFx";
 import { SITE_URL } from "@/lib/seo";
 
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Savv Pro",
-  url: SITE_URL,
-  description:
-    "Chicago-based sovereign AI enterprise designing, deploying, and governing AI systems for high-trust businesses.",
-  inLanguage: "en-US",
-  publisher: {
-    "@type": "Organization",
-    name: "Savv Pro",
-    url: SITE_URL,
-  },
-};
-
-const organizationSchema = {
+const orgSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Savv Pro",
+  name: "SavvPro",
   url: SITE_URL,
-  logo: `${SITE_URL}/transparent-bg-black.webp`,
   description:
-    "Sovereign AI enterprise providing advisory, deployment, products, and sector-specific operating systems.",
-};
-
-const navigationSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Savv Pro primary pages",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", url: `${SITE_URL}/` },
-    { "@type": "ListItem", position: 2, name: "About", url: `${SITE_URL}/about` },
-    { "@type": "ListItem", position: 3, name: "Sovereign AI", url: `${SITE_URL}/sovereign-ai` },
-    { "@type": "ListItem", position: 4, name: "Products", url: `${SITE_URL}/products` },
-    { "@type": "ListItem", position: 5, name: "Services", url: `${SITE_URL}/services` },
-    { "@type": "ListItem", position: 6, name: "Solutions", url: `${SITE_URL}/solutions` },
-    { "@type": "ListItem", position: 7, name: "Case Studies", url: `${SITE_URL}/case-studies` },
-    { "@type": "ListItem", position: 8, name: "Contact", url: `${SITE_URL}/contact` },
-  ],
+    "AI-native technology organization. Intelligence backbone for the agentic era.",
+  sameAs: ["https://github.com/savvpro", "https://x.com/savvpro"],
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  icons: {
-    icon: [{ url: "/transparent-bg-white.webp", type: "image/png" }],
-    apple: "/transparent-bg-white.webp",
-    shortcut: "/transparent-bg-white.webp",
-  },
+  icons: { icon: "/favicon.ico" },
   title: {
-    default: "Savv Pro | Sovereign AI Enterprise",
-    template: "%s | Savv Pro",
+    default: "SavvPro — Intelligence backbone for the agentic era",
+    template: "%s · SavvPro",
   },
   description:
-    "Chicago-based sovereign AI enterprise. We design, deploy, and govern AI systems for high-trust businesses.",
-  applicationName: "Savv Pro",
-  alternates: {
-    canonical: "/",
-  },
+    "SavvPro builds AI-native capabilities, platforms, and services for organizations navigating the agentic era.",
+  applicationName: "SavvPro",
+  alternates: { canonical: "/" },
   keywords: [
-    "sovereign ai",
-    "enterprise ai",
-    "ai advisory",
-    "workflow automation",
-    "ai governance",
-    "savv pro",
+    "savvpro",
+    "agentic era",
+    "ai-native",
+    "intelligence infrastructure",
+    "capabilities registry",
+    "world model",
   ],
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Savv Pro",
+    siteName: "SavvPro",
     url: SITE_URL,
-    title: "Savv Pro | Sovereign AI Enterprise",
-    description:
-      "Designing, deploying, and governing AI systems for high-trust businesses across sectors.",
-    images: [
-      {
-        url: "/generated/home/about-main.jpg",
-        width: 1200,
-        height: 800,
-        alt: "Savv Pro sovereign AI systems",
-      },
-    ],
+    title: "SavvPro",
+    description: "Intelligence backbone for the agentic era.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Savv Pro | Sovereign AI Enterprise",
-    description:
-      "Designing, deploying, and governing AI systems for high-trust businesses across sectors.",
-    images: ["/generated/home/about-main.jpg"],
+    title: "SavvPro",
+    description: "Intelligence backbone for the agentic era.",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="h-full overflow-x-clip antialiased">
-      <body className="flex min-h-full min-w-0 flex-col overflow-x-clip">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationSchema) }} />
-        <CustomScrollbar />
-        {/* Full-bleed sections (e.g. home hero) must stay unpadded; use .scrollbar-gutter on content columns instead */}
-        <div className="min-w-0 w-full flex-1 overflow-x-clip">{children}</div>
+    <html lang="en">
+      <body className="min-h-screen flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
+        <TickerStrip />
+        <SiteHeader />
+        <main className="flex-1 relative z-[1]">{children}</main>
+        <SiteFooter />
+        <CommandPalette />
+        <PointerFx />
       </body>
     </html>
   );
