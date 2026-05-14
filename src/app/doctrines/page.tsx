@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { DOCTRINES } from "@/lib/doctrines";
 import { ImageSlot } from "@/components/site/ImageSlot";
+import { TransitionLink } from "@/components/site/TransitionLink";
 
 export const metadata: Metadata = {
   title: "Doctrines",
@@ -40,7 +40,7 @@ export default function DoctrinesIndexPage() {
       <section className="pb-24 sm:pb-32">
         <div className="border-t border-[var(--rule)]">
           {DOCTRINES.map((d, i) => (
-            <Link
+            <TransitionLink
               key={d.slug}
               href={`/doctrines/${d.slug}`}
               className="group block border-b border-[var(--rule)] py-12 sm:py-16 fade-up"
@@ -49,13 +49,22 @@ export default function DoctrinesIndexPage() {
               {/* Title row */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-baseline mb-8">
                 <div className="lg:col-span-2 flex items-baseline gap-3">
-                  <span className="numplate-big">{d.number}</span>
+                  <span
+                    className="numplate-big"
+                    style={{ viewTransitionName: `doctrine-${d.number}-num` }}
+                  >
+                    {d.number}
+                  </span>
                 </div>
                 <div className="lg:col-span-7">
                   <span className="tag-mono">▸ Doctrine</span>
                   <h2
                     className="h-display group-hover:text-wine transition-colors mt-3"
-                    style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", letterSpacing: "-0.03em" }}
+                    style={{
+                      fontSize: "clamp(2rem, 4.5vw, 3.5rem)",
+                      letterSpacing: "-0.03em",
+                      viewTransitionName: `doctrine-${d.number}-title`,
+                    }}
                   >
                     {d.title.split(" ").map((w, k, arr) =>
                       k === arr.length - 1 ? (
@@ -87,7 +96,10 @@ export default function DoctrinesIndexPage() {
               {/* 16:9 image — capped to viewport */}
               <div
                 className="mx-auto"
-                style={{ maxWidth: "min(100%, calc(58vh * 16 / 9))" }}
+                style={{
+                  maxWidth: "min(100%, calc(58vh * 16 / 9))",
+                  viewTransitionName: `doctrine-${d.number}-hero`,
+                }}
               >
                 <ImageSlot
                   id={`doctrine-${d.number}`}
@@ -117,7 +129,7 @@ export default function DoctrinesIndexPage() {
                   </p>
                 </div>
               </div>
-            </Link>
+            </TransitionLink>
           ))}
         </div>
       </section>

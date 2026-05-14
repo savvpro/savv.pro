@@ -5,6 +5,9 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { TickerStrip } from "@/components/site/TickerStrip";
 import { CommandPalette } from "@/components/site/CommandPalette";
 import { PointerFx } from "@/components/site/PointerFx";
+import { CursorTrail } from "@/components/site/CursorTrail";
+import { TitleTaunt } from "@/components/site/TitleTaunt";
+import { TimeOfDay } from "@/components/site/TimeOfDay";
 import { SITE_URL } from "@/lib/seo";
 
 const orgSchema = {
@@ -58,6 +61,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col">
+        {/* View-source signature — hidden from rendered DOM, visible to anyone curious */}
+        <div aria-hidden style={{ display: "none" }} suppressHydrationWarning>
+{`
+   ▒█▀▀▀█ ▒█▀▀█ ▒█░░▒█ ▒█░░▒█    ▒█▀▀█ ▒█▀▀█ ▒█▀▀▀█
+   ░▀▀▀▄▄ ▒█▄▄█ ░▒█▒█░ ░▒█▒█░    ▒█▄▄█ ▒█▄▄▀ ▒█░░▒█
+   ▒█▄▄▄█ ▒█░▒█ ░░▀▄▀░ ░░▀▄▀░  · ▒█░░░ ▒█░▒█ ▒█▄▄▄█
+
+   intelligence backbone for the agentic era.
+   stealth phase · may 2026 · savv.pro
+
+   if you're reading this, you might fit.
+     /join → savv.pro/join
+     /partners → savv.pro/partners
+
+   built without a management layer.
+   capabilities · not features · doctrine 02
+`}
+        </div>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
@@ -68,6 +89,9 @@ export default function RootLayout({
         <SiteFooter />
         <CommandPalette />
         <PointerFx />
+        <CursorTrail />
+        <TitleTaunt />
+        <TimeOfDay />
       </body>
     </html>
   );

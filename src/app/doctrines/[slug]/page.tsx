@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { DOCTRINES, getDoctrine } from "@/lib/doctrines";
 import { ImageSlot } from "@/components/site/ImageSlot";
 import { ReadingProgress } from "@/components/site/ReadingProgress";
+import { ManuscriptReadingMode } from "@/components/site/ManuscriptReadingMode";
+import { DoctrineHighlights } from "@/components/site/DoctrineHighlights";
 
 type Params = { slug: string };
 
@@ -60,8 +62,10 @@ export default async function DoctrinePage({
   };
 
   return (
-    <article>
+    <article data-doctrine={doctrine.slug}>
       <ReadingProgress />
+      <ManuscriptReadingMode />
+      <DoctrineHighlights />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
@@ -98,10 +102,20 @@ export default async function DoctrinePage({
           </span>
         </div>
 
-        <span className="numplate-big">{doctrine.number}</span>
+        <span
+          className="numplate-big"
+          style={{ viewTransitionName: `doctrine-${doctrine.number}-num` }}
+        >
+          {doctrine.number}
+        </span>
         <h1
           className="h-display mt-3"
-          style={{ fontSize: "clamp(2.6rem, 7vw, 6rem)", letterSpacing: "-0.035em", maxWidth: "18ch" }}
+          style={{
+            fontSize: "clamp(2.6rem, 7vw, 6rem)",
+            letterSpacing: "-0.035em",
+            maxWidth: "18ch",
+            viewTransitionName: `doctrine-${doctrine.number}-title`,
+          }}
         >
           {doctrine.title.split(" ").map((w, i, arr) =>
             i === arr.length - 1 ? (
@@ -125,7 +139,10 @@ export default async function DoctrinePage({
       <section className="px-5 sm:px-8 md:px-12 pb-14 sm:pb-20 fade-up fade-up-1">
         <div
           className="mx-auto"
-          style={{ maxWidth: "min(100%, calc(60vh * 16 / 9))" }}
+          style={{
+            maxWidth: "min(100%, calc(60vh * 16 / 9))",
+            viewTransitionName: `doctrine-${doctrine.number}-hero`,
+          }}
         >
           <ImageSlot
             id={`doctrine-${doctrine.number}`}
@@ -200,7 +217,12 @@ export default async function DoctrinePage({
                   </aside>
                 )}
                 {section.paragraphs.map((p, pIdx) => (
-                  <p key={pIdx}>{renderInline(p)}</p>
+                  <p
+                    key={pIdx}
+                    data-highlight-id={`s${String(sIdx + 1).padStart(2, "0")}-p${String(pIdx + 1).padStart(2, "0")}`}
+                  >
+                    {renderInline(p)}
+                  </p>
                 ))}
               </div>
             </div>

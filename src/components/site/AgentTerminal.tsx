@@ -163,6 +163,7 @@ const EASTER_EGGS: Easter[] = [
       { kind: "ok", text: "  :wq              save and quit (just kidding)" },
       { kind: "ok", text: "  clear            clear the terminal" },
       { kind: "ok", text: "  reset            clear stored profile · redo intake" },
+      { kind: "ok", text: "  :sys             open /system · synthetic ops view" },
       { kind: "ok", text: "  fullscreen / fs  expand the terminal · ESC to exit" },
       { kind: "ok", text: "  anything else    routed to the agent" },
     ],
@@ -341,6 +342,20 @@ export function AgentTerminal() {
     const userLine: Line = { id: crypto.randomUUID(), kind: "user", text: v };
     setLines((m) => [...m, userLine]);
     setInput("");
+
+    // /system shortcut — works in any phase
+    if (/^\s*:?sys(tem)?\s*$/i.test(v)) {
+      setLines((m) => [
+        ...m,
+        { id: crypto.randomUUID(), kind: "ok", text: "opening /system · synthetic snapshot" },
+      ]);
+      if (typeof window !== "undefined") {
+        setTimeout(() => {
+          window.location.href = "/system";
+        }, 300);
+      }
+      return;
+    }
 
     // Fullscreen toggle via command — works in any phase
     if (/^\s*(fullscreen|fs|expand)\s*$/i.test(v)) {

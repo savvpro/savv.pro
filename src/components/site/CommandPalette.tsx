@@ -18,6 +18,7 @@ const PAGES: Cmd[] = [
   { id: "nav-doctrines", label: "Go to Doctrines", hint: "/doctrines", group: "Navigate", href: "/doctrines" },
   { id: "nav-partners", label: "Go to Partners", hint: "/partners", group: "Navigate", href: "/partners" },
   { id: "nav-join", label: "Go to Join", hint: "/join", group: "Navigate", href: "/join" },
+  { id: "nav-system", label: "Open System View", hint: "/system · synthetic", group: "Navigate", href: "/system" },
   { id: "doc-01", label: "Doctrine 01 · The End of the Hierarchy", hint: "/doctrines/end-of-the-hierarchy", group: "Doctrines", href: "/doctrines/end-of-the-hierarchy" },
   { id: "doc-02", label: "Doctrine 02 · Capabilities Over Features", hint: "/doctrines/capabilities-over-features", group: "Doctrines", href: "/doctrines/capabilities-over-features" },
   { id: "doc-03", label: "Doctrine 03 · The World Model Imperative", hint: "/doctrines/world-model-imperative", group: "Doctrines", href: "/doctrines/world-model-imperative" },

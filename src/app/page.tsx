@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AgentTerminal } from "@/components/site/AgentTerminal";
 import { ImageSlot } from "@/components/site/ImageSlot";
+import { PinnedManifesto } from "@/components/site/PinnedManifesto";
 
 const PORTALS = [
   {
@@ -167,44 +168,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ───── MANIFESTO STRIP ───── */}
-      <section className="border-y border-[var(--rule)] bg-[var(--paper-warm)] relative z-[1]">
-        <div className="mx-auto max-w-[1280px] px-5 sm:px-8 md:px-12 py-16 sm:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10 fade-up">
-          <div className="lg:col-span-3">
-            <span className="tag-mono">▸ 02 · What we are</span>
-          </div>
-          <div className="lg:col-span-9">
-            <p
-              className="h-display"
-              style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.8rem)", letterSpacing: "-0.025em" }}
-            >
-              We build{" "}
-              <span className="italic-serif text-wine" style={{ fontWeight: 400 }}>
-                capabilities
-              </span>
-              , not features.<br />
-              We operate{" "}
-              <span className="italic-serif text-wine" style={{ fontWeight: 400 }}>
-                without a management layer
-              </span>
-              .<br />
-              We sell{" "}
-              <span className="italic-serif text-wine" style={{ fontWeight: 400 }}>
-                through partners
-              </span>
-              , not through volume.
-            </p>
-            <p
-              className="mt-8 text-ink-soft max-w-[64ch]"
-              style={{ fontSize: "1.05rem", lineHeight: 1.7 }}
-            >
-              Three architectural decisions that determine everything else. The hierarchy was a
-              workaround for a problem that no longer exists. Features do not compound; capabilities
-              do. Reach is bought through partners that hold trust we cannot manufacture.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* ───── MANIFESTO STRIP (pinned-scroll reveal) ───── */}
+      <PinnedManifesto />
 
       {/* ───── PORTALS — typographic only ───── */}
       <section className="mx-auto max-w-[1280px] px-5 sm:px-8 md:px-12 py-20 sm:py-28 fade-up">

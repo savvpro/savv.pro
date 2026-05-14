@@ -33,7 +33,7 @@ export function ImageSlot({ id, ratio = "4/5", prompt, caption, className = "" }
   if (src) {
     return (
       <figure
-        className={`relative ${ratioClass} ${className} overflow-hidden bg-[var(--paper-warm)]`}
+        className={`imgslot-has-image relative ${ratioClass} ${className} overflow-hidden bg-[var(--paper-warm)]`}
         aria-label={caption ?? id}
       >
         <Image
