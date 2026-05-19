@@ -1,36 +1,140 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app)..
+# savv.pro
 
-## Getting Started,
+Plain HTML. No framework. No build pipeline. Two pages and a chatbot.
 
-First, run the development server:
+This repo is the public source of [savv.pro](https://savv.pro) — the
+intelligence-backbone-for-the-agentic-era SavvPro is building. The site is
+intentionally minimal: the agent is the front door, the doctrines are the
+publication layer, the join page is the contributor pathway.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## What's in this repo
+
+```
+.
+├── index.html             ← home (the agent IS the page)
+├── join.html              ← contributor pathway
+├── tokens.css             ← design tokens (palette, fonts, spacing)
+├── style.css              ← all shared styles
+├── app.js                 ← vanilla JS: chatbot, ⌘K palette, ticker, etc.
+├── favicon.svg            ← animated favicon
+├── llms.txt               ← machine-readable org context for AI agents
+├── robots.txt             ← explicit AI crawler invitation
+├── sitemap.xml
+├── config.example.js      ← template for BaseEcho credentials
+│
+├── data/
+│   └── org-state.json     ← single source of truth for ticker + stats
+│
+├── library/               ← the publication layer
+│   ├── README.md          ← doctrine index (rendered by GitHub)
+│   ├── end-of-the-hierarchy.md
+│   ├── capabilities-over-features.md
+│   ├── world-model-imperative.md
+│   └── partner-doctrine.md
+│
+└── _archive-nextjs/       ← previous build (archived, not deployed)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Run locally
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+There is no build step. Any static file server works.
 
-## Learn More
+```
+# Python (any system)
+python3 -m http.server 8000
 
-To learn more about Next.js, take a look at the following resources:
+# Node
+npx serve .
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Or open index.html directly in a browser
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Then visit `http://localhost:8000`.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Wiring the BaseEcho agent
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The chatbot reads three globals at boot:
+
+```js
+window.SAVVPRO_API_URL    = "https://your-baseecho-backend.com";
+window.SAVVPRO_CHATBOT_ID = "your_chatbot_id";
+window.SAVVPRO_API_TOKEN  = "base_echo_xxxxxxxx";
+```
+
+To set these without committing secrets to this public repo:
+
+1. Copy `config.example.js` → `config.local.js`
+2. Fill in your values
+3. Add `<script src="./config.local.js"></script>` BEFORE `<script src="./app.js" defer></script>` in both HTML files
+4. `config.local.js` is gitignored — it never lands in the public repo
+
+The agent falls back to a polite placeholder reply when these are not set, so
+the site works locally without any credentials.
+
+---
+
+## Updating organisational state
+
+The ticker, the home page data line, and the `/data/org-state.json` endpoint
+all read from a single file: `data/org-state.json`. When a capability matures,
+a doctrine ships, or any other tracked metric changes, edit that file and
+commit. The change appears everywhere on the next deploy.
+
+This is doctrine-consistent: see *The World Model Imperative* in
+[`library/world-model-imperative.md`](./library/world-model-imperative.md).
+
+---
+
+## Library structure
+
+Each doctrine is a self-contained markdown document at `library/<slug>.md`.
+
+The site does not render them — the link from the nav goes directly to GitHub,
+which renders the markdown. The intent is twofold: GitHub is itself a developer
+signal layer, and the published documents live as plain text under version
+control rather than as a CMS export.
+
+Doctrines are versioned. Substantive revisions bump the version number and add
+a changelog line at the bottom of the file. Typo fixes do not.
+
+---
+
+## Deploy
+
+This is a static site. Any static host works:
+
+- **GitHub Pages**: push to `main`, enable Pages from the root
+- **Cloudflare Pages**: connect repo, build command empty, output `/`
+- **Netlify**: drag-and-drop the folder, no build needed
+- **Anywhere serving static files**: copy the folder
+
+There is no Node runtime, no edge function, no serverless layer required.
+
+---
+
+## Brand vocabulary
+
+The site uses these terms precisely. They are not interchangeable.
+
+- **Capability** — a formally defined, repeatable, measured production process
+- **Contributor** — a person who works at SavvPro (not "employee")
+- **World Model** — the explicit organisational intelligence layer
+- **Doctrine** — a published operating-principle document (not a blog post)
+- **Agentic era** — the period in which AI agents are the primary operational tier
+
+---
+
+## License
+
+Source code: MIT
+Library documents (under `library/`): Creative Commons Attribution 4.0
+
+---
+
+*Built without a management layer · savv.pro*

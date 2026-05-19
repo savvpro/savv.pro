@@ -1,0 +1,91 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   SavvPro — Design tokens
+   ─────────────────────────────────────────────────────────────────────────
+   All colour, type, and spacing values live here. No magic numbers in the
+   rest of the stylesheet. If you need a new value, add it here first and
+   reference it as a var() — never hardcode.
+
+   Naming reflects the brand vocabulary:
+     paper        cream parchment background
+     ink          deep plum primary text
+     wine         signal accent
+     amber        warm lamp light
+     ash          muted text
+     rule         subtle dividers
+     mono / serif / sans   typography roles
+   ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Palette */
+  --paper:       #f2ebde;     /* Cream parchment — page background */
+  --paper-warm:  #ede4d2;     /* Slightly warmer cream — alt surface */
+  --surface:     #fff8ee;     /* Off-white — cards, raised surfaces */
+  --ink:         #1a0e2a;     /* Deep plum — primary text */
+  --ink-soft:    rgba(26, 14, 42, 0.72);  /* Body prose */
+  --muted:       #6b5a7a;     /* Captions, hints */
+  --rule:        rgba(26, 14, 42, 0.18);
+  --rule-soft:   rgba(26, 14, 42, 0.08);
+
+  --wine:        #9e1450;     /* Signal accent */
+  --wine-deep:   #7a0e3e;
+  --amber:       #9c7020;     /* Warm lamp light — rarely used */
+  --moss:        #2a7a4a;     /* "ok" state */
+
+  /* Terminal palette (only inside the agent panel) */
+  --term-bg:        #0a0e0a;
+  --term-green:     #3fff6a;
+  --term-green-dim: #1f7a3f;
+  --term-amber:     #ffb400;
+  --term-red:       #ff5050;
+
+  /* Typography */
+  --font-serif: "Instrument Serif", "Times New Roman", Georgia, serif;
+  --font-sans:  "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono:  "JetBrains Mono", "SF Mono", "Courier New", monospace;
+
+  /* Type scale */
+  --t-display:  clamp(2.4rem, 6vw, 5rem);     /* Hero headline */
+  --t-h2:       clamp(1.8rem, 3.5vw, 2.8rem);
+  --t-h3:       clamp(1.3rem, 2vw, 1.7rem);
+  --t-body:     1.0625rem;
+  --t-small:    0.85rem;
+  --t-tag:      0.72rem;
+  --t-tiny:     0.62rem;
+
+  /* Spacing scale (rems) */
+  --s-1:  0.25rem;
+  --s-2:  0.5rem;
+  --s-3:  0.75rem;
+  --s-4:  1rem;
+  --s-5:  1.5rem;
+  --s-6:  2rem;
+  --s-7:  3rem;
+  --s-8:  4rem;
+  --s-9:  6rem;
+  --s-10: 8rem;
+
+  /* Layout */
+  --content-max: 1100px;
+  --reading-max:  720px;
+
+  /* Motion */
+  --ease:       cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-fast:     160ms;
+  --t-med:      280ms;
+  --t-slow:     420ms;
+}
+
+/* Time-of-day palette shift — set on <html> by app.js
+   Day (06–18) keeps the defaults above. Dusk and Night cool the cream
+   and saturate the wine to suggest the site is alive across visits. */
+html[data-time="dusk"] {
+  --paper:       #efe6cf;
+  --paper-warm:  #eaddc1;
+  --wine:        #a5174f;
+}
+html[data-time="night"] {
+  --paper:       #ece4d2;
+  --paper-warm:  #e6dcc4;
+  --wine:        #a8155a;
+  --ink-soft:    rgba(26, 14, 42, 0.78);
+}

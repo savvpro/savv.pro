@@ -1,0 +1,51 @@
+# SavvPro
+
+SavvPro is an AI-native technology organization. We build and operate AI-native
+platforms and deliver AI-powered services to organizations navigating the
+transition into the agentic era.
+
+Tagline: Intelligence backbone for the agentic era.
+Phase: stealth (May 2026).
+
+## What we build
+- AI-native capabilities (formally defined, measured, continuously improving production processes)
+- Platforms: BaseEcho (voice + chatbot), BaseWave (content + marketing automation), Business Pulse (the internal World Model), Nexus (integration infrastructure)
+
+## How we operate
+- No management layer. Three roles: Individual Contributor, Directly Responsible Individual, Player-Coach.
+- An explicit World Model coordinates work — humans operate at the edge as judgment engines.
+- Remote-first, resource-agnostic, agent-first.
+
+## Doctrines (machine-readable)
+The four published doctrines live in this repo's `library/` folder. Each is a
+formal operating-principle document — not a blog post.
+
+- /library/end-of-the-hierarchy.md
+- /library/capabilities-over-features.md
+- /library/world-model-imperative.md
+- /library/partner-doctrine.md
+
+## Organisational state
+Current counts (doctrines published, capabilities online, agent uptime, last
+revised) live in machine-readable JSON:
+- /data/org-state.json
+
+## What this site's agent handles
+- Questions about what SavvPro builds and how it operates
+- The contributor pathway and what SavvPro looks for
+- The arguments of the four published doctrines
+- Description-level information about BaseEcho, BaseWave, Business Pulse, Nexus
+
+## What this site's agent does not handle
+- Client names, project details, financial data
+- Team member personal contact details
+- Internal Skill Profile data or capability cost profiles
+- Specific commercial terms or partnership details
+- Roadmap dates or feature delivery promises
+- Identities of any current partners or ecosystem members
+
+## Source
+This site is built as plain HTML. No build pipeline. The source is meant to be
+readable as a document.
+- Site repo: https://github.com/savvpro/savvpro-website
+- Org: https://github.com/savvpro

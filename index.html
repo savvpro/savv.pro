@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>SavvPro — Intelligence backbone for the agentic era</title>
+    <meta name="description" content="SavvPro builds AI-native capabilities for organizations operating in the agentic era. Talk to the agent below." />
+
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="SavvPro — Intelligence backbone for the agentic era" />
+    <meta property="og:description" content="An AI-native organization. We are the intelligence backbone; our partners are the surface." />
+    <meta property="og:url" content="https://savv.pro/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "SavvPro",
+        "url": "https://savv.pro",
+        "description": "AI-native technology organization. Intelligence backbone for the agentic era.",
+        "sameAs": [
+          "https://github.com/savvpro",
+          "https://x.com/savvpro"
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <!--
+      Hidden ASCII signature for engineers who view source.
+      If you found this, you might fit: /join.html
+
+         ▒█▀▀▀█ ▒█▀▀█ ▒█░░▒█ ▒█░░▒█    ▒█▀▀█ ▒█▀▀█ ▒█▀▀▀█
+         ░▀▀▀▄▄ ▒█▄▄█ ░▒█▒█░ ░▒█▒█░    ▒█▄▄█ ▒█▄▄▀ ▒█░░▒█
+         ▒█▄▄▄█ ▒█░▒█ ░░▀▄▀░ ░░▀▄▀░  · ▒█░░░ ▒█░▒█ ▒█▄▄▄█
+
+         intelligence backbone for the agentic era.
+         built without a management layer · v0.1
+    -->
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header__inner">
+        <a href="./index.html" class="brand" aria-label="SavvPro home">
+          savv<span class="brand__dot">.</span>pro
+        </a>
+
+        <button class="menu-btn" aria-label="Menu" type="button">Menu</button>
+
+        <nav class="nav" aria-label="Primary">
+          <a
+            class="nav__link nav__ext"
+            href="https://github.com/savvpro/savvpro-website/tree/main/library"
+            target="_blank"
+            rel="noopener"
+          >Doctrines</a>
+          <a
+            class="nav__link nav__ext"
+            href="https://github.com/savvpro/savvpro-website"
+            target="_blank"
+            rel="noopener"
+          >Source</a>
+          <a class="nav__link" href="./join.html">Join</a>
+          <button class="nav__cmdk" type="button" aria-label="Open command palette">
+            <kbd>⌘</kbd><kbd>K</kbd>
+            <span style="opacity:.65">search</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <!-- HERO -->
+      <section class="hero">
+        <span class="tag tag--pill">▸ Stealth · doctrines public · capabilities building</span>
+        <h1 class="hero__title">
+          Intelligence backbone
+          for the <span class="italic wine">agentic era</span><span class="wine">.</span>
+        </h1>
+        <p class="subhead">
+          SavvPro builds AI-native capabilities, platforms, and services for organizations
+          navigating the transition into agentic operating models.
+          <span class="italic" style="color:var(--ink)">The agent below is the fastest path in.</span>
+        </p>
+
+        <!-- Live data line (replaces the old hero image) — populated by app.js -->
+        <div class="data" data-stats aria-label="Current organisational state">
+          <span class="data__item"><span class="data__value">--</span> loading state</span>
+        </div>
+      </section>
+
+      <!-- AGENT TERMINAL -->
+      <section id="agent" class="section" style="padding-top: 0;">
+        <div class="term">
+          <div class="term__head">
+            <div class="term__dots">
+              <button
+                id="term-close"
+                class="term__dot"
+                type="button"
+                aria-label="Close fullscreen"
+                title="Close fullscreen (Esc)"
+              ></button>
+              <span class="term__dot term__dot--amber"></span>
+              <button
+                id="term-fs"
+                class="term__dot term__dot--green"
+                type="button"
+                aria-label="Toggle fullscreen"
+                title="Toggle fullscreen (F)"
+              ></button>
+              <span class="term__head-meta">agent · savv.pro · /bin/sh</span>
+            </div>
+            <span class="term__status">online · enc</span>
+          </div>
+
+          <div id="term-body" class="term__body" aria-live="polite"></div>
+
+          <div class="term__quick" id="term-quick">
+            <button class="term__quick-btn" type="button" data-prompt="What does SavvPro build?">&gt; What does SavvPro build?</button>
+            <button class="term__quick-btn" type="button" data-prompt="How does the partner model work?">&gt; How does the partner model work?</button>
+            <button class="term__quick-btn" type="button" data-prompt="What do you look for in contributors?">&gt; What do you look for in contributors?</button>
+          </div>
+
+          <form id="term-form" class="term__form" autocomplete="off">
+            <span class="term__prompt">savv@agent:~$</span>
+            <input
+              id="term-input"
+              class="term__input"
+              type="text"
+              placeholder="booting …"
+              aria-label="Ask the agent"
+              spellcheck="false"
+              autocomplete="off"
+              disabled
+            />
+            <button id="term-send" class="term__send" type="submit" disabled>send ↵</button>
+          </form>
+        </div>
+        <p class="term__caption">
+          ▸ encrypted · base_echo://agent · transcripts route to intake
+        </p>
+      </section>
+
+      <!-- MANIFESTO -->
+      <section class="manifesto" aria-label="What we are">
+        <div class="manifesto__inner">
+          <span class="tag">▸ What we are</span>
+          <p class="manifesto__text">
+            <span>We build <span class="italic wine">capabilities</span>, not features.</span>
+            <span>We operate <span class="italic wine">without a management layer</span>.</span>
+            <span>We sell <span class="italic wine">through partners</span>, not through volume.</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- CLOSING -->
+      <section class="section" style="text-align: center;">
+        <p class="italic" style="font-size: clamp(1.6rem, 3.6vw, 2.6rem); line-height: 1.1; color: var(--ink); max-width: 24ch; margin: 0 auto;">
+          The hierarchy will end.
+          The question is whether
+          <span class="wine">you end it</span>,
+          or whether a competitor does.
+        </p>
+        <div style="margin-top: var(--s-6);">
+          <a href="#agent" class="pill pill--wine">
+            Start the conversation
+            <span class="arrow">↑</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__inner">
+        <div>
+          <a href="./index.html" class="brand" style="font-size: 2rem;">
+            savv<span class="brand__dot">.</span>pro
+          </a>
+          <p class="footer__tagline">Intelligence backbone for the agentic era.</p>
+        </div>
+        <div class="footer__col">
+          <p class="tag tag--muted" style="margin-bottom: var(--s-3);">▸ Read</p>
+          <a href="https://github.com/savvpro/savvpro-website/tree/main/library" target="_blank" rel="noopener">Doctrines ↗</a>
+          <a href="https://github.com/savvpro/savvpro-website" target="_blank" rel="noopener">Source ↗</a>
+          <a href="./join.html">Join</a>
+          <a href="#agent">Talk to the agent</a>
+        </div>
+        <div class="footer__col" style="text-align: right;">
+          <p class="tag tag--muted" style="margin-bottom: var(--s-3);">▸ Signal</p>
+          <a href="https://github.com/savvpro" target="_blank" rel="noopener">github.com/savvpro</a>
+          <a href="https://x.com/savvpro" target="_blank" rel="noopener">x.com/savvpro</a>
+          <a href="./llms.txt">/llms.txt</a>
+          <a href="./data/org-state.json">/data/org-state.json</a>
+        </div>
+      </div>
+      <div class="footer__line">
+        <div class="footer__line-inner">
+          <span>SavvPro · 2026 · stealth</span>
+          <span>▸ ⌘K search · ? help · esc close</span>
+          <span>Built without a management layer</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Local-only BaseEcho credentials. config.local.js is gitignored.
+         If it doesn't exist (e.g. fresh clone), this 404s silently and
+         the agent falls back to a polite placeholder reply. -->
+    <script src="./config.local.js" onerror="this.remove()"></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
