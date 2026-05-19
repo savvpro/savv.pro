@@ -15,17 +15,24 @@ publication layer, the join page is the contributor pathway.
 .
 ├── index.html             ← home (the agent IS the page)
 ├── join.html              ← contributor pathway
-├── tokens.css             ← design tokens (palette, fonts, spacing)
-├── style.css              ← all shared styles
-├── app.js                 ← vanilla JS: chatbot, ⌘K palette, ticker, etc.
+│
+├── config.js              ← BaseEcho creds (committed; publishable token)
+├── config.example.js
+│
 ├── favicon.svg            ← animated favicon
 ├── llms.txt               ← machine-readable org context for AI agents
 ├── robots.txt             ← explicit AI crawler invitation
 ├── sitemap.xml
-├── config.example.js      ← template for BaseEcho credentials
+│
+├── css/
+│   ├── tokens.css         ← design tokens (palette, fonts, spacing)
+│   └── style.css          ← all shared styles
+│
+├── js/
+│   └── app.js             ← vanilla JS: chatbot, ⌘K palette, etc.
 │
 ├── data/
-│   └── org-state.json     ← single source of truth for ticker + stats
+│   └── org-state.json     ← single source of truth for stats
 │
 ├── library/               ← the publication layer
 │   ├── README.md          ← doctrine index (rendered by GitHub)
@@ -34,7 +41,7 @@ publication layer, the join page is the contributor pathway.
 │   ├── world-model-imperative.md
 │   └── partner-doctrine.md
 │
-└── _archive-nextjs/       ← previous build (archived, not deployed)
+└── README.md              ← this file
 ```
 
 ---
