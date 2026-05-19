@@ -50,10 +50,6 @@
     }
     return node;
   };
-  const uid = () =>
-    (crypto && crypto.randomUUID
-      ? crypto.randomUUID()
-      : "id-" + Date.now() + "-" + Math.random().toString(36).slice(2));
 
   /* ─────────────────────────────────────────────────────────────────────
      1 · org-state data → data line
@@ -72,13 +68,18 @@
   function renderDataLine(state) {
     const dataLine = $("[data-stats]");
     if (!dataLine) return;
-    dataLine.innerHTML = `
-      <span class="data__item"><span class="data__value">${String(state.doctrines_published).padStart(2, "0")}</span> doctrines published</span>
-      <span class="data__item"><span class="data__value">${String(state.capabilities_online).padStart(2, "0")}</span> capabilities online</span>
-      <span class="data__item"><span class="data__value data__value--wine">${String(state.hierarchy_layers).padStart(2, "0")}</span> hierarchy layers</span>
-      <span class="data__item"><span class="data__value">${state.agent.uptime_30d}%</span> agent uptime</span>
-      <span class="data__item"><span class="data__value">${state.delivery_health}</span> delivery health</span>
-    `;
+    const row = (key, value, wine) =>
+      `<div class="kv"><span class="kv__key">${key}</span><span class="kv__dots"></span><span class="kv__value${
+        wine ? " kv__value--wine" : ""
+      }">${value}</span></div>`;
+    dataLine.innerHTML = [
+      row("doctrines_published", String(state.doctrines_published).padStart(2, "0")),
+      row("capabilities_online", String(state.capabilities_online).padStart(2, "0")),
+      row("hierarchy_layers", String(state.hierarchy_layers).padStart(2, "0"), true),
+      row("agent_uptime_30d", state.agent.uptime_30d + "%"),
+      row("delivery_health", state.delivery_health),
+      row("last_revised", state.last_revised),
+    ].join("");
   }
 
   /* ─────────────────────────────────────────────────────────────────────
@@ -498,7 +499,6 @@
   function wireTerminal() {
     const form = $("#term-form");
     const input = $("#term-input");
-    const send = $("#term-send");
     const fsBtn = $("#term-fs");
     const closeBtn = $("#term-close");
     if (!form || !input) return;

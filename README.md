@@ -59,23 +59,28 @@ Then visit `http://localhost:8000`.
 
 ## Wiring the BaseEcho agent
 
-The chatbot reads three globals at boot:
+The chatbot reads three globals at boot from [`config.js`](./config.js):
 
 ```js
-window.SAVVPRO_API_URL    = "https://your-baseecho-backend.com";
-window.SAVVPRO_CHATBOT_ID = "your_chatbot_id";
-window.SAVVPRO_API_TOKEN  = "base_echo_xxxxxxxx";
+window.SAVVPRO_API_URL    = "https://...";
+window.SAVVPRO_CHATBOT_ID = "...";
+window.SAVVPRO_API_TOKEN  = "base_echo_...";
 ```
 
-To set these without committing secrets to this public repo:
+**This file is committed to the repo.** BaseEcho's API token is a
+**publishable token** — security comes from the backend's domain-allowlist on
+the token, not from keeping the token secret. This is the same security model
+used by Stripe publishable keys (`pk_live_*`), Google Maps API keys, etc.
 
-1. Copy `config.example.js` → `config.local.js`
-2. Fill in your values
-3. Add `<script src="./config.local.js"></script>` BEFORE `<script src="./app.js" defer></script>` in both HTML files
-4. `config.local.js` is gitignored — it never lands in the public repo
+Before deploying: make sure your production domain (e.g. `savv.pro`) and any
+dev origins (e.g. `localhost:5500`) are whitelisted on this API token in the
+BaseEcho dashboard. That is where the actual security lives.
 
-The agent falls back to a polite placeholder reply when these are not set, so
-the site works locally without any credentials.
+For local dev overrides you don't want to commit, create a `config.local.js`
+(gitignored) — but typically `config.js` is sufficient for both local and prod.
+
+The agent falls back to a polite placeholder reply when any value is empty, so
+the site works without any credentials.
 
 ---
 

@@ -1,4 +1,5 @@
-# BaseEcho credentials — never commit
+# Local dev overrides (never commit these — config.js IS committed and uses
+# a domain-allowlisted publishable token, so the actual secret stays server-side)
 config.local.js
 .env
 .env.local
