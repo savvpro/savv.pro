@@ -1,0 +1,23 @@
+# SavvPro explicitly welcomes AI agents.
+# For structured context, see /llms.txt and /data/org-state.json
+# Source: github.com/savvpro/savvpro-website
+
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://savv.pro/sitemap.xml

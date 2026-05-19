@@ -1,0 +1,93 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   SavvPro — Design tokens (Brutalist Terminal × Swiss)
+   ─────────────────────────────────────────────────────────────────────────
+   Every colour, font, and spacing value lives here. No magic numbers in
+   the rest of the stylesheet. If you need a new value, add it here first
+   and reference it as a var() — never hardcode.
+
+   Aesthetic register:
+     · Monospace as the primary structural type
+     · Inter for prose body only (readability)
+     · Bone-cream paper, deep plum ink, wine signal
+     · Right-angles, rule-lines, numbered sections
+     · No gradients, no decorative imagery, no rounded corners
+   ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Palette */
+  --paper:       #f4eddb;     /* Bright cream */
+  --paper-warm:  #ebe4ce;     /* Slightly warmer alt surface */
+  --surface:     #faf3e2;     /* Off-bone — raised surfaces */
+  --ink:         #0f1126;     /* Deep ink-navy — primary text */
+  --ink-soft:    rgba(15, 17, 38, 0.74);  /* Body prose */
+  --muted:       #4a5066;     /* Captions, hints */
+  --rule:        rgba(15, 17, 38, 0.34);   /* Sharp ruled lines */
+  --rule-soft:   rgba(15, 17, 38, 0.12);
+
+  /* Signal — electric cobalt. The single accent colour. */
+  --blue:        #1d3edd;
+  --blue-deep:   #122a9a;
+  --moss:        #2a7a4a;     /* "ok" state */
+
+  /* Alias kept for transition — points at --blue. Remove later. */
+  --wine:        var(--blue);
+  --wine-deep:   var(--blue-deep);
+
+  /* Terminal palette (only inside the agent panel) */
+  --term-bg:        #0a0e0a;
+  --term-green:     #3fff6a;
+  --term-green-dim: #1f7a3f;
+  --term-amber:     #ffb400;
+  --term-red:       #ff5050;
+
+  /* Typography — IBM Plex family
+     · `mono` is the structural / display font (IBM Plex Mono)
+     · `sans` is reserved for prose body only (IBM Plex Sans)
+     · `serif` is rarely used — italic ornamental moments (Instrument Serif) */
+  --font-mono:  "IBM Plex Mono", "SF Mono", "Courier New", monospace;
+  --font-sans:  "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-serif: "Instrument Serif", "Times New Roman", Georgia, serif;
+
+  /* Type scale */
+  --t-hero:     clamp(2rem, 4.5vw, 3.4rem);    /* Big mono tagline */
+  --t-h2:       clamp(1.2rem, 2.2vw, 1.6rem);  /* Section headers */
+  --t-body:     1rem;
+  --t-small:    0.85rem;
+  --t-tag:      0.72rem;
+  --t-tiny:     0.62rem;
+
+  /* Spacing scale (rems) */
+  --s-1:  0.25rem;
+  --s-2:  0.5rem;
+  --s-3:  0.75rem;
+  --s-4:  1rem;
+  --s-5:  1.5rem;
+  --s-6:  2rem;
+  --s-7:  3rem;
+  --s-8:  4rem;
+  --s-9:  6rem;
+  --s-10: 8rem;
+
+  /* Layout — tighter than before; reading column */
+  --content-max: 880px;
+  --reading-max: 680px;
+
+  /* Motion */
+  --ease:       cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-fast:     120ms;
+  --t-med:      240ms;
+  --t-slow:     420ms;
+}
+
+/* Time-of-day palette shift — set on <html> by app.js */
+html[data-time="dusk"] {
+  --paper:       #e9e1c8;
+  --paper-warm:  #e1d8be;
+  --blue:        #1f43e8;
+}
+html[data-time="night"] {
+  --paper:       #e6decb;
+  --paper-warm:  #ddd5bd;
+  --blue:        #234ef0;
+  --ink-soft:    rgba(15, 17, 38, 0.8);
+}

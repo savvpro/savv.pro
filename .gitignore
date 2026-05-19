@@ -1,41 +1,31 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Local dev overrides (never commit these — config.js IS committed and uses
+# a domain-allowlisted publishable token, so the actual secret stays server-side)
+config.local.js
+.env
+.env.local
+.env.*.local
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
+# Editor / OS
 .DS_Store
-*.pem
+Thumbs.db
+*.swp
+.idea/
+.vscode/
 
-# debug
+# Build artifacts
+*.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Internal reference / not for public repo
+Docs/
+Docsv2/
+_archive-nextjs/
 
-# vercel
-.vercel
+# Claude Code / agent tooling — internal-tooling concern, not site source
+CLAUDE.md
+AGENTS.md
+.claude/
+.playwright-mcp/
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Misc
+prompt-pictures/

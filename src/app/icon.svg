@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" fill="#F2EBDE"/>
-  <text x="16" y="22" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-weight="400" font-size="22" fill="#1A0E2A">s</text>
-  <circle cx="24" cy="22" r="2" fill="#9E1450">
-    <animate attributeName="r" values="1.6;2.4;1.6" dur="3s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.65;1;0.65" dur="3s" repeatCount="indefinite"/>
-  </circle>
-</svg>
