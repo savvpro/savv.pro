@@ -47,5 +47,5 @@ revised) live in machine-readable JSON:
 ## Source
 This site is built as plain HTML. No build pipeline. The source is meant to be
 readable as a document.
-- Site repo: https://github.com/savvpro/savvpro-website
+- Site repo: https://github.com/savvpro/savv.pro
 - Org: https://github.com/savvpro

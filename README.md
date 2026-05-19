@@ -1,4 +1,4 @@
-# savv.pro
+# savv.pro.
 
 Plain HTML. No framework. No build pipeline. Two pages and a chatbot.
 
