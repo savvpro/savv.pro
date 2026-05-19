@@ -30,6 +30,11 @@ Current counts (doctrines published, capabilities online, agent uptime, last
 revised) live in machine-readable JSON:
 - /data/org-state.json
 
+## Single-fetch agent context
+For one-shot complete context — org state, doctrine summaries, contributor
+pathway, product descriptions, agent scope — fetch:
+- /agent-context.json
+
 ## What this site's agent handles
 - Questions about what SavvPro builds and how it operates
 - The contributor pathway and what SavvPro looks for

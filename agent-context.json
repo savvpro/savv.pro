@@ -1,0 +1,183 @@
+{
+  "$comment": "Single-fetch agent context for SavvPro. Bundles org-state, doctrine summaries, contributor pathway, product descriptions, and agent scope so an AI can answer any question about SavvPro without additional requests. See /llms.txt for human-readable orientation.",
+  "name": "SavvPro",
+  "tagline": "Intelligence backbone for the agentic era.",
+  "url": "https://savv.pro",
+  "phase": "stealth",
+  "version": "0.1",
+  "last_revised": "2026-05-19",
+  "mission": "Build AI-native capabilities, platforms, and services for organizations navigating the transition into agentic operating models.",
+  "operating_model": {
+    "principles": [
+      {
+        "name": "Capabilities over features",
+        "summary": "Formally defined, repeatable, measured production processes that compound — not feature lists."
+      },
+      {
+        "name": "Explicit world model",
+        "summary": "A structured, queryable representation of organizational reality replaces the management layer."
+      },
+      {
+        "name": "Partners over direct sales",
+        "summary": "Partners carry the client relationship; SavvPro is the intelligence backbone behind them."
+      }
+    ],
+    "roles": [
+      {
+        "abbreviation": "IC",
+        "name": "Individual Contributor",
+        "scope": "Executes work within their Capability domain."
+      },
+      {
+        "abbreviation": "DRI",
+        "name": "Directly Responsible Individual",
+        "scope": "Accountable for a defined outcome with authority to compose resources."
+      },
+      {
+        "abbreviation": "Player-Coach",
+        "name": "Player-Coach",
+        "scope": "Stewards systems and standards that make other contributors more effective."
+      }
+    ],
+    "modality": [
+      "Remote-first",
+      "Resource-agnostic",
+      "Agent-first",
+      "No management layer"
+    ]
+  },
+  "products": [
+    {
+      "name": "BaseEcho",
+      "description": "Voice agent + chatbot capability infrastructure. Powers the agent on this site.",
+      "platform_for": ["voice_agent", "chatbot", "knowledge_base"]
+    },
+    {
+      "name": "BaseWave",
+      "description": "Digital marketing automation and content generation infrastructure.",
+      "platform_for": ["content_generation", "digital_marketing_automation"]
+    },
+    {
+      "name": "Business Pulse",
+      "description": "Internal operating system — the explicit World Model implementation.",
+      "platform_for": ["internal_operations"]
+    },
+    {
+      "name": "Nexus",
+      "description": "Integration and workflow automation infrastructure connecting capabilities.",
+      "platform_for": ["workflow_automation"]
+    }
+  ],
+  "capabilities": [
+    { "tag": "VAD-01", "name": "Voice Agent Development & Deployment", "platform": "BaseEcho", "maturity": 0.65 },
+    { "tag": "CBD-01", "name": "Chatbot Development & Deployment", "platform": "BaseEcho", "maturity": 0.58 },
+    { "tag": "KBC-01", "name": "Knowledge Base Configuration", "platform": "BaseEcho", "maturity": 0.41 },
+    { "tag": "WFA-01", "name": "Workflow Automation", "platform": "Nexus", "maturity": 0.52 },
+    { "tag": "CGN-01", "name": "Content Generation", "platform": "BaseWave", "maturity": 0.38 },
+    { "tag": "DMA-01", "name": "Digital Marketing Automation", "platform": "BaseWave", "maturity": 0.34 }
+  ],
+  "doctrines": [
+    {
+      "number": "01",
+      "slug": "end-of-the-hierarchy",
+      "title": "The End of the Hierarchy",
+      "version": "1.0",
+      "published": "2026-05-01",
+      "thesis": "The organizational hierarchy was never a management philosophy. It was a technology workaround — a system of human-powered information routing built to compensate for the computational and communication constraints of pre-digital organizations. Those constraints no longer exist.",
+      "tagline": "The hierarchy was a workaround for a problem that no longer exists.",
+      "url": "https://github.com/savvpro/savv.pro/blob/main/library/end-of-the-hierarchy.md"
+    },
+    {
+      "number": "02",
+      "slug": "capabilities-over-features",
+      "title": "Capabilities Over Features",
+      "version": "1.0",
+      "published": "2026-05-01",
+      "thesis": "Features are outputs. Capabilities are engines. A feature is a thing you have delivered; a Capability is a formally defined, measured, continuously improving production process. Features do not compound. Capabilities do.",
+      "tagline": "Features are what you have done. Capabilities are what you are getting better at doing.",
+      "url": "https://github.com/savvpro/savv.pro/blob/main/library/capabilities-over-features.md"
+    },
+    {
+      "number": "03",
+      "slug": "world-model-imperative",
+      "title": "The World Model Imperative",
+      "version": "1.0",
+      "published": "2026-05-01",
+      "thesis": "Every organization already has a World Model — implicit, fragmented, lossy. The question is whether you make it explicit, structured, queryable. Making the World Model explicit is the fundamental infrastructure decision of the agentic era.",
+      "tagline": "The tools change. The model is yours.",
+      "url": "https://github.com/savvpro/savv.pro/blob/main/library/world-model-imperative.md"
+    },
+    {
+      "number": "04",
+      "slug": "partner-doctrine",
+      "title": "The Partner Doctrine",
+      "version": "1.0",
+      "published": "2026-05-01",
+      "thesis": "SavvPro does not go to market alone. A SavvPro partner is not a reseller. It is an organization that carries the client relationship in a defined market and is backed by SavvPro's full intelligence infrastructure. The relationship is structural, two-directional, and designed to compound.",
+      "tagline": "We are the backbone. The partner is the surface. The roles do not overlap.",
+      "url": "https://github.com/savvpro/savv.pro/blob/main/library/partner-doctrine.md"
+    }
+  ],
+  "contributor_pathway": {
+    "self_select": true,
+    "description": "Remote-first. Resource-agnostic. Agent-first. No hierarchy. Read the page. If it still sounds right, start the conversation.",
+    "url": "https://savv.pro/join.html",
+    "tier_1_traits": [
+      {
+        "name": "Truth Signal Quality",
+        "description": "Reports what is actually happening, not what is comfortable. Delivery data accurate, status honest.",
+        "counter": "Not a fit if your default move is to round the estimate or omit the uncomfortable signal."
+      },
+      {
+        "name": "Integrity Under Pressure",
+        "description": "Commitments hold when work is hard. Flags problems early. Discipline does not wobble when no one is watching.",
+        "counter": "Not a fit if pressure changes what you say is true."
+      },
+      {
+        "name": "Learning Velocity",
+        "description": "Converts real-world signal into improved capability faster than the room average.",
+        "counter": "Not a fit if you need a six-month ramp to feel competent."
+      }
+    ],
+    "pipeline": [
+      { "step": 1, "name": "Conversation with the agent" },
+      { "step": 2, "name": "CV screening" },
+      { "step": 3, "name": "Assessment" },
+      { "step": 4, "name": "Interview stages" },
+      { "step": 5, "name": "Offer", "terminal": true }
+    ]
+  },
+  "agent": {
+    "endpoint": "base_echo://agent",
+    "uptime_30d": 99.97,
+    "transport": "tls",
+    "interface": "shell-style terminal at https://savv.pro/#agent",
+    "scope_in": [
+      "What SavvPro builds and how it operates",
+      "The partnership model and criteria (general)",
+      "The contributor pathway and what SavvPro looks for",
+      "The arguments of the four published doctrines",
+      "Description-level information about BaseEcho, BaseWave, Business Pulse, Nexus"
+    ],
+    "scope_out": [
+      "Client names, project details, financial data",
+      "Team member personal contact details",
+      "Internal Skill Profile data or capability cost profiles",
+      "Specific commercial terms or partner identities",
+      "Roadmap dates or feature delivery promises"
+    ]
+  },
+  "delivery_health": "nominal",
+  "hierarchy_layers": 0,
+  "resources": {
+    "site": "https://savv.pro",
+    "join_page": "https://savv.pro/join.html",
+    "source_repo": "https://github.com/savvpro/savv.pro",
+    "organization": "https://github.com/savvpro",
+    "library": "https://github.com/savvpro/savv.pro/tree/main/library",
+    "llms_txt": "https://savv.pro/llms.txt",
+    "org_state": "https://savv.pro/data/org-state.json",
+    "robots": "https://savv.pro/robots.txt",
+    "sitemap": "https://savv.pro/sitemap.xml"
+  }
+}
