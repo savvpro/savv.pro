@@ -74,10 +74,9 @@
       }">${value}</span></div>`;
     dataLine.innerHTML = [
       row("doctrines_published", String(state.doctrines_published).padStart(2, "0")),
-      row("capabilities_online", String(state.capabilities_online).padStart(2, "0")),
+      row("capabilities_defined", String(state.capabilities_defined).padStart(2, "0")),
       row("hierarchy_layers", String(state.hierarchy_layers).padStart(2, "0"), true),
-      row("agent_uptime_30d", state.agent.uptime_30d + "%"),
-      row("delivery_health", state.delivery_health),
+      row("phase", state.phase),
       row("last_revised", state.last_revised),
     ].join("");
   }
@@ -100,7 +99,7 @@
     { kind: "sys", text: "establishing secure channel to agent.savv.pro …", delay: 220 },
     { kind: "ok", text: "[ok] handshake complete · tls 1.3 · base_echo://", delay: 500 },
     { kind: "sys", text: "loading capabilities registry …", delay: 740 },
-    { kind: "ok", text: "[ok] 4 doctrines · 6 capabilities online", delay: 1020 },
+    { kind: "ok", text: "[ok] 4 doctrines · 6 capabilities defined", delay: 1020 },
   ];
 
   const INTAKE_PROMPTS = {
