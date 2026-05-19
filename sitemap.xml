@@ -30,4 +30,26 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Doctrines (served on-origin as plain markdown) -->
+  <url>
+    <loc>https://savv.pro/library/end-of-the-hierarchy.md</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://savv.pro/library/capabilities-over-features.md</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://savv.pro/library/world-model-imperative.md</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://savv.pro/library/partner-doctrine.md</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

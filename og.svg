@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="SavvPro — Intelligence backbone for the agentic era">
+  <defs>
+    <radialGradient id="tl" cx="0%" cy="0%" r="60%">
+      <stop offset="0%" stop-color="#1d3edd" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#1d3edd" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="br" cx="100%" cy="100%" r="60%">
+      <stop offset="0%" stop-color="#1d3edd" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#1d3edd" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/>
+      <feColorMatrix values="0 0 0 0 0.06  0 0 0 0 0.07  0 0 0 0 0.15  0 0 0 0.10 0"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#f4eddb"/>
+  <rect width="1200" height="630" fill="url(#tl)"/>
+  <rect width="1200" height="630" fill="url(#br)"/>
+  <rect width="1200" height="630" filter="url(#noise)" opacity="0.45"/>
+
+  <!-- Top rule -->
+  <line x1="80" y1="80" x2="1120" y2="80" stroke="#0f1126" stroke-width="1" opacity="0.35"/>
+
+  <!-- Section label -->
+  <g font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="18" fill="#0f1126" opacity="0.7">
+    <text x="80" y="110">▸ 00 / IDENTITY</text>
+    <text x="1120" y="110" text-anchor="end">savv.pro</text>
+  </g>
+
+  <!-- Wordmark -->
+  <g font-family="'IBM Plex Mono', ui-monospace, monospace" fill="#0f1126">
+    <text x="80" y="260" font-size="110" font-weight="600" letter-spacing="-2">SAVV<tspan fill="#1d3edd">·</tspan>PRO</text>
+  </g>
+
+  <!-- Tagline -->
+  <g font-family="'IBM Plex Sans', system-ui, sans-serif" fill="#0f1126">
+    <text x="80" y="360" font-size="44" font-weight="400">intelligence backbone for the</text>
+    <text x="80" y="412" font-size="44" font-weight="500" fill="#1d3edd">agentic era.</text>
+  </g>
+
+  <!-- Bottom meta row -->
+  <line x1="80" y1="510" x2="1120" y2="510" stroke="#0f1126" stroke-width="1" opacity="0.35"/>
+  <g font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="20" fill="#0f1126" opacity="0.8">
+    <text x="80" y="555">▸ 04 doctrines  ·  06 capabilities  ·  00 hierarchy</text>
+    <text x="1120" y="555" text-anchor="end">stealth · 2026</text>
+  </g>
+
+  <!-- Corner ticks -->
+  <g stroke="#0f1126" stroke-width="2" fill="none" opacity="0.55">
+    <path d="M 60 60 L 60 95 M 60 60 L 95 60"/>
+    <path d="M 1140 60 L 1140 95 M 1140 60 L 1105 60"/>
+    <path d="M 60 570 L 60 535 M 60 570 L 95 570"/>
+    <path d="M 1140 570 L 1140 535 M 1140 570 L 1105 570"/>
+  </g>
+</svg>

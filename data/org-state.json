@@ -1,55 +1,10 @@
 {
+  "$comment": "Derived state subset. Canonical source: /agent-context.json. Keep these fields in sync when revising.",
   "phase": "stealth",
   "version": "0.1",
-  "last_revised": "2026-05-15",
+  "last_revised": "2026-05-19",
   "doctrines_published": 4,
-  "capabilities_online": 6,
+  "capabilities_defined": 6,
   "hierarchy_layers": 0,
-  "delivery_health": "nominal",
-  "agent": {
-    "endpoint": "base_echo://agent",
-    "uptime_30d": 99.97
-  },
-  "doctrines": [
-    {
-      "number": "01",
-      "slug": "end-of-the-hierarchy",
-      "title": "The End of the Hierarchy",
-      "version": "1.0",
-      "published": "2026-05-01",
-      "url": "https://github.com/savvpro/savv.pro/blob/main/library/end-of-the-hierarchy.md"
-    },
-    {
-      "number": "02",
-      "slug": "capabilities-over-features",
-      "title": "Capabilities Over Features",
-      "version": "1.0",
-      "published": "2026-05-01",
-      "url": "https://github.com/savvpro/savv.pro/blob/main/library/capabilities-over-features.md"
-    },
-    {
-      "number": "03",
-      "slug": "world-model-imperative",
-      "title": "The World Model Imperative",
-      "version": "1.0",
-      "published": "2026-05-01",
-      "url": "https://github.com/savvpro/savv.pro/blob/main/library/world-model-imperative.md"
-    },
-    {
-      "number": "04",
-      "slug": "partner-doctrine",
-      "title": "The Partner Doctrine",
-      "version": "1.0",
-      "published": "2026-05-01",
-      "url": "https://github.com/savvpro/savv.pro/blob/main/library/partner-doctrine.md"
-    }
-  ],
-  "capabilities": [
-    { "tag": "VAD-01", "name": "Voice Agent Development & Deployment", "platform": "BaseEcho", "maturity": 0.65 },
-    { "tag": "CBD-01", "name": "Chatbot Development & Deployment", "platform": "BaseEcho", "maturity": 0.58 },
-    { "tag": "KBC-01", "name": "Knowledge Base Configuration", "platform": "BaseEcho", "maturity": 0.41 },
-    { "tag": "WFA-01", "name": "Workflow Automation", "platform": "Nexus", "maturity": 0.52 },
-    { "tag": "CGN-01", "name": "Content Generation", "platform": "BaseWave", "maturity": 0.38 },
-    { "tag": "DMA-01", "name": "Digital Marketing Automation", "platform": "BaseWave", "maturity": 0.34 }
-  ]
+  "canonical": "https://savv.pro/agent-context.json"
 }

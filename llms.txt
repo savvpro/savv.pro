@@ -16,19 +16,21 @@ Phase: stealth (May 2026).
 - An explicit World Model coordinates work — humans operate at the edge as judgment engines.
 - Remote-first, resource-agnostic, agent-first.
 
-## Doctrines (machine-readable)
-The four published doctrines live in this repo's `library/` folder. Each is a
-formal operating-principle document — not a blog post.
+## Doctrines (machine-readable, same origin)
+The four published doctrines are served directly from this origin as plain
+markdown. Each is a formal operating-principle document — not a blog post.
 
-- /library/end-of-the-hierarchy.md
-- /library/capabilities-over-features.md
-- /library/world-model-imperative.md
-- /library/partner-doctrine.md
+- https://savv.pro/library/end-of-the-hierarchy.md
+- https://savv.pro/library/capabilities-over-features.md
+- https://savv.pro/library/world-model-imperative.md
+- https://savv.pro/library/partner-doctrine.md
 
 ## Organisational state
-Current counts (doctrines published, capabilities online, agent uptime, last
-revised) live in machine-readable JSON:
-- /data/org-state.json
+Current counts (doctrines published, capabilities defined, hierarchy layers,
+last revised) live in machine-readable JSON. Canonical source is
+/agent-context.json; /data/org-state.json is a small derived subset.
+- /agent-context.json   (canonical, full bundle)
+- /data/org-state.json  (derived state subset)
 
 ## Single-fetch agent context
 For one-shot complete context — org state, doctrine summaries, contributor
