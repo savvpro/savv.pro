@@ -9,7 +9,7 @@ Phase: stealth (May 2026).
 
 ## What we build
 - AI-native capabilities (formally defined, measured, continuously improving production processes)
-- Platforms: BaseEcho (voice + chatbot), BaseWave (content + marketing automation), Business Pulse (the internal World Model), Nexus (integration infrastructure)
+- Platforms and infrastructure that operate those capabilities in production
 
 ## How we operate
 - No management layer. Three roles: Individual Contributor, Directly Responsible Individual, Player-Coach.
@@ -26,22 +26,21 @@ markdown. Each is a formal operating-principle document — not a blog post.
 - https://savv.pro/library/partner-doctrine.md
 
 ## Organisational state
-Current counts (doctrines published, capabilities defined, hierarchy layers,
-last revised) live in machine-readable JSON. Canonical source is
+Current counts (doctrines published, capabilities defined, last revised) live
+in machine-readable JSON. Canonical source is
 /agent-context.json; /data/org-state.json is a small derived subset.
 - /agent-context.json   (canonical, full bundle)
 - /data/org-state.json  (derived state subset)
 
 ## Single-fetch agent context
 For one-shot complete context — org state, doctrine summaries, contributor
-pathway, product descriptions, agent scope — fetch:
+pathway, agent scope — fetch:
 - /agent-context.json
 
 ## What this site's agent handles
 - Questions about what SavvPro builds and how it operates
 - The contributor pathway and what SavvPro looks for
 - The arguments of the four published doctrines
-- Description-level information about BaseEcho, BaseWave, Business Pulse, Nexus
 
 ## What this site's agent does not handle
 - Client names, project details, financial data

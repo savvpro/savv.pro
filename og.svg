@@ -43,7 +43,7 @@
   <!-- Bottom meta row -->
   <line x1="80" y1="510" x2="1120" y2="510" stroke="#0f1126" stroke-width="1" opacity="0.35"/>
   <g font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="20" fill="#0f1126" opacity="0.8">
-    <text x="80" y="555">▸ 04 doctrines  ·  06 capabilities  ·  00 hierarchy</text>
+    <text x="80" y="555">▸ 04 doctrines  ·  06 capabilities</text>
     <text x="1120" y="555" text-anchor="end">stealth · 2026</text>
   </g>
 

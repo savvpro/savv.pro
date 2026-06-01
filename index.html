@@ -142,6 +142,8 @@
          built without a management layer · v0.1
     -->
 
+    <a class="skip-link" href="#agent">Skip to agent</a>
+
     <header class="header">
       <div class="header__inner">
         <a href="./index.html" class="brand" aria-label="SavvPro home">
@@ -199,18 +201,18 @@
           <span class="section__meta">base_echo:// · enc · session</span>
         </div>
 
-        <div class="term">
+        <div class="term" role="region" aria-label="SavvPro agent terminal">
           <div class="term__head">
             <div class="term__dots">
               <button id="term-close" class="term__dot" type="button" aria-label="Close fullscreen" title="Close fullscreen (Esc)"></button>
-              <span class="term__dot term__dot--amber"></span>
+              <span class="term__dot term__dot--amber" aria-hidden="true"></span>
               <button id="term-fs" class="term__dot term__dot--green" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen (F)"></button>
-              <span class="term__head-meta">agent · savv.pro · /bin/sh</span>
+              <span class="term__head-meta" aria-hidden="true">agent · savv.pro · /bin/sh</span>
             </div>
-            <span class="term__status">online · enc</span>
+            <span class="term__status" aria-hidden="true">online · enc</span>
           </div>
 
-          <div id="term-body" class="term__body" aria-live="polite"></div>
+          <div id="term-body" class="term__body" role="log" aria-live="polite" aria-atomic="false" aria-label="Agent conversation"></div>
 
           <div class="term__quick" id="term-quick">
             <button class="term__quick-btn" type="button" data-prompt="What does SavvPro build?">&gt; What does SavvPro build?</button>
@@ -249,7 +251,6 @@
           <!-- Populated by app.js — fallback shown if JS fails or JSON 404s -->
           <div class="kv"><span class="kv__key">doctrines_published</span><span class="kv__dots"></span><span class="kv__value">04</span></div>
           <div class="kv"><span class="kv__key">capabilities_defined</span><span class="kv__dots"></span><span class="kv__value">06</span></div>
-          <div class="kv"><span class="kv__key">hierarchy_layers</span><span class="kv__dots"></span><span class="kv__value kv__value--wine">00</span></div>
           <div class="kv"><span class="kv__key">phase</span><span class="kv__dots"></span><span class="kv__value">stealth</span></div>
           <div class="kv"><span class="kv__key">last_revised</span><span class="kv__dots"></span><span class="kv__value">2026-05-19</span></div>
         </div>
@@ -360,6 +361,12 @@
           <a href="./llms.txt">/llms.txt</a>
           <a href="./agent-context.json">/agent-context.json</a>
           <a href="./data/org-state.json">/data/org-state.json</a>
+        </div>
+        <div class="footer__col">
+          <h4>▸ Legal</h4>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./terms.html">Terms</a>
+          <a href="mailto:privacy@savv.pro">privacy@savv.pro</a>
         </div>
       </div>
       <div class="footer__line">
