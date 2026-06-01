@@ -13,7 +13,8 @@
       "mcp__playwright__browser_close",
       "Bash(curl -sf http://localhost:3000)",
       "Bash(pwsh -NoLogo -NoProfile -Command \"Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force\")",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('agent-context.json','utf8'\\)\\); JSON.parse\\(require\\('fs'\\).readFileSync\\('data/org-state.json','utf8'\\)\\); console.log\\('JSON valid'\\);\")"
     ]
   }
 }

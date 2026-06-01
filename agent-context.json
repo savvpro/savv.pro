@@ -9,8 +9,7 @@
   "mission": "Build AI-native capabilities, platforms, and services for organizations navigating the transition into agentic operating models.",
   "state": {
     "doctrines_published": 4,
-    "capabilities_defined": 6,
-    "hierarchy_layers": 0
+    "capabilities_defined": 6
   },
   "operating_model": {
     "principles": [
@@ -34,20 +33,6 @@
     ],
     "modality": ["Remote-first", "Resource-agnostic", "Agent-first", "No management layer"]
   },
-  "products": [
-    { "name": "BaseEcho", "description": "Voice agent + chatbot capability infrastructure. Powers the agent on this site.", "platform_for": ["voice_agent", "chatbot", "knowledge_base"] },
-    { "name": "BaseWave", "description": "Digital marketing automation and content generation infrastructure.", "platform_for": ["content_generation", "digital_marketing_automation"] },
-    { "name": "Business Pulse", "description": "Internal operating system — the explicit World Model implementation.", "platform_for": ["internal_operations"] },
-    { "name": "Nexus", "description": "Integration and workflow automation infrastructure connecting capabilities.", "platform_for": ["workflow_automation"] }
-  ],
-  "capabilities": [
-    { "tag": "VAD-01", "name": "Voice Agent Development & Deployment", "platform": "BaseEcho" },
-    { "tag": "CBD-01", "name": "Chatbot Development & Deployment", "platform": "BaseEcho" },
-    { "tag": "KBC-01", "name": "Knowledge Base Configuration", "platform": "BaseEcho" },
-    { "tag": "WFA-01", "name": "Workflow Automation", "platform": "Nexus" },
-    { "tag": "CGN-01", "name": "Content Generation", "platform": "BaseWave" },
-    { "tag": "DMA-01", "name": "Digital Marketing Automation", "platform": "BaseWave" }
-  ],
   "doctrines": [
     {
       "number": "01",
@@ -119,8 +104,7 @@
       "What SavvPro builds and how it operates",
       "The partnership model and criteria (general)",
       "The contributor pathway and what SavvPro looks for",
-      "The arguments of the four published doctrines",
-      "Description-level information about BaseEcho, BaseWave, Business Pulse, Nexus"
+      "The arguments of the four published doctrines"
     ],
     "scope_out": [
       "Client names, project details, financial data",

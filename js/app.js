@@ -75,7 +75,6 @@
     dataLine.innerHTML = [
       row("doctrines_published", String(state.doctrines_published).padStart(2, "0")),
       row("capabilities_defined", String(state.capabilities_defined).padStart(2, "0")),
-      row("hierarchy_layers", String(state.hierarchy_layers).padStart(2, "0"), true),
       row("phase", state.phase),
       row("last_revised", state.last_revised),
     ].join("");
@@ -765,16 +764,20 @@
     const btn = $(".menu-btn");
     const nav = $(".nav");
     if (!btn || !nav) return;
-    btn.addEventListener("click", () => {
-      const isOpen = nav.classList.toggle("is-open");
-      btn.textContent = isOpen ? "Close" : "Menu";
-    });
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-controls", "primary-nav");
+    nav.id = nav.id || "primary-nav";
+    const setOpen = (open) => {
+      nav.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", String(open));
+      btn.textContent = open ? "Close" : "Menu";
+    };
+    btn.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
     nav.addEventListener("click", (e) => {
-      const t = e.target;
-      if (t && t.tagName === "A") {
-        nav.classList.remove("is-open");
-        btn.textContent = "Menu";
-      }
+      if (e.target && e.target.tagName === "A") setOpen(false);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) setOpen(false);
     });
   }
 

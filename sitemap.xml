@@ -12,6 +12,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://savv.pro/privacy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://savv.pro/terms.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
 
   <!-- Machine-readable surfaces (explicitly listed so crawlers find them) -->
   <url>
