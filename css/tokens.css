@@ -79,6 +79,26 @@
   --t-slow:     420ms;
 }
 
+/* Glass / redaction (world-model render — see css/model.css) */
+:root {
+  --glass-fill:    rgba(15, 17, 38, 0.06);   /* compartmentalised cell wash */
+  --glass-rule:    rgba(15, 17, 38, 0.28);   /* boundary placeholder rule */
+  --glass-chip:    var(--ink);
+  --glass-chip-bg: rgba(15, 17, 38, 0.08);
+  --hash:          var(--blue);              /* hashed-id tokens use the signal colour */
+  --needs:         var(--muted);             /* needs_data dotted outline */
+
+  --band-track:    rgba(15, 17, 38, 0.10);
+  --band-fill:     var(--blue);
+  --band-range:    rgba(29, 62, 221, 0.18);  /* the widening range */
+
+  --reg-op:        var(--font-mono);         /* operational register */
+  --reg-pub:       var(--font-serif);        /* public register */
+
+  --t-glass:       180ms;                    /* token reveal on hover/focus */
+  --t-compile:     320ms;                    /* compile-down resolve */
+}
+
 /* Time-of-day palette shift — set on <html> by app.js */
 html[data-time="dusk"] {
   --paper:       #e9e1c8;

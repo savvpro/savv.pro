@@ -9,6 +9,7 @@
 
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/model.css" />
 
     <meta property="og:title" content="SavvPro — Intelligence backbone for the agentic era" />
     <meta property="og:description" content="An AI-native organization. We are the intelligence backbone." />
@@ -45,12 +46,21 @@
           "https://github.com/savvpro",
           "https://x.com/savvpro"
         ],
-        "subjectOf": {
-          "@type": "DataFeed",
-          "name": "SavvPro Agent Context",
-          "url": "https://savv.pro/agent-context.json",
-          "encodingFormat": "application/json"
-        }
+        "subjectOf": [
+          {
+            "@type": "DataFeed",
+            "name": "SavvPro Agent Context",
+            "url": "https://savv.pro/agent-context.json",
+            "encodingFormat": "application/json"
+          },
+          {
+            "@type": "Dataset",
+            "name": "SavvPro World Model (public, redacted)",
+            "description": "A public render of SavvPro's own world model, passed through its three-tier boundary filter. Structure and provenance are visible; identity is hashed; commercials are never rendered.",
+            "url": "https://savv.pro/data/world-model.public.json",
+            "encodingFormat": "application/json"
+          }
+        ]
       }
     </script>
 
@@ -175,11 +185,11 @@
 
     <main class="page">
 
-      <!-- ▸ 00 / IDENTITY ────────────────────────────────────────── -->
+      <!-- ▸ IDENTITY ─────────────────────────────────────────────── -->
       <section class="section" id="identity">
         <div class="section__head">
-          <span class="section__label">▸ 00 / Identity</span>
-          <span class="section__meta">v0.1 · stealth · may 2026</span>
+          <span class="section__label">Identity</span>
+          <span class="section__meta">v0.2 · stealth · jun 2026</span>
         </div>
 
         <span class="hero__tag">▸ doctrines public · capabilities building</span>
@@ -192,12 +202,34 @@
           navigating the transition into agentic operating models. The agent below is the
           primary interface.
         </p>
+
+        <div id="hero-glass"></div>
       </section>
 
-      <!-- ▸ 01 / AGENT ───────────────────────────────────────────── -->
+      <!-- ▸ THE INDEX — six books, ≤2-hop navigation ────────────── -->
+      <section class="section" id="index">
+        <div class="section__head">
+          <span class="section__label">The Index</span>
+          <span class="section__meta">/data/world-model.public.json</span>
+        </div>
+
+        <div id="model-index-body"></div>
+      </section>
+
+      <!-- ▸ THE PASS — lifecycle schematic, explicitly labelled ─── -->
+      <section class="section" id="pass">
+        <div class="section__head">
+          <span class="section__label">The Pass</span>
+          <span class="section__meta">lifecycle · schematic, not a live feed</span>
+        </div>
+
+        <div id="pass-body"></div>
+      </section>
+
+      <!-- ▸ THE AGENT ────────────────────────────────────────────── -->
       <section class="section" id="agent">
         <div class="section__head">
-          <span class="section__label">▸ 01 / Agent</span>
+          <span class="section__label">Agent</span>
           <span class="section__meta">base_echo:// · enc · session</span>
         </div>
 
@@ -236,95 +268,23 @@
           </form>
         </div>
         <p class="term__caption">
-          ▸ encrypted · base_echo://agent · transcripts route to intake
+          ▸ encrypted · base_echo://agent · queries the redacted model · contact capture optional
         </p>
       </section>
 
-      <!-- ▸ 02 / STATE ──────────────────────────────────────────── -->
-      <section class="section" id="state">
-        <div class="section__head">
-          <span class="section__label">▸ 02 / State</span>
-          <span class="section__meta">/data/org-state.json</span>
-        </div>
-
-        <div data-stats>
-          <!-- Populated by app.js — fallback shown if JS fails or JSON 404s -->
-          <div class="kv"><span class="kv__key">doctrines_published</span><span class="kv__dots"></span><span class="kv__value">04</span></div>
-          <div class="kv"><span class="kv__key">capabilities_defined</span><span class="kv__dots"></span><span class="kv__value">06</span></div>
-          <div class="kv"><span class="kv__key">phase</span><span class="kv__dots"></span><span class="kv__value">stealth</span></div>
-          <div class="kv"><span class="kv__key">last_revised</span><span class="kv__dots"></span><span class="kv__value">2026-05-19</span></div>
-        </div>
-      </section>
-
-      <!-- ▸ 03 / POSITION ───────────────────────────────────────── -->
-      <section class="section" id="position">
-        <div class="section__head">
-          <span class="section__label">▸ 03 / Position</span>
-          <span class="section__meta">three architectural decisions</span>
-        </div>
-
-        <div class="position">
-          <div class="position__row">
-            <span>capabilities</span>
-            <span>·</span>
-            <span>not features</span>
-          </div>
-          <div class="position__row">
-            <span>explicit world model</span>
-            <span>·</span>
-            <span>not management</span>
-          </div>
-          <div class="position__row">
-            <span>partners</span>
-            <span>·</span>
-            <span>not direct sales</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- ▸ 04 / READ ────────────────────────────────────────────── -->
-      <section class="section" id="read">
-        <div class="section__head">
-          <span class="section__label">▸ 04 / Read</span>
-          <span class="section__meta">/library — rendered on github</span>
-        </div>
-
-        <div>
-          <div class="kv">
-            <a class="kv__key" href="https://github.com/savvpro/savv.pro/blob/main/library/end-of-the-hierarchy.md" target="_blank" rel="noopener">01 · The End of the Hierarchy</a>
-            <span class="kv__dots"></span>
-            <span class="kv__value">v1.0</span>
-          </div>
-          <div class="kv">
-            <a class="kv__key" href="https://github.com/savvpro/savv.pro/blob/main/library/capabilities-over-features.md" target="_blank" rel="noopener">02 · Capabilities Over Features</a>
-            <span class="kv__dots"></span>
-            <span class="kv__value">v1.0</span>
-          </div>
-          <div class="kv">
-            <a class="kv__key" href="https://github.com/savvpro/savv.pro/blob/main/library/world-model-imperative.md" target="_blank" rel="noopener">03 · The World Model Imperative</a>
-            <span class="kv__dots"></span>
-            <span class="kv__value">v1.0</span>
-          </div>
-          <div class="kv">
-            <a class="kv__key" href="https://github.com/savvpro/savv.pro/blob/main/library/partner-doctrine.md" target="_blank" rel="noopener">04 · The Partner Doctrine</a>
-            <span class="kv__dots"></span>
-            <span class="kv__value">v1.0</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- ▸ 05 / JOIN ────────────────────────────────────────────── -->
+      <!-- ▸ JOIN — Book III surfaced as a gap, not a form gate ───── -->
       <section class="section" id="join">
         <div class="section__head">
-          <span class="section__label">▸ 05 / Join</span>
-          <span class="section__meta">contributor pathway · self-select</span>
+          <span class="section__label">Join</span>
+          <span class="section__meta">Book III · Resource Ledger</span>
         </div>
 
         <p class="hero__sub" style="margin-bottom: var(--s-5);">
           Remote-first. Resource-agnostic. Agent-first. No hierarchy. Read the page. If it
           still sounds right, start the conversation.
         </p>
-        <a href="./join.html" class="btn">→ read /join</a>
+        <div id="join-pathway"></div>
+        <a href="./join.html" class="btn" style="margin-top: var(--s-4);">→ read /join</a>
       </section>
 
       <!-- Closing -->
@@ -360,7 +320,7 @@
           <a href="https://x.com/savvpro" target="_blank" rel="noopener">x.com/savvpro</a>
           <a href="./llms.txt">/llms.txt</a>
           <a href="./agent-context.json">/agent-context.json</a>
-          <a href="./data/org-state.json">/data/org-state.json</a>
+          <a href="./data/world-model.public.json">/data/world-model.public.json</a>
         </div>
         <div class="footer__col">
           <h4>▸ Legal</h4>
@@ -380,5 +340,6 @@
 
     <script src="./config.js"></script>
     <script src="./js/app.js" defer></script>
+    <script src="./js/model.js" defer></script>
   </body>
 </html>

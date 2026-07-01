@@ -1,15 +1,32 @@
 {
-  "$comment": "Canonical single-fetch context for SavvPro. This file is the source of truth — see /llms.txt for human-readable orientation. No fabricated metrics: counts are facts (published doctrines, defined capabilities), not synthetic uptime or maturity scores.",
+  "$comment": "Canonical single-fetch context for SavvPro. This file is the source of truth — see /llms.txt for human-readable orientation. No fabricated metrics: counts are facts (published doctrines, defined capabilities), not synthetic uptime or maturity scores. The full redacted world model — six books, node-level maturity/confidence/falsifiers, the boundary-filter redaction tokens — is at /data/world-model.public.json; this file summarises it.",
   "name": "SavvPro",
   "tagline": "Intelligence backbone for the agentic era.",
   "url": "https://savv.pro",
   "phase": "stealth",
-  "version": "0.1",
-  "last_revised": "2026-05-19",
+  "version": "0.2",
+  "last_revised": "2026-06-29",
   "mission": "Build AI-native capabilities, platforms, and services for organizations navigating the transition into agentic operating models.",
   "state": {
     "doctrines_published": 4,
     "capabilities_defined": 6
+  },
+  "world_model": {
+    "description": "The website itself is a public, redacted render of SavvPro's own world model — structure visible, substance passed through a three-tier boundary filter.",
+    "endpoint": "https://savv.pro/data/world-model.public.json",
+    "books": [
+      { "numeral": "I", "name": "Constitution", "question": "Who are we; how do we decide?" },
+      { "numeral": "II", "name": "Capability Ledger", "question": "What can we do, and how well?" },
+      { "numeral": "III", "name": "Resource Ledger", "question": "Who or what holds the ability?" },
+      { "numeral": "IV", "name": "Live State", "question": "What's true now — in flight, costing what?" },
+      { "numeral": "V", "name": "Relationships", "question": "Whom do we serve, through whom?" },
+      { "numeral": "VI", "name": "Foresight", "question": "Where are we exposed; what's next?" }
+    ],
+    "redaction_tiers": {
+      "tier_1_signal": "Visible — shape, score, provenance, falsifiers.",
+      "tier_2_identity": "Hashed — stable opaque id, never the real name.",
+      "tier_3_commercial": "Boundary — never rendered, structurally absent."
+    }
   },
   "operating_model": {
     "principles": [
@@ -123,6 +140,7 @@
     "library_repo": "https://github.com/savvpro/savv.pro/tree/main/library",
     "llms_txt": "https://savv.pro/llms.txt",
     "robots": "https://savv.pro/robots.txt",
-    "sitemap": "https://savv.pro/sitemap.xml"
+    "sitemap": "https://savv.pro/sitemap.xml",
+    "world_model_public": "https://savv.pro/data/world-model.public.json"
   }
 }

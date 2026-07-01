@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SavvPro — Visual Acceptance Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* SavvPro tokens (from tokens.css) */
+  --paper:#f4eddb; --paper-warm:#ebe4ce; --surface:#faf3e2;
+  --ink:#0f1126; --ink-soft:rgba(15,17,38,.74); --muted:#4a5066;
+  --rule:rgba(15,17,38,.34); --rule-soft:rgba(15,17,38,.12);
+  --blue:#1d3edd; --blue-deep:#122a9a; --moss:#2a7a4a;
+  --term-bg:#0a0e0a; --term-green:#3fff6a; --term-green-dim:#1f7a3f;
+  --term-amber:#ffb400; --term-red:#ff5050;
+  --font-mono:"IBM Plex Mono","SF Mono","Courier New",monospace;
+  --font-sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --font-serif:"Instrument Serif","Times New Roman",Georgia,serif;
+  /* glass / redaction (from plan §5.1) */
+  --glass-fill:rgba(15,17,38,.06); --glass-rule:rgba(15,17,38,.28);
+  --glass-chip:var(--ink); --glass-chip-bg:rgba(15,17,38,.08);
+  --hash:var(--blue); --needs:var(--muted);
+  --band-track:rgba(15,17,38,.10); --band-fill:var(--blue); --band-range:rgba(29,62,221,.18);
+  /* QA chrome */
+  --ok:#2a7a4a; --no:#b3402f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+
+/* ── QA layout chrome (namespaced qa-) ───────────────────────── */
+.qa-top{border-bottom:2px solid var(--ink);padding:22px 28px;background:var(--surface)}
+.qa-top h1{font-family:var(--font-mono);font-size:18px;font-weight:600;margin:0;letter-spacing:.01em}
+.qa-top p{margin:4px 0 0;color:var(--muted);font-size:13px;font-family:var(--font-mono)}
+.qa-wrap{display:grid;grid-template-columns:230px minmax(0,1fr);gap:0;max-width:1180px;margin:0 auto}
+.qa-nav{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:26px 18px;border-right:1px solid var(--rule-soft);font-family:var(--font-mono);font-size:12.5px}
+.qa-nav .grp{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;margin:18px 0 8px}
+.qa-nav a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 8px;border-left:2px solid transparent;border-radius:0 4px 4px 0}
+.qa-nav a:hover{background:var(--paper-warm);color:var(--ink)}
+.qa-nav a.active{border-left-color:var(--blue);color:var(--ink);background:var(--paper-warm)}
+.qa-nav a .ph{color:var(--blue);margin-right:7px;font-weight:600}
+.qa-main{padding:30px 36px 120px;min-width:0}
+
+.legend{background:var(--surface);border:1px solid var(--rule-soft);border-radius:8px;padding:16px 20px;margin-bottom:30px;font-size:13.5px}
+.legend h3{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin:0 0 10px;color:var(--muted)}
+.legend .row{display:flex;gap:10px;margin:6px 0;align-items:baseline}
+.legend .pill{font-family:var(--font-mono);font-size:11px;padding:2px 7px;border-radius:4px;white-space:nowrap}
+.pill.golden{background:var(--ink);color:var(--paper)}
+.pill.eye{background:var(--blue);color:#fff}
+.pill.state{background:var(--paper-warm);color:var(--ink);border:1px solid var(--rule)}
+
+/* phase blocks */
+.phase{border-top:2px solid var(--ink);padding-top:22px;margin-top:46px;scroll-margin-top:14px}
+.phase:first-of-type{margin-top:0}
+.phase__tag{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;color:var(--blue);font-weight:600}
+.phase__title{font-family:var(--font-mono);font-size:23px;font-weight:600;margin:6px 0 2px;letter-spacing:-.01em}
+.phase__exp{font-family:var(--font-serif);font-size:21px;font-style:italic;color:var(--ink);margin:8px 0 4px;line-height:1.3}
+.phase__exp b{font-style:normal;font-weight:400;background:linear-gradient(transparent 62%, rgba(29,62,221,.16) 0)}
+.sub{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:26px 0 10px;display:flex;align-items:center;gap:10px}
+.sub::after{content:"";flex:1;height:1px;background:var(--rule-soft)}
+
+/* golden frame — the target render lives inside this */
+.gf{border:1px solid var(--rule);border-radius:8px;background:var(--paper);overflow:hidden;position:relative}
+.gf__bar{display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--surface);border-bottom:1px solid var(--rule-soft);font-family:var(--font-mono);font-size:10.5px;color:var(--muted);letter-spacing:.06em}
+.gf__bar b{color:var(--ink);font-weight:600}
+.gf__body{padding:22px 24px}
+.gf--unchanged .gf__body{display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--font-mono);font-size:13px;min-height:90px;text-align:center}
+
+/* checklist */
+.dod{margin:14px 0 6px;padding:0;list-style:none}
+.dod li{display:flex;gap:10px;align-items:flex-start;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:14px}
+.dod li:hover{background:var(--paper-warm)}
+.dod .box{flex:0 0 auto;width:16px;height:16px;border:1.5px solid var(--rule);border-radius:3px;margin-top:3px;position:relative;background:var(--paper)}
+.dod li.done .box{background:var(--moss);border-color:var(--moss)}
+.dod li.done .box::after{content:"✓";position:absolute;inset:0;color:#fff;font-size:11px;line-height:13px;text-align:center;font-weight:700}
+.dod li.done span{color:var(--muted);text-decoration:line-through}
+.dod .fail{color:var(--no);font-weight:600}
+
+.states{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.states .s{font-family:var(--font-mono);font-size:11px;padding:4px 9px;border:1px solid var(--rule);border-radius:5px;background:var(--surface)}
+.states .s b{color:var(--blue)}
+
+.callouts{margin:12px 0 4px;font-size:13px;color:var(--ink-soft)}
+.callouts .c{display:flex;gap:9px;margin:5px 0}
+.callouts .n{flex:0 0 auto;width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;font-family:var(--font-mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:1px}
+
+/* ─────────────────────────────────────────────────────────────
+   GOLDEN-STATE COMPONENTS (namespaced gf*) — faithful targets
+   ───────────────────────────────────────────────────────────── */
+.gf-hops{font-family:var(--font-mono);font-size:11px;color:var(--muted);display:flex;gap:8px;margin-bottom:14px}
+.gf-hops b{color:var(--blue)}
+.gf-hops .on{color:var(--ink);font-weight:600}
+
+/* book index rows */
+.gf-book{display:grid;grid-template-columns:34px 1fr auto;gap:14px;align-items:baseline;padding:13px 8px;border-bottom:1px solid var(--rule-soft);cursor:default}
+.gf-book:hover{background:var(--paper-warm)}
+.gf-book .num{font-family:var(--font-mono);color:var(--blue);font-weight:600;font-size:15px}
+.gf-book .nm{font-family:var(--font-mono);font-weight:600;font-size:15px}
+.gf-book .q{display:block;color:var(--muted);font-size:13px;font-family:var(--font-sans);margin-top:2px}
+.gf-book .ct{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+
+/* node row */
+.gf-node{display:grid;grid-template-columns:1fr 120px 150px;gap:16px;align-items:center;padding:11px 8px;border-bottom:1px solid var(--rule-soft)}
+.gf-node .lbl{font-family:var(--font-mono);font-size:13.5px}
+.gf-node .lbl small{display:block;color:var(--muted);font-size:11px;font-family:var(--font-sans)}
+.gf-bar{height:7px;background:var(--band-track);border-radius:0;position:relative;overflow:hidden}
+.gf-bar i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);display:block}
+
+/* redaction tokens */
+.tok{font-family:var(--font-mono);font-size:11.5px;display:inline-flex;align-items:center;gap:6px;position:relative}
+.tok .reason{position:absolute;left:0;top:130%;white-space:nowrap;background:var(--ink);color:var(--paper);padding:5px 9px;border-radius:5px;font-size:10.5px;opacity:0;pointer-events:none;transition:opacity 180ms;z-index:5}
+.tok:hover .reason,.tok:focus-within .reason{opacity:1}
+.tok--comp{background:var(--glass-fill);border:1px solid var(--glass-rule);padding:3px 8px;border-radius:4px;color:var(--glass-chip)}
+.tok--comp::before{content:"▨";opacity:.55}
+.tok--hash{color:var(--hash);font-weight:600;letter-spacing:.04em}
+.tok--bound{color:var(--muted);border:1px dashed var(--glass-rule);padding:3px 8px;border-radius:4px;background:repeating-linear-gradient(45deg,transparent,transparent 5px,var(--rule-soft) 5px,var(--rule-soft) 6px)}
+.tok--needs{color:var(--needs);border:1px dotted var(--needs);padding:3px 8px;border-radius:4px;opacity:.85}
+
+/* hero glass slice */
+.gf-hero{display:grid;gap:14px}
+.gf-hero .lede{font-family:var(--font-serif);font-size:26px;line-height:1.25;font-style:italic;max-width:34ch}
+.gf-hero .note{font-family:var(--font-mono);font-size:11.5px;color:var(--muted);max-width:52ch;line-height:1.5}
+.gf-hero .cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:4px}
+.gf-cell{border:1px solid var(--rule-soft);border-radius:6px;padding:12px 14px;background:var(--surface)}
+.gf-cell .ck{font-family:var(--font-mono);font-size:12px;font-weight:600;margin-bottom:8px}
+.gf-cell .cv{display:flex;align-items:center;gap:10px}
+
+/* confidence band */
+.gf-cb{position:relative;height:10px;margin:3px 0}
+.gf-cb .range{position:absolute;top:0;bottom:0;background:var(--band-range);border-radius:2px}
+.gf-cb .track{position:absolute;top:4px;left:0;right:0;height:2px;background:var(--band-track)}
+.gf-cb .mark{position:absolute;top:1px;width:2px;height:8px;background:var(--band-fill)}
+
+/* node record panel */
+.gf-rec{border:1px solid var(--rule);border-radius:8px;background:var(--surface);padding:18px 20px;max-width:520px}
+.gf-rec .id{font-family:var(--font-mono);font-size:11px;color:var(--blue);letter-spacing:.06em}
+.gf-rec .op{font-family:var(--font-mono);font-size:14px;font-weight:500;margin:6px 0 14px}
+.gf-rec dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:0;font-size:13px}
+.gf-rec dt{font-family:var(--font-mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding-top:2px}
+.gf-rec dd{margin:0}
+.gf-rec .fals{font-style:italic;color:var(--ink-soft)}
+.gf-rec .links a{font-family:var(--font-mono);font-size:12px}
+
+/* compile-down */
+.gf-compile{display:flex;flex-direction:column;gap:6px;cursor:pointer;max-width:46ch}
+.gf-compile .pub{font-family:var(--font-serif);font-size:21px;font-style:italic;transition:opacity 320ms}
+.gf-compile .op{font-family:var(--font-mono);font-size:13.5px;color:var(--ink-soft);transition:opacity 320ms;height:0;opacity:0;overflow:hidden}
+.gf-compile.is-op .pub{opacity:.32}
+.gf-compile.is-op .op{height:auto;opacity:1}
+.gf-toggle{font-family:var(--font-mono);font-size:11px;background:var(--ink);color:var(--paper);border:0;padding:6px 12px;border-radius:5px;cursor:pointer;margin-top:8px}
+
+/* the pass */
+.gf-pass{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-family:var(--font-mono);font-size:12px}
+.gf-pass .st{padding:7px 11px;border:1px solid var(--rule);border-radius:5px;background:var(--surface);position:relative}
+.gf-pass .st.lit{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+.gf-pass .arr{color:var(--muted)}
+.gf-ticket{margin-top:14px;border:1px solid var(--rule-soft);border-radius:6px;padding:10px 12px;background:var(--paper);font-family:var(--font-mono);font-size:11.5px;display:flex;gap:18px;flex-wrap:wrap}
+.gf-ticket .role b{color:var(--blue)}
+.gf-schem{margin-top:10px;font-family:var(--font-mono);font-size:11px;color:var(--no);display:flex;align-items:center;gap:7px}
+.gf-schem::before{content:"▸";}
+
+/* terminal */
+.gf-term{background:var(--term-bg);border-radius:8px;padding:0;overflow:hidden;font-family:var(--font-mono);font-size:12.5px}
+.gf-term .head{display:flex;gap:7px;align-items:center;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.gf-term .dot{width:10px;height:10px;border-radius:50%}
+.gf-term .d1{background:var(--term-red)}.gf-term .d2{background:var(--term-amber)}.gf-term .d3{background:var(--term-green)}
+.gf-term .hm{color:rgba(255,255,255,.4);font-size:10.5px;margin-left:6px}
+.gf-term .body{padding:14px 16px;color:var(--term-green);line-height:1.7}
+.gf-term .u{color:#cfe8d6}
+.gf-term .u::before{content:"savv@agent:~$ ";color:var(--term-green-dim)}
+.gf-term .rec{border:1px solid rgba(63,255,106,.25);border-radius:6px;padding:10px 12px;margin:7px 0;color:#bfe}
+.gf-term .rec .k{color:var(--term-green-dim)}
+.gf-term .refuse{color:var(--term-amber)}
+.gf-term .barx{color:var(--term-green-dim)}
+
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){
+  .qa-wrap{grid-template-columns:1fr}
+  .qa-nav{display:none}
+  .gf-node{grid-template-columns:1fr;gap:6px}
+  .mini{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="qa-top">
+  <h1>▸ SavvPro · Visual Acceptance Suite</h1>
+  <p>golden states per phase · open beside the build · compare by eye</p>
+</div>
+
+<div class="qa-wrap">
+  <nav class="qa-nav" id="nav">
+    <div class="grp">Phases</div>
+    <a href="#p0"><span class="ph">0</span>Foundations</a>
+    <a href="#p1"><span class="ph">1</span>The Index</a>
+    <a href="#p2"><span class="ph">2</span>The Glass</a>
+    <a href="#p3"><span class="ph">3</span>Node Record</a>
+    <a href="#p4"><span class="ph">4</span>Compile-down</a>
+    <a href="#p5"><span class="ph">5</span>The Pass</a>
+    <a href="#p6"><span class="ph">6</span>The Agent</a>
+    <a href="#p7"><span class="ph">7</span>Cohesion</a>
+    <div class="grp">Reference</div>
+    <a href="#tokens">Redaction tokens</a>
+  </nav>
+
+  <main class="qa-main">
+
+    <div class="legend">
+      <h3>How to read this suite</h3>
+      <div class="row"><span class="pill golden">GOLDEN</span><span>The target render, in real tokens. The build should look like this — not pixel-identical, but the same experience and hierarchy.</span></div>
+      <div class="row"><span class="pill eye">CHECK</span><span>Eyeball definition-of-done. Click each to mark it (resets on reload). All checked = phase looks right.</span></div>
+      <div class="row"><span class="pill state">STATES</span><span>The variants to verify beyond the happy path — empty, reduced-motion, mobile.</span></div>
+      <p style="margin:12px 0 0;color:var(--muted);font-size:12.5px;font-family:var(--font-mono)">Pair with the functional acceptance gates in the build plan. These cover <b>what it looks like</b>; those cover <b>whether it works</b>.</p>
+    </div>
+
+    <!-- PHASE 0 ───────────────────────────────────────────── -->
+    <section class="phase" id="p0">
+      <div class="phase__tag">PHASE 0 · FOUNDATIONS</div>
+      <div class="phase__title">Foundations</div>
+      <p class="phase__exp">Nothing visible changes — <b>the live site looks identical</b> — but the artifact every later frame derives from now exists.</p>
+
+      <div class="sub">Golden state · the data, not the page</div>
+      <div class="gf gf--unchanged">
+        <div class="gf__bar"><b>savv.pro</b> · / · live site</div>
+        <div class="gf__body">↻ visually identical to today — this phase ships no UI</div>
+      </div>
+      <div class="gf" style="margin-top:14px">
+        <div class="gf__bar"><b>data/world-model.public.json</b> · the linchpin · a single node, redacted at authoring time</div>
+        <div class="gf__body" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);white-space:pre;overflow-x:auto;line-height:1.55">{
+  "id": "CAP-01", "book": "BOOK-II", "type": "capability",
+  "label": "Agentic architecture",
+  "operational": "C01 · agentic_architecture",
+  "maturity": { "value": 0.6, "of": 1 },
+  "confidence": { "value": 0.55, "band": 0.25 },
+  "falsifier": "If repeated outputs don't raise a measured score, it's project work.",
+  "provenance": "derived",
+  "contents": { "status": "compartmentalised", "tier": 2,
+                "reason": "Capability internals are proprietary IP." }
+}</div>
+      </div>
+      <div class="callouts">
+        <div class="c"><span class="n">!</span><span><b>The real test is a read, not a look.</b> Open the JSON and confirm a human boundary-filter pass finds zero currency figures, zero real client names, and a <code>falsifier</code> on every node. If you can see substance you shouldn't, Phase 0 failed regardless of how the site looks.</span></div>
+      </div>
+      <ul class="dod">
+        <li><span class="box"></span><span>Live site is pixel-unchanged from before (no accidental UI leak).</span></li>
+        <li><span class="box"></span><span>JSON renders/validates; every node has <code>id</code>, <code>book</code>, <code>contents</code>, and a <code>falsifier</code>.</span></li>
+        <li><span class="box"></span><span><span class="fail">FAIL if</span> any real name, currency, margin, or headcount-as-cost appears anywhere in the file.</span></li>
+      </ul>
+    </section>
+
+    <!-- PHASE 1 ───────────────────────────────────────────── -->
+    <section class="phase" id="p1">
+      <div class="phase__tag">PHASE 1 · THE INDEX</div>
+      <div class="phase__title">The Index (the spine)</div>
+      <p class="phase__exp">Six books, legible at a glance, <b>traversable in two clicks or fewer</b> — and the page tells you which hop you're on.</p>
+
+      <div class="sub">Golden state · index + one book expanded (no glass yet)</div>
+      <div class="gf">
+        <div class="gf__bar"><b>savv.pro</b> · / · the index</div>
+        <div class="gf__body">
+          <div class="gf-hops"><span class="on">hop 0 · index</span><b>→</b><span>hop 1 · book</span><b>→</b><span>hop 2 · record</span></div>
+          <div class="gf-book"><span class="num">I</span><span><span class="nm">Constitution</span><span class="q">Who are we; how do we decide?</span></span><span class="ct">4 nodes</span></div>
+          <div class="gf-book"><span class="num">II</span><span><span class="nm">Capability Ledger</span><span class="q">What can we do, and how well? — the IP</span></span><span class="ct">12 nodes</span></div>
+          <div class="gf-book" style="background:var(--paper-warm)"><span class="num">III</span><span><span class="nm">Resource Ledger ▾</span><span class="q">Who or what holds the ability?</span></span><span class="ct">expanded</span></div>
+          <div style="padding:4px 0 4px 48px;background:var(--paper-warm);border-bottom:1px solid var(--rule-soft)">
+            <div class="gf-node" style="border:0;padding:7px 8px"><span class="lbl">Individual contributor<small>owns the work</small></span><span class="gf-bar"><i style="width:70%"></i></span><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">role · authored</span></div>
+            <div class="gf-node" style="border:0;padding:7px 8px"><span class="lbl">Directly-responsible individual<small>owns an outcome</small></span><span class="gf-bar"><i style="width:55%"></i></span><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">role · authored</span></div>
+          </div>
+          <div class="gf-book"><span class="num">IV</span><span><span class="nm">Live State</span><span class="q">What's true now — in flight, costing what?</span></span><span class="ct">needs_data</span></div>
+          <div class="gf-book"><span class="num">V</span><span><span class="nm">Relationships</span><span class="q">Whom do we serve, through whom?</span></span><span class="ct">3 nodes</span></div>
+          <div class="gf-book" style="border-bottom:0"><span class="num">VI</span><span><span class="nm">Foresight</span><span class="q">Where are we exposed; what's next?</span></span><span class="ct">2 nodes</span></div>
+        </div>
+      </div>
+      <div class="callouts">
+        <div class="c"><span class="n">1</span><span>Hop indicator is present and shows depth. At the index you're on hop 0.</span></div>
+        <div class="c"><span class="n">2</span><span>Numerals are <b>Roman I–VI</b> (a real taxonomy), not decorative 00/01/02 counters.</span></div>
+        <div class="c"><span class="n">3</span><span>Expanding a book reveals its node rows in place — it does not navigate away.</span></div>
+      </div>
+      <div class="states">
+        <span class="s"><b>empty:</b> Book IV reads <code>needs_data</code>, not a fake number</span>
+        <span class="s"><b>keyboard:</b> books focusable, Enter/Space expands, focus ring visible</span>
+        <span class="s"><b>mobile:</b> rows stack, no horizontal scroll</span>
+        <span class="s"><b>fail:</b> JSON 404 → readable fallback, never a blank page</span>
+      </div>
+      <ul class="dod">
+        <li><span class="box"></span><span>All six books render from the JSON; counts match.</span></li>
+        <li><span class="box"></span><span>Any node reachable in ≤2 clicks; hop indicator reflects depth.</span></li>
+        <li><span class="box"></span><span>Doctrines, the three decisions, and stats have been re-slotted into Books I and IV (no orphan legacy sections).</span></li>
+      </ul>
+    </section>
+
+    <!-- PHASE 2 ───────────────────────────────────────────── -->
+    <section class="phase" id="p2">
+      <div class="phase__tag">PHASE 2 · THE GLASS</div>
+      <div class="phase__title">The boundary filter (the signature)</div>
+      <p class="phase__exp">You can see the chef is rigorous and <b>cannot copy the recipe</b> — and every blank tells you why it's blank.</p>
+
+      <div class="sub">Golden state · hero, redacted slice above the fold</div>
+      <div class="gf">
+        <div class="gf__bar"><b>savv.pro</b> · / · hero</div>
+        <div class="gf__body">
+          <div class="gf-hero">
+            <div class="lede">This is the firm's own model, shown through its boundary filter.</div>
+            <div class="note">Structure is the public register. Contents are compartmentalised by design — the same filter that keeps SavvPro invisible at the partner layer.</div>
+            <div class="cells">
+              <div class="gf-cell">
+                <div class="ck">Agentic architecture</div>
+                <div class="cv"><span class="gf-bar" style="flex:1"><i style="width:60%"></i></span>
+                  <span class="tok tok--comp" tabindex="0">compartmentalised<span class="reason">Tier-2 · capability internals are proprietary IP</span></span></div>
+              </div>
+              <div class="gf-cell">
+                <div class="ck">Partner relationship</div>
+                <div class="cv"><span class="tok tok--hash" tabindex="0">CLIENT-7a3f<span class="reason">Tier-2 · hashed, stable per entity — not the real name</span></span></div>
+              </div>
+              <div class="gf-cell">
+                <div class="ck">Engagement value</div>
+                <div class="cv"><span class="tok tok--bound" tabindex="0">[boundary]<span class="reason">Tier-3 · commercials never cross the partner line</span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callouts">
+        <div class="c"><span class="n">★</span><span><b>This is the one memorable thing.</b> Hover or focus any token (try it above) — the reason resolves. If a redacted cell stays silent or just reads "hidden", it's wrong: emptiness must state its cause in the model's voice.</span></div>
+      </div>
+      <div class="states">
+        <span class="s"><b>colour-blind:</b> the four states differ by shape/text too, not colour alone</span>
+        <span class="s"><b>reduced-motion:</b> reason still reachable, no fade</span>
+        <span class="s"><b>view-source:</b> redacted cells contain no real substance in the DOM</span>
+      </div>
+      <ul class="dod">
+        <li><span class="box"></span><span>Hero shows ≥1 <code>compartmentalised</code> and ≥1 <code>boundary</code> cell above the fold, desktop and mobile.</span></li>
+        <li><span class="box"></span><span>All four token states are visually distinct and self-explaining on hover <i>and</i> focus.</span></li>
+        <li><span class="box"></span><span>Reason text is announced to screen readers (not tooltip-only).</span></li>
+        <li><span class="box"></span><span>Only the glass carries boldness; the rest of the hero is quiet.</span></li>
+      </ul>
+    </section>
+
+    <!-- PHASE 3 ───────────────────────────────────────────── -->
+    <section class="phase" id="p3">
+      <div class="phase__tag">PHASE 3 · NODE RECORD</div>
+      <div class="phase__title">Node record &amp; ≤2-hop traversal</div>
+      <p class="phase__exp">Rigor becomes inspectable — and the <b>wide confidence band reads as honesty</b>, not weakness.</p>
+
+      <div class="sub">Golden state · record panel (hop 2)</div>
+      <div class="gf">
+        <div class="gf__bar"><b>savv.pro</b> · record panel · <span style="color:var(--blue)">hop 2</span></div>
+        <div class="gf__body">
+          <div class="mini">
+            <div class="gf-rec">
+              <div class="id">CAP-01 · BOOK-II · capability</div>
+              <div class="op">C01 · agentic_architecture · maturity ▓▓▓░ · conf 0.6 ±0.25</div>
+              <dl>
+                <dt>confidence</dt><dd><div class="gf-cb" style="width:200px"><div class="range" style="left:35%;width:50%"></div><div class="track"></div><div class="mark" style="left:60%"></div></div><span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">0.6 ± 0.25 · calibrating</span></dd>
+                <dt>falsifier</dt><dd class="fals">If repeated outputs don't raise a measured score, it's project work, not capability.</dd>
+                <dt>provenance</dt><dd>derived</dd>
+                <dt>contents</dt><dd><span class="tok tok--comp" tabindex="0">compartmentalised<span class="reason">Tier-2 · proprietary IP</span></span></dd>
+                <dt>links</dt><dd class="links"><a href="#p3">RISK-001 ↗</a></dd>
+              </dl>
+            </div>
+            <div class="gf-rec" style="background:var(--paper)">
+              <div class="id">SVC-04 · BOOK-II · service</div>
+              <div class="op">S04 · &lt;service&gt; · maturity ░░░░ · conf —</div>
+              <dl>
+                <dt>confidence</dt><dd><div class="gf-cb" style="width:200px"><div class="range" style="left:8%;width:84%"></div><div class="track"></div><div class="mark" style="left:30%"></div></div><span style="font-family:var(--font-mono);font-size:11px;color:var(--needs)">band near-full · <b>needs_data</b></span></dd>
+                <dt>falsifier</dt><dd class="fals">—</dd>
+                <dt>provenance</dt><dd>semi-derived</dd>
+                <dt>contents</dt><dd><span class="tok tok--needs" tabindex="0">needs_data<span class="reason">awaiting real signal · widens band, not lowers score</span></span></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callouts">
+        <div class="c"><span class="n">1</span><span>Left = calibrating (narrow-ish band). Right = <code>needs_data</code> (band near-full-width). The widening is the point: sparseness reported as low confidence.</span></div>
+        <div class="c"><span class="n">2</span><span>A related-node link (RISK-001) replaces the panel — it doesn't deepen past hop 2.</span></div>
+      </div>
+      <div class="states">
+        <span class="s"><b>empty fields:</b> degrade to "—", never <code>undefined</code></span>
+        <span class="s"><b>focus-trap:</b> panel traps focus; Esc closes; focus returns to trigger</span>
+        <span class="s"><b>mobile:</b> panel full-width, dl stacks</span>
+      </div>
+      <ul class="dod">
+        <li><span class="box"></span><span>Every node opens a record with id, operational line, band, falsifier, provenance, contents, links.</span></li>
+        <li><span class="box"></span><span>Low-confidence / needs_data bands are visibly wider than calibrated ones.</span></li>
+        <li><span class="box"></span><span>Traversal never exceeds 2 hops; a link swaps the panel rather than stacking.</span></li>
+      </ul>
+    </section>
+
+    <!-- PHASE 4 ───────────────────────────────────────────── -->
+    <section class="phase" id="p4">
+      <div class="phase__tag">PHASE 4 · COMPILE-DOWN</div>
+      <div class="phase__title">Two registers &amp; compile-down</div>
+      <p class="phase__exp">You watch a claim <b>compile from rhetoric into evidence</b> — serif assertion resolving to its machine-legible backing.</p>
+
+      <div class="sub">Golden state · click the line to compile it</div>
+      <div class="gf">
+        <div class="gf__bar"><b>savv.pro</b> · compile-down · public ⇄ operational</div>
+        <div class="gf__body">
+          <div class="gf-compile" id="compileDemo">
+            <div class="pub">Durable value is repeatable, measured capability — not output.</div>
+            <div class="op">CAP · class=capability · measured=true · unit=Skills→Capabilities→Services · falsifier=present</div>
+          </div>
+          <button class="gf-toggle" id="compileBtn">▸ compile ↓</button>
+        </div>
+      </div>
+      <div class="callouts">
+        <div class="c"><span class="n">1</span><span>Public register = serif/italic. Operational register = mono. The resolve is smooth and both end-states are fully readable.</span></div>
+        <div class="c"><span class="n">2</span><span>Apply sparingly — hero + doctrines, not every line. A page where everything twitches fails the FMD gate.</span></div>
+      </div>
+      <div class="states">
+        <span class="s"><b>reduced-motion:</b> both registers shown stacked, no animation</span>
+        <span class="s"><b>no reflow:</b> space reserved so compile doesn't shift layout</span>
+        <span class="s"><b>toggle:</b> a region-wide public⇄operational switch exists and persists in-session</span>
+      </div>
+      <ul class="dod">
+        <li><span class="box"></span><span>Compile resolves smoothly; both states legible.</span></li>
+        <li><span class="box"></span><span>Register toggle flips all applicable regions at once.</span></li>
+        <li><span class="box"></span><span>No layout jank during the transition.</span></li>
+      </ul>
+    </section>
+
+    <!-- PHASE 5 ───────────────────────────────────────────── -->
+    <section class="phase" id="p5">
+      <div class="phase__tag">PHASE 5 · THE PASS</div>
+      <div class="phase__title">The Pass (lifecycle, schematic)</div>
+      <p class="phase__exp">The hands are moving — work flows through the loop — and it is <b>honestly labelled a schematic</b>, never dressed as a live feed.</p>
+
+      <div class="sub">Golden state · the lifecycle rail</div>
+      <div class="gf">
+        <div class="gf__bar"><b>savv.pro</b> · the pass · ambient loop</div>
+        <div class="gf__body">
+          <div class="gf-pass">
+            <span class="st">Engage</span><span class="arr">▶</span>
+            <span class="st">Offer</span><span class="arr">▶</span>
+            <span class="st">Originate</span><span class="arr">▶</span>
+            <span class="st lit" id="litStage">Deliver</span><span class="arr">▶</span>
+            <span class="st">Run &amp; Grow</span><span class="arr">▶</span>
+            <span class="st">Compound</span>
+          </div>
+          <div class="gf-ticket">
+            <span>ENG-•••</span>
+            <span class="role">finds: <b>actor-a</b></span>
+            <span class="role">verifies: <b>actor-b</b></span>
+            <span class="role">fixes: <b>actor-c</b></span>
+          </div>
+          <div class="gf-schem">schematic of the loop — the live feed is compartmentalised</div>
+        </div>
+      </div>
+      <div class="callouts">
+        <div class="c"><span class="n">★</span><span><b>The label is the test.</b> The "schematic … compartmentalised" caption must be unmissable. Without it, ambient motion implies fake production data and breaks evidence-over-assertion.</span></div>
+        <div class="c"><span class="n">2</span><span>find ≠ verify ≠ fix renders as three distinct actors on every ticket.</span></div>
+      </div>
+      <div class="states">
+        <span class="s"><b>reduced-motion:</b> static loop, shape still legible</span>
+        <span class="s"><b>backgrounded tab:</b> animation pauses (no runaway timer)</span>
+      </div>
+      <ul class="dod">
+        <li><span class="box"></span><span>Schematic label present and unmissable; nothing implies a live feed.</span></li>
+        <li><span class="box"></span><span>Six stages + find≠verify≠fix read correctly.</span></li>
+        <li><span class="box"></span><span>Reduced-motion and tab-hidden both handled.</span></li>
+      </ul>
+    </section>
+
+    <!-- PHASE 6 ───────────────────────────────────────────── -->
+    <section class="phase" id="p6">
+      <div class="phase__tag">PHASE 6 · THE AGENT</div>
+      <div class="phase__title">The agent, reframed</div>
+      <p class="phase__exp">Ask what they do → get a <b>redacted node, not a paragraph</b>. Ask commercials → get a precise refusal. No contact gate in the way.</p>
+
+      <div class="sub">Golden state · query returns a record</div>
+      <div class="gf">
+        <div class="gf__bar"><b>savv.pro</b> · agent · query window</div>
+        <div class="gf__body">
+          <div class="gf-term">
+            <div class="head"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="hm">agent · savv.pro · query the model</span></div>
+            <div class="body">
+              <div class="u">what can SavvPro do?</div>
+              <div class="rec">▸ CAP-01 · agentic_architecture<br>
+                <span class="k">maturity</span> ▓▓▓░ 0.6 &nbsp; <span class="k">conf</span> 0.6 ±0.25<br>
+                <span class="k">falsifier</span> outputs that don't raise a score = project work<br>
+                <span class="k">contents</span> compartmentalised · Tier-2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub">Golden state · principled refusal</div>
+      <div class="gf">
+        <div class="gf__bar"><b>savv.pro</b> · agent · boundary held</div>
+        <div class="gf__body">
+          <div class="gf-term">
+            <div class="head"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="hm">agent · savv.pro</span></div>
+            <div class="body">
+              <div class="u">what's your pricing for the partner deals?</div>
+              <div class="refuse">▸ boundary · Tier-3 · commercials never cross the partner line.</div>
+              <div class="barx" style="margin-top:6px">the model can show capability shape and provenance — not commercials.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callouts">
+        <div class="c"><span class="n">1</span><span>The answer is a <b>record block</b>, not prose. The refusal names the tier and reason — a visible, principled <code>[boundary]</code>.</span></div>
+        <div class="c"><span class="n">2</span><span>The model is fully usable <b>without</b> completing intake; contact capture is offered only after intent.</span></div>
+      </div>
+      <div class="states">
+        <span class="s"><b>no live brain:</b> local fallback still answers from the JSON</span>
+        <span class="s"><b>no regression:</b> ⌘K, mobile menu intact</span>
+        <span class="s"><b>intake:</b> optional, never blocks the first query</span>
+      </div>
+      <ul class="dod">
+        <li><span class="box"></span><span>"What can SavvPro do?" returns a node record, not a paragraph.</span></li>
+        <li><span class="box"></span><span>A commercial/identity question yields a precise, principled refusal.</span></li>
+        <li><span class="box"></span><span>Model usable with intake skipped; BaseEcho-offline fallback works.</span></li>
+      </ul>
+    </section>
+
+    <!-- PHASE 7 ───────────────────────────────────────────── -->
+    <section class="phase" id="p7">
+      <div class="phase__tag">PHASE 7 · COHESION</div>
+      <div class="phase__title">Cohesion, machine layer, launch</div>
+      <p class="phase__exp">The whole thing reads as one disciplined object — <b>accessible, consistent, one accessory cut</b> — and the machine layer matches the model.</p>
+
+      <div class="sub">Golden state · the quality floor, visible</div>
+      <div class="gf">
+        <div class="gf__bar"><b>savv.pro</b> · launch checks</div>
+        <div class="gf__body">
+          <div class="mini">
+            <div style="border:1px solid var(--rule-soft);border-radius:6px;padding:12px;background:var(--surface)">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:8px">FOCUS RING — visible on every interactive element</div>
+              <button style="font-family:var(--font-mono);font-size:12px;padding:6px 12px;border:1px solid var(--rule);background:var(--paper);border-radius:5px;outline:2px solid var(--blue);outline-offset:2px">focused control</button>
+            </div>
+            <div style="border:1px solid var(--rule-soft);border-radius:6px;padding:12px;background:var(--surface)">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:8px">REDUCED-MOTION — every transition stilled</div>
+              <div style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)">glass reasons, compile, pass → all readable static</div>
+            </div>
+          </div>
+          <div style="margin-top:12px;border:1px solid var(--rule-soft);border-radius:6px;padding:12px;background:var(--surface);font-family:var(--font-mono);font-size:11.5px;color:var(--ink-soft)">
+            machine layer in sync → /llms.txt · /agent-context.json · structured-data describe the <b>six-book model</b>, and /data/world-model.public.json is in the signal links + sitemap
+          </div>
+        </div>
+      </div>
+      <div class="callouts">
+        <div class="c"><span class="n">★</span><span><b>The Chanel pass.</b> Walk the whole site and remove one accessory — an animation, a label, a device that doesn't make the model more legible. Note what you cut. If nothing could go, you under-built the discipline.</span></div>
+      </div>
+      <div class="states">
+        <span class="s"><b>keyboard-only:</b> full walkthrough succeeds end to end</span>
+        <span class="s"><b>console:</b> no errors; JSON 404 degrades gracefully</span>
+        <span class="s"><b>security:</b> BaseEcho token allowlist = savv.pro only</span>
+      </div>
+      <ul class="dod">
+        <li><span class="box"></span><span>llms.txt / agent-context.json / structured data describe the current model.</span></li>
+        <li><span class="box"></span><span>One documented "cut an accessory" pass completed.</span></li>
+        <li><span class="box"></span><span>Keyboard walkthrough + reduced-motion honoured everywhere; no console errors.</span></li>
+      </ul>
+    </section>
+
+    <!-- TOKEN REFERENCE ────────────────────────────────────── -->
+    <section class="phase" id="tokens">
+      <div class="phase__tag">REFERENCE</div>
+      <div class="phase__title">The four states of the glass</div>
+      <p class="phase__exp">The vocabulary the whole site speaks. <b>Hover or focus each</b> — every one states its own cause.</p>
+      <div class="gf">
+        <div class="gf__bar"><b>redaction tokens</b> · self-explaining, never colour-only</div>
+        <div class="gf__body" style="display:flex;flex-wrap:wrap;gap:26px;align-items:center">
+          <span class="tok tok--comp" tabindex="0">compartmentalised<span class="reason">substance exists, withheld by tier</span></span>
+          <span class="tok tok--hash" tabindex="0">CLIENT-7a3f<span class="reason">identity · hashed, stable per entity</span></span>
+          <span class="tok tok--bound" tabindex="0">[boundary]<span class="reason">commercials never render</span></span>
+          <span class="tok tok--needs" tabindex="0">needs_data<span class="reason">deliberately empty · awaiting real signal</span></span>
+        </div>
+      </div>
+      <p style="font-family:var(--font-mono);font-size:11.5px;color:var(--muted);margin-top:12px">compartmentalised = filled shape + chip · hashed = blue mono id · boundary = hatched absence · needs_data = dotted, wide band</p>
+    </section>
+
+    <p style="font-family:var(--font-mono);font-size:11px;color:var(--muted);border-top:2px solid var(--ink);margin-top:50px;padding-top:16px">SavvPro · visual acceptance suite v1.0 · pair with the build plan's functional gates · built without a management layer</p>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  // scrollspy
+  var links=[].slice.call(document.querySelectorAll('.qa-nav a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function spy(){
+    var y=window.scrollY+120,best=0;
+    secs.forEach(function(s,i){if(s&&s.offsetTop<=y)best=i});
+    links.forEach(function(a,i){a.classList.toggle('active',i===best)});
+  }
+  window.addEventListener('scroll',spy,{passive:true}); spy();
+
+  // checklist toggles (in-memory; resets on reload by design)
+  document.querySelectorAll('.dod li').forEach(function(li){
+    li.addEventListener('click',function(){li.classList.toggle('done')});
+  });
+
+  // compile-down demo
+  var demo=document.getElementById('compileDemo'),btn=document.getElementById('compileBtn');
+  function toggle(){var on=demo.classList.toggle('is-op');btn.textContent=on?'▸ decompile ↑':'▸ compile ↓'}
+  if(demo){demo.addEventListener('click',toggle);btn.addEventListener('click',function(e){e.stopPropagation();toggle()})}
+
+  // pass: ambient stage advance (respects reduced-motion + visibility)
+  var stages=[].slice.call(document.querySelectorAll('#p5 .gf-pass .st'));
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(stages.length && !reduce){
+    var idx=3,timer=null;
+    function step(){stages.forEach(function(s,i){s.classList.toggle('lit',i===idx)});idx=(idx+1)%stages.length}
+    function start(){if(!timer)timer=setInterval(step,1400)}
+    function stop(){clearInterval(timer);timer=null}
+    document.addEventListener('visibilitychange',function(){document.hidden?stop():start()});
+    start();
+  }
+})();
+</script>
+</body>
+</html>
