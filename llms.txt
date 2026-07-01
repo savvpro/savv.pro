@@ -5,7 +5,16 @@ platforms and deliver AI-powered services to organizations navigating the
 transition into the agentic era.
 
 Tagline: Intelligence backbone for the agentic era.
-Phase: stealth (May 2026).
+Phase: stealth (June 2026).
+
+## The site is a redacted render of the world model
+The site does not describe the world model — it is a public render of one,
+passed through SavvPro's own three-tier boundary filter (Tier-1 signal
+visible, Tier-2 identity hashed, Tier-3 commercial never rendered). The
+homepage's Index shows six books (Constitution, Capability Ledger, Resource
+Ledger, Live State, Relationships, Foresight); every node carries a maturity
+score, a confidence band, and a falsifier. The full machine-readable render:
+- /data/world-model.public.json
 
 ## What we build
 - AI-native capabilities (formally defined, measured, continuously improving production processes)
@@ -38,7 +47,8 @@ pathway, agent scope — fetch:
 - /agent-context.json
 
 ## What this site's agent handles
-- Questions about what SavvPro builds and how it operates
+- Questions about what SavvPro builds and how it operates — answered as a
+  node record (label, maturity, confidence, falsifier), not a paragraph
 - The contributor pathway and what SavvPro looks for
 - The arguments of the four published doctrines
 

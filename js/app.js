@@ -108,15 +108,83 @@
   };
 
   const AGENT_WELCOME =
-    "SavvPro builds AI-native capabilities for organizations operating in the agentic era. Ask me what we build, how we work, or how to partner with us.";
+    "This is a query window onto SavvPro's own world model — redacted, not a chatbot script. Ask what we can do and you'll get a node record: label, maturity, confidence, falsifier. Ask about commercials or client identity and you'll get a precise refusal, not an evasive one.";
 
   const POSTBOOT_TIP =
-    "tip: type 'help' for shell commands · 'reset' to redo intake · F for fullscreen";
+    "tip: 'help' for commands · 'contact' to leave a way to reach you (optional, never required) · F for fullscreen";
 
   const PLACEHOLDER_REPLY =
-    "Agent online but the live brain is being configured. Try one of: 'what is savv pro', 'how does the partner model work', 'who do you hire'. Or describe your context — I'll route to the team.";
+    "No match in the model for that yet. Try 'what can savvpro do', 'how does the partner model work', or 'who do you hire' — or type 'contact' if you'd rather talk to a person.";
 
   const EMAIL_RX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  /* ─── Phase 6 · The agent as a query window onto the world model ───
+     Local, client-side node lookup so the agent answers from the
+     redacted model even with no live brain configured. Two intents are
+     intercepted before any BaseEcho call, regardless of HAS_AGENT,
+     because the refusal and the record-not-prose shape are policy, not
+     a backend capability. ────────────────────────────────────────── */
+  let WM_MODEL = null;
+  let WM_LOAD_PROMISE = null;
+  function loadWorldModel() {
+    if (!WM_LOAD_PROMISE) {
+      WM_LOAD_PROMISE = fetch("./data/world-model.public.json", { cache: "no-store" })
+        .then((res) => { if (!res.ok) throw new Error("world-model " + res.status); return res.json(); })
+        .then((data) => { WM_MODEL = data; return data; })
+        .catch((err) => { console.warn("[savv] world-model load failed:", err); return null; });
+    }
+    return WM_LOAD_PROMISE;
+  }
+
+  const CAPABILITY_RX = /what (can|do|does) (you|savvpro|savv\.?pro) (do|build)|what does savvpro build|show me a capability|what are your capabilities/i;
+  const IDENTITY_RX = /client name|customer name|partner name|who (is|are) your (client|partner|customer)s?|real name of (the|your) (client|partner)/i;
+  const COMMERCIAL_RX = /pricing|price|margin|revenue|contract value|deal (size|value)|how much (do|does|would|did)|commercial(s)?\b|salary|headcount|cost (of|for)/i;
+
+  function maturityBlock(node) {
+    const m = node.maturity;
+    if (!m || m.value == null) return "maturity ░░░░ needs_data";
+    const filled = Math.round((m.value / (m.of || 1)) * 4);
+    return "maturity " + "▓".repeat(filled) + "░".repeat(4 - filled) + " " + m.value;
+  }
+  function confBlock(node) {
+    const c = node.confidence;
+    if (!c || c.value == null) return "conf — · needs_data";
+    return "conf " + c.value + " ±" + c.band;
+  }
+  function contentsBlock(node) {
+    const c = node.contents;
+    if (!c || c.status === "public") return "public";
+    const parts = [c.status];
+    if (c.tier) parts.push("Tier-" + c.tier);
+    return parts.join(" · ");
+  }
+  function nodeRecordLine(node) {
+    return (
+      "▸ " + node.id + " · " + (node.operational || node.label) + "\n" +
+      maturityBlock(node) + "   " + confBlock(node) + "\n" +
+      "falsifier: " + (node.falsifier && node.falsifier !== "—" ? node.falsifier : "none recorded") + "\n" +
+      "contents: " + contentsBlock(node)
+    );
+  }
+
+  async function tryLocalIntent(v) {
+    if (IDENTITY_RX.test(v)) {
+      await loadWorldModel();
+      return { kind: "refuse", text: "▸ hashed · Tier-2 · client and partner identity are hashed, never rendered as the real name. The model can show relationship shape (see Book V) — not who it's with." };
+    }
+    if (COMMERCIAL_RX.test(v)) {
+      await loadWorldModel();
+      return { kind: "refuse", text: "▸ boundary · Tier-3 · commercials never cross the partner line. The model can show capability shape and provenance — not pricing, margin, or revenue." };
+    }
+    if (CAPABILITY_RX.test(v)) {
+      const model = await loadWorldModel();
+      if (model && model.nodes) {
+        const node = model.nodes.find((n) => n.type === "capability") || model.nodes[0];
+        if (node) return { kind: "rec", text: nodeRecordLine(node) };
+      }
+    }
+    return null;
+  }
 
   // Easter eggs / shell commands
   const EGGS = [
@@ -138,10 +206,11 @@
       { kind: "ok", text: "  ls               list rooms" },
       { kind: "ok", text: "  cat doctrines    print published doctrines" },
       { kind: "ok", text: "  cat readme       elevator pitch" },
+      { kind: "ok", text: "  contact          leave a way to reach you (optional)" },
       { kind: "ok", text: "  sudo join        elevate to contributor" },
       { kind: "ok", text: "  :wq              save and quit (kidding)" },
       { kind: "ok", text: "  clear            clear terminal" },
-      { kind: "ok", text: "  reset            redo intake" },
+      { kind: "ok", text: "  reset            clear saved contact info" },
       { kind: "ok", text: "  fullscreen / fs  expand terminal · ESC to exit" },
       { kind: "ok", text: "  exit / quit / q  leave fullscreen" },
     ]],
@@ -150,7 +219,7 @@
     ]],
     [/^\s*sudo\s+/i, () => [{ kind: "warn", text: "nice try. there is no root. there is only the model." }]],
     [/^\s*:wq\s*$/i, () => [{ kind: "sys", text: "session saved. you can leave whenever — the doctrines persist." }]],
-    [/^\s*(date|time)\s*$/i, () => [{ kind: "ok", text: "stealth phase · may 2026 · agent uptime 99.97%" }]],
+    [/^\s*(date|time)\s*$/i, () => [{ kind: "ok", text: "stealth phase · jun 2026 · see /data/world-model.public.json for last_revised" }]],
   ];
 
   const ECHO_RX = /^\s*echo\s+(.+)$/i;
@@ -224,17 +293,12 @@
     if (saved && saved.name) {
       TERM_STATE.intake = saved;
       addLine({ kind: "ok", text: "[ok] welcome back, " + saved.name });
-      addLine({ kind: "agent", text: AGENT_WELCOME });
-      addLine({ kind: "sys", text: POSTBOOT_TIP });
-      TERM_STATE.phase = "ready";
       // Pre-create a session for returning users (if agent configured)
       if (HAS_AGENT) baseEchoCreateSession(saved).then((sid) => { if (sid) TERM_STATE.sessionId = sid; });
-    } else {
-      addLine({ kind: "sys", text: "before we chat, a short handshake · 3 questions · 'skip' allowed on phone" });
-      addLine({ kind: "agent", text: INTAKE_PROMPTS.name });
-      TERM_STATE.phase = "intake";
-      TERM_STATE.intakeStep = "name";
     }
+    addLine({ kind: "agent", text: AGENT_WELCOME });
+    addLine({ kind: "sys", text: POSTBOOT_TIP });
+    TERM_STATE.phase = "ready";
     setTermDisabled(false);
     setPlaceholder();
     termFocus();
@@ -366,13 +430,20 @@
       return;
     }
 
-    // Intake phase
+    // Optional, after-the-fact contact capture — never gates a query.
+    if (/^\s*(contact|talk to (a|someone)( human)?|reach (you|me)|leave (my|a) (email|contact))\s*/i.test(v) && TERM_STATE.phase === "ready") {
+      addLine({ kind: "sys", text: "optional · 3 questions · 'cancel' any time · 'skip' allowed on phone" });
+      addLine({ kind: "agent", text: INTAKE_PROMPTS.name });
+      TERM_STATE.phase = "intake";
+      TERM_STATE.intakeStep = "name";
+      setPlaceholder();
+      return;
+    }
+
+    // Intake phase (only entered voluntarily, via 'contact' above)
     if (TERM_STATE.phase === "intake") {
       if (/^\s*cancel\s*$/i.test(v)) {
-        addLine({ kind: "warn", text: "[warn] intake cancelled · session opens as Guest" });
-        addLine({ kind: "agent", text: AGENT_WELCOME });
-        addLine({ kind: "sys", text: POSTBOOT_TIP });
-        TERM_STATE.intake = { name: "Guest" };
+        addLine({ kind: "warn", text: "[warn] contact capture cancelled · back to the model" });
         TERM_STATE.phase = "ready";
         setPlaceholder();
         return;
@@ -419,11 +490,9 @@
           }
           addLine({
             kind: "ok",
-            text: "[ok] intake complete · session opened" +
-              (TERM_STATE.sessionId ? " · " + TERM_STATE.sessionId.slice(-8) : ""),
+            text: "[ok] contact saved · a person on the team can now reach you" +
+              (TERM_STATE.sessionId ? " · session " + TERM_STATE.sessionId.slice(-8) : ""),
           });
-          addLine({ kind: "agent", text: AGENT_WELCOME });
-          addLine({ kind: "sys", text: POSTBOOT_TIP });
           TERM_STATE.phase = "ready";
           TERM_STATE.pending = false;
           setPlaceholder();
@@ -432,16 +501,12 @@
       }
     }
 
-    // Reset
+    // Reset — clears any saved contact info; does not gate the model
     if (/^\s*reset\s*$/i.test(v) && TERM_STATE.phase === "ready") {
       clearIntake();
       TERM_STATE.intake = {};
       TERM_STATE.sessionId = null;
-      addLine({ kind: "warn", text: "[warn] profile cleared · restarting intake" });
-      addLine({ kind: "sys", text: "before we chat, a short handshake · 3 questions · 'skip' allowed on phone" });
-      addLine({ kind: "agent", text: INTAKE_PROMPTS.name });
-      TERM_STATE.intakeStep = "name";
-      TERM_STATE.phase = "intake";
+      addLine({ kind: "warn", text: "[warn] saved contact cleared · type 'contact' any time to leave a new one" });
       setPlaceholder();
       return;
     }
@@ -465,6 +530,17 @@
     TERM_STATE.pending = true;
     setPlaceholder();
     (async () => {
+      // The model-query intents (capability lookup, boundary/identity refusal)
+      // are intercepted locally regardless of HAS_AGENT — they're policy, not
+      // a live-brain feature, and must work with no backend configured too.
+      const local = await tryLocalIntent(v);
+      if (local) {
+        addLine({ kind: local.kind, text: local.text });
+        TERM_STATE.pending = false;
+        setPlaceholder();
+        termFocus();
+        return;
+      }
       if (!HAS_AGENT) {
         await new Promise((r) => setTimeout(r, 700));
         addLine({ kind: "agent", text: PLACEHOLDER_REPLY });

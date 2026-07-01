@@ -39,6 +39,11 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://savv.pro/data/world-model.public.json</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
   <!-- Doctrines (served on-origin as plain markdown) -->
   <url>
