@@ -46,7 +46,7 @@
      · `serif` is rarely used — italic ornamental moments (Instrument Serif) */
   --font-mono:  "IBM Plex Mono", "SF Mono", "Courier New", monospace;
   --font-sans:  "IBM Plex Sans", system-ui, -apple-system, sans-serif;
-  --font-serif: "Instrument Serif", "Times New Roman", Georgia, serif;
+  --font-serif: "EB Garamond", "Times New Roman", Georgia, serif;
 
   /* Type scale */
   --t-hero:     clamp(2rem, 4.5vw, 3.4rem);    /* Big mono tagline */
@@ -97,6 +97,10 @@
 
   --t-glass:       180ms;                    /* token reveal on hover/focus */
   --t-compile:     320ms;                    /* compile-down resolve */
+
+  /* Stage layout (index · terminal · graph panel — see css/model.css) */
+  --stage-gap:     clamp(20px, 4vw, 48px);   /* three-pane gutter */
+  --index-w:       248px;                    /* left rail width */
 }
 
 /* Time-of-day palette shift — set on <html> by app.js */

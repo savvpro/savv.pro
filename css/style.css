@@ -9,7 +9,7 @@
      reset → header → page shell → section blocks → terminal → utilities
    ───────────────────────────────────────────────────────────────────────── */
 
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap");
 @import url("./tokens.css");
 
 /* ───── Reset ───── */
