@@ -127,6 +127,7 @@
   let WM_MODEL = null;
   let WM_LOAD_PROMISE = null;
   function loadWorldModel() {
+    if (WM_MODEL) return Promise.resolve(WM_MODEL);
     if (!WM_LOAD_PROMISE) {
       WM_LOAD_PROMISE = fetch("./data/world-model.public.json", { cache: "no-store" })
         .then((res) => { if (!res.ok) throw new Error("world-model " + res.status); return res.json(); })
@@ -135,6 +136,10 @@
     }
     return WM_LOAD_PROMISE;
   }
+  // model.js hands over its already-loaded copy so we never fetch twice.
+  document.addEventListener("savv:model-ready", (e) => {
+    if (e.detail && e.detail.model) WM_MODEL = e.detail.model;
+  });
 
   const CAPABILITY_RX = /what (can|do|does) (you|savvpro|savv\.?pro) (do|build)|what does savvpro build|show me a capability|what are your capabilities/i;
   const IDENTITY_RX = /client name|customer name|partner name|who (is|are) your (client|partner|customer)s?|real name of (the|your) (client|partner)/i;
@@ -167,7 +172,80 @@
     );
   }
 
+  const SHOW_RX = /^\s*show\s+(.+?)\s*$/i;
+
+  function bookSummaryLine(book, model) {
+    const lines = [
+      "▸ " + book.id + " · " + book.numeral + " · " + book.name,
+      book.question,
+      book.public_line || "",
+      "nodes: " + book.node_ids.join(" · "),
+    ].filter(Boolean);
+    return lines.join("\n");
+  }
+
+  function passSummaryLine(model) {
+    const stages = (model.lifecycle || []).map((s) => s.name).join(" ▶ ");
+    return "▸ the pass · " + stages + "\nschematic of the loop — the live feed is compartmentalised";
+  }
+
+  function resolveModelSubject(model, q) {
+    if (/(^|\s)(the\s+)?pass\b/i.test(q) || /lifecycle/i.test(q)) return { kind: "pass" };
+    const upper = q.toUpperCase();
+    // Word-boundary match so BOOK-I never matches inside BOOK-II, CAP-01
+    // never inside CAP-011, etc.
+    const hasId = (id) => new RegExp("\\b" + id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b").test(upper);
+    // Nodes first — a prompt like "Agentic architecture (CAP-01)" names both
+    // a node and (implicitly) its book; the more specific match wins.
+    const node =
+      (model.nodes || []).find((n) => n.id === upper || hasId(n.id)) ||
+      (model.nodes || []).find((n) => n.label.toUpperCase() === upper || upper.includes(n.label.toUpperCase()));
+    if (node) return { kind: "node", node };
+    const book = (model.books || []).find((b) => b.id === upper || b.name.toUpperCase() === upper || hasId(b.id) || upper.includes(b.name.toUpperCase()));
+    if (book) return { kind: "book", book };
+    return null;
+  }
+
+  // "show <something>" — typed power-user command. Always answered locally
+  // with a record block, whether or not BaseEcho is configured.
+  async function tryShowIntent(v) {
+    const m = v.match(SHOW_RX);
+    if (!m) return null;
+    const model = await loadWorldModel();
+    if (!model) return null;
+    const hit = resolveModelSubject(model, m[1].trim());
+    if (!hit) return { kind: "sys", text: "no record “" + m[1].trim() + "” in the public render · try a book (BOOK-I…BOOK-VI) or node id" };
+    if (hit.kind === "pass") return { kind: "rec", text: passSummaryLine(model) };
+    if (hit.kind === "book") return { kind: "rec", text: bookSummaryLine(hit.book, model) };
+    return { kind: "rec", text: nodeRecordLine(hit.node) };
+  }
+
+  // Local answer for the index rail's natural prompts ("Tell me about X
+  // (CAP-01)"). Used when BaseEcho is not configured, and as the graceful
+  // fallback when it is configured but unreachable — either way the visitor
+  // gets the record, never a generic apology.
+  const TELL_RX = /^\s*tell me about\s+(.+?)\s*$/i;
+  async function resolveTellAnswer(v) {
+    const m = v.match(TELL_RX);
+    if (!m) return null;
+    const model = await loadWorldModel();
+    if (!model) return null;
+    const hit = resolveModelSubject(model, m[1].trim());
+    if (!hit) return null;
+    if (hit.kind === "pass") return { kind: "rec", text: passSummaryLine(model) };
+    if (hit.kind === "book") return { kind: "rec", text: bookSummaryLine(hit.book, model) };
+    return { kind: "rec", text: nodeRecordLine(hit.node) };
+  }
+  async function tryTellFallback(v) {
+    if (HAS_AGENT) return null; // with a live brain, BaseEcho answers on its own
+    return resolveTellAnswer(v);
+  }
+
   async function tryLocalIntent(v) {
+    const shown = await tryShowIntent(v);
+    if (shown) return shown;
+    const told = await tryTellFallback(v);
+    if (told) return told;
     if (IDENTITY_RX.test(v)) {
       await loadWorldModel();
       return { kind: "refuse", text: "▸ hashed · Tier-2 · client and partner identity are hashed, never rendered as the real name. The model can show relationship shape (see Book V) — not who it's with." };
@@ -180,7 +258,10 @@
       const model = await loadWorldModel();
       if (model && model.nodes) {
         const node = model.nodes.find((n) => n.type === "capability") || model.nodes[0];
-        if (node) return { kind: "rec", text: nodeRecordLine(node) };
+        if (node) {
+          dispatchSelect(node.id);
+          return { kind: "rec", text: nodeRecordLine(node) };
+        }
       }
     }
     return null;
@@ -254,7 +335,9 @@
 
   function termFocus() {
     const input = $("#term-input");
-    if (input && !input.disabled) input.focus();
+    // preventScroll: focusing the input on boot must not yank the page
+    // down to the terminal — the visitor starts at the stats frame.
+    if (input && !input.disabled) input.focus({ preventScroll: true });
   }
 
   /* Intake — loaded from / saved to localStorage */
@@ -530,9 +613,10 @@
     TERM_STATE.pending = true;
     setPlaceholder();
     (async () => {
-      // The model-query intents (capability lookup, boundary/identity refusal)
-      // are intercepted locally regardless of HAS_AGENT — they're policy, not
-      // a live-brain feature, and must work with no backend configured too.
+      // The model-query intents (capability lookup, boundary/identity refusal,
+      // "show <id>" from the index rail) are intercepted locally regardless of
+      // HAS_AGENT — they're policy, not a live-brain feature, and must work
+      // with no backend configured too.
       const local = await tryLocalIntent(v);
       if (local) {
         addLine({ kind: local.kind, text: local.text });
@@ -548,8 +632,10 @@
         if (!TERM_STATE.sessionId) {
           const sid = await baseEchoCreateSession(TERM_STATE.intake);
           if (!sid) {
-            addLine({ kind: "warn", text: "[err] could not establish session · falling back to local reply" });
-            addLine({ kind: "agent", text: PLACEHOLDER_REPLY });
+            addLine({ kind: "warn", text: "[err] could not establish session · answering from the local model" });
+            const told = await resolveTellAnswer(v);
+            if (told) addLine(told);
+            else addLine({ kind: "agent", text: PLACEHOLDER_REPLY });
             TERM_STATE.pending = false;
             setPlaceholder();
             return;
@@ -560,8 +646,10 @@
         if (reply) {
           addLine({ kind: "agent", text: reply });
         } else {
-          addLine({ kind: "warn", text: "[err] agent unreachable · using local reply" });
-          addLine({ kind: "agent", text: PLACEHOLDER_REPLY });
+          addLine({ kind: "warn", text: "[err] agent unreachable · answering from the local model" });
+          const told = await resolveTellAnswer(v);
+          if (told) addLine(told);
+          else addLine({ kind: "agent", text: PLACEHOLDER_REPLY });
         }
       }
       TERM_STATE.pending = false;
@@ -587,6 +675,21 @@
 
     $$(".term__quick-btn").forEach((btn) => {
       btn.addEventListener("click", () => sendMessage(btn.dataset.prompt || btn.textContent));
+    });
+
+    // The index rail (model.js) drives the terminal through this event —
+    // a click is submitted exactly as if the visitor had typed the query.
+    document.addEventListener("savv:query", (e) => {
+      const text = e.detail && e.detail.text;
+      if (!text) return;
+      const term = $(".term");
+      if (term && !TERM_STATE.fullscreen) {
+        const rect = term.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) {
+          term.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+      }
+      sendMessage(text);
     });
 
     if (fsBtn) fsBtn.addEventListener("click", () => setFullscreen());

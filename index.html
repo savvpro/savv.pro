@@ -183,56 +183,35 @@
       </div>
     </header>
 
-    <main class="page">
+    <main class="page page--stage">
 
-      <!-- ▸ IDENTITY ─────────────────────────────────────────────── -->
-      <section class="section" id="identity">
+      <!-- ▸ FRAME 1 / STATS — stealth-safe aggregates only ────────── -->
+      <section class="section section--frame" id="stats">
         <div class="section__head">
-          <span class="section__label">Identity</span>
-          <span class="section__meta">v0.2 · stealth · jun 2026</span>
+          <span class="section__label">State</span>
+          <span class="section__meta">/data/stats.public.json · counts only · stealth</span>
         </div>
 
-        <span class="hero__tag">▸ doctrines public · capabilities building</span>
-        <h1 class="hero__title">
-          intelligence backbone<br />
-          for the <span class="wine">agentic era</span>.
-        </h1>
-        <p class="hero__sub">
-          SavvPro builds AI-native capabilities, platforms, and services for organizations
-          navigating the transition into agentic operating models. The agent below is the
-          primary interface.
-        </p>
-
-        <div id="hero-glass"></div>
-      </section>
-
-      <!-- ▸ THE INDEX — six books, ≤2-hop navigation ────────────── -->
-      <section class="section" id="index">
-        <div class="section__head">
-          <span class="section__label">The Index</span>
-          <span class="section__meta">/data/world-model.public.json</span>
+        <div id="stats-body">
+          <!-- Populated by stats.js — readable fallback if JSON 404s -->
+          <p class="gf-fallback">loading /data/stats.public.json …</p>
         </div>
-
-        <div id="model-index-body"></div>
       </section>
 
-      <!-- ▸ THE PASS — lifecycle schematic, explicitly labelled ─── -->
-      <section class="section" id="pass">
-        <div class="section__head">
-          <span class="section__label">The Pass</span>
-          <span class="section__meta">lifecycle · schematic, not a live feed</span>
-        </div>
-
-        <div id="pass-body"></div>
-      </section>
-
-      <!-- ▸ THE AGENT ────────────────────────────────────────────── -->
-      <section class="section" id="agent">
+      <!-- ▸ FRAME 2 / STAGE — small index left · big terminal · graph ── -->
+      <section class="section section--frame" id="agent">
         <div class="section__head">
           <span class="section__label">Agent</span>
-          <span class="section__meta">base_echo:// · enc · session</span>
+          <span class="section__meta">index · terminal · graph — one model, three views</span>
         </div>
 
+        <div class="stage">
+          <aside class="stage__index" id="stage-index" aria-label="World-model index">
+            <!-- Populated by model.js — books + The Pass; clicks drive the terminal -->
+            <p class="gf-fallback">loading index …</p>
+          </aside>
+
+          <div class="stage__term">
         <div class="term" role="region" aria-label="SavvPro agent terminal">
           <div class="term__head">
             <div class="term__dots">
@@ -270,33 +249,16 @@
         <p class="term__caption">
           ▸ encrypted · base_echo://agent · queries the redacted model · contact capture optional
         </p>
-      </section>
+          </div><!-- /.stage__term -->
 
-      <!-- ▸ JOIN — Book III surfaced as a gap, not a form gate ───── -->
-      <section class="section" id="join">
-        <div class="section__head">
-          <span class="section__label">Join</span>
-          <span class="section__meta">Book III · Resource Ledger</span>
-        </div>
-
-        <p class="hero__sub" style="margin-bottom: var(--s-5);">
-          Remote-first. Resource-agnostic. Agent-first. No hierarchy. Read the page. If it
-          still sounds right, start the conversation.
-        </p>
-        <div id="join-pathway"></div>
-        <a href="./join.html" class="btn" style="margin-top: var(--s-4);">→ read /join</a>
-      </section>
-
-      <!-- Closing -->
-      <section class="closing">
-        <p class="closing__statement">
-          The hierarchy will end. The question is whether <span class="wine">you end it</span>,
-          or whether a competitor does.
-        </p>
-        <div class="closing__actions">
-          <a href="#agent" class="btn btn--wine">↑ start the conversation</a>
-          <a href="https://github.com/savvpro/savv.pro/tree/main/library" class="btn" target="_blank" rel="noopener">read the doctrines ↗</a>
-        </div>
+          <aside class="stage__panel" id="stage-panel" aria-label="Monthly effort graph">
+            <!-- Populated by stats.js — fixed company-state graph; never
+                 changes with index clicks (selection lives in the terminal) -->
+            <div id="panel-graph">
+              <p class="gf-fallback">loading effort graph …</p>
+            </div>
+          </aside>
+        </div><!-- /.stage -->
       </section>
     </main>
 
@@ -321,6 +283,7 @@
           <a href="./llms.txt">/llms.txt</a>
           <a href="./agent-context.json">/agent-context.json</a>
           <a href="./data/world-model.public.json">/data/world-model.public.json</a>
+          <a href="./data/stats.public.json">/data/stats.public.json</a>
         </div>
         <div class="footer__col">
           <h4>▸ Legal</h4>
@@ -341,5 +304,6 @@
     <script src="./config.js"></script>
     <script src="./js/app.js" defer></script>
     <script src="./js/model.js" defer></script>
+    <script src="./js/stats.js" defer></script>
   </body>
 </html>
