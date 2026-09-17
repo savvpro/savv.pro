@@ -47,6 +47,67 @@ export function dumbLeakScan(text) {
 
 const PUBLIC_NAME_EXCEPTIONS = ["BaseEcho"];
 
+/* ───────────────────────────────────────────────────────────────────────────
+   V2 LIFETIME FIGURES — hardcoded, whole-company scope.
+   ───────────────────────────────────────────────────────────────────────────
+   Source: the v2 dataset (synthetic-data-v2), refreshed 2026-09-17 by
+   pull-git-stats-api.js straight from the GitHub API — 107 repos across
+   NullSpaceAI, savvpro and hyonq — versus the 9 hand-listed repos the --src
+   dataset still carries. These are pasted rather than read because v2 emits a
+   different shape (no capabilities.json / kpis.json, real-git-stats keyed by
+   `repos` not `stats`), so --src stays the v1 dataset for everything below
+   that v2 doesn't measure: clients, capability + service ledger, compliance
+   alignment, sector list, maturity tiers, and the cumulative progression.
+
+   To refresh: re-run v2's pull-git-stats.js + generate.js, then copy from its
+   data/company.json — totals.{commits,linesOfCode,tokens,humanHours,products,
+   people,skillsEstimated} and the monthly commit series — into this block.
+   ─────────────────────────────────────────────────────────────────────────── */
+const V2 = {
+  window: { start: "2024-09", end: "2026-09", months: 22 },
+  commits: 4600,
+  linesOfCode: 2548793,
+  tokens: 4246289138,   // = linesOfCode × 1666 (modeled rate, same as v1 used)
+  humanHours: 18400,    // = commits × 4h
+  products: 25,
+  // v2 counts committers, so it sees engineers only. The design + research pair
+  // (founder/product design, research/systems) ship no commits and stay carried
+  // from the v1 roster, which is why humans is the sum rather than v2's own 10.
+  engineers: 10,
+  designResearch: 2,
+  humans: 12,
+  agents: 5,
+  skills: 3710,         // estimated from LOC across all 107 repos, not ledgered
+  // Summed across every repo AND every author — the only aggregation level that
+  // can't be reversed into per-person attribution.
+  commitsMonthly: [
+    { month: "2024-09", commits: 4 },
+    { month: "2025-01", commits: 3 },
+    { month: "2025-02", commits: 58 },
+    { month: "2025-03", commits: 19 },
+    { month: "2025-04", commits: 30 },
+    { month: "2025-05", commits: 4 },
+    { month: "2025-06", commits: 55 },
+    { month: "2025-07", commits: 97 },
+    { month: "2025-08", commits: 94 },
+    { month: "2025-09", commits: 150 },
+    { month: "2025-10", commits: 286 },
+    { month: "2025-11", commits: 97 },
+    { month: "2025-12", commits: 256 },
+    { month: "2026-01", commits: 415 },
+    { month: "2026-02", commits: 241 },
+    { month: "2026-03", commits: 438 },
+    { month: "2026-04", commits: 485 },
+    { month: "2026-05", commits: 313 },
+    { month: "2026-06", commits: 367 },
+    // 2026-09 is partial — the pull ran on the 17th — but at 386 it already
+    // reads as a normal month, so it is kept rather than dropped.
+    { month: "2026-07", commits: 346 },
+    { month: "2026-08", commits: 456 },
+    { month: "2026-09", commits: 386 },
+  ],
+};
+
 function readJson(p) {
   return JSON.parse(fs.readFileSync(p, "utf8"));
 }
@@ -78,44 +139,38 @@ export function buildStats(src) {
   const t = company.totals;
   const w = workforce.counts;
 
-  // Monthly commit totals: sum across every repo and every author — the only
-  // aggregation level that can't be reversed into per-person attribution.
-  const commitsByMonth = {};
-  for (const repo of Object.values(gitStats.stats || {})) {
-    for (const [month, authors] of Object.entries(repo)) {
-      for (const n of Object.values(authors)) {
-        commitsByMonth[month] = (commitsByMonth[month] || 0) + n;
-      }
-    }
-  }
-  const commits_monthly = Object.keys(commitsByMonth)
-    .sort()
-    .map((month) => ({ month, commits: commitsByMonth[month] }));
+  // Monthly commit totals come from the V2 block above — --src still holds the
+  // 9-repo v1 series, which would contradict the whole-company lifetime counts.
+  const commits_monthly = V2.commitsMonthly.map((d) => ({ ...d }));
 
   // Monthly effort series, both MODELED per the source's own methodology:
   // hours = commits × 4h; tokens = lifetime total distributed proportional
   // to each month's commit share. Aggregated across all projects and people.
   const HOURS_PER_COMMIT = 4;
-  const TOKENS_LIFETIME = 1382241882;
+  const TOKENS_LIFETIME = V2.tokens;
   const commitsTotal = commits_monthly.reduce((a, d) => a + d.commits, 0);
   const effort_monthly = commits_monthly.map((d) => ({
     month: d.month,
     hours: d.commits * HOURS_PER_COMMIT,
     tokens: Math.round(TOKENS_LIFETIME * (d.commits / commitsTotal)),
   }));
+  // Per-month rounding leaves the series a few tokens off the lifetime total.
+  // Absorb the residual into the busiest month, so the monthly series and the
+  // headline figure agree exactly rather than drifting apart on the page.
+  if (effort_monthly.length) {
+    const residual = TOKENS_LIFETIME - effort_monthly.reduce((a, d) => a + d.tokens, 0);
+    if (residual) {
+      const busiest = effort_monthly.reduce((a, b) => (b.tokens > a.tokens ? b : a));
+      busiest.tokens += residual;
+    }
+  }
 
   return {
     $comment:
       "PUBLIC STEALTH-SAFE STATS. Generated by tools/build-stats.mjs from the private dataset — never hand-edited. No names, no products (except BaseEcho as the site's agent), no currency, no per-person attribution. 'modeled' values are estimates disclosed as such by the source (hours = commits × 4h; tokens = LOC × modeled rate).",
     generated_by: "build-stats",
-    as_of: capabilities.progression.at(-1).month,
-    window: company._meta.lifetimeWindow
-      ? {
-          start: company._meta.lifetimeWindow.start,
-          end: company._meta.lifetimeWindow.end,
-          months: company._meta.lifetimeWindow.months,
-        }
-      : null,
+    as_of: V2.window.end,
+    window: { ...V2.window },
     sectors: company.sectors || [],
     compliance: {
       frameworks: (company.compliance && company.compliance.frameworks) || [],
@@ -124,19 +179,22 @@ export function buildStats(src) {
       services_hipaa_aligned: company.compliance ? company.compliance.servicesHipaaAligned : null,
     },
     counts: [
-      { id: "ST-HUMANS", label: "humans", value: t.humans, capture: "measured" },
-      { id: "ST-ENGINEERS", label: "engineers", value: t.engineers, capture: "measured" },
-      { id: "ST-DESIGN", label: "design_research", value: t.designResearch, capture: "measured" },
-      { id: "ST-AGENTS", label: "agents", value: t.agents, capture: "measured" },
-      { id: "ST-PRODUCTS", label: "products", value: t.products, capture: "measured" },
+      { id: "ST-HUMANS", label: "humans", value: V2.humans, capture: "measured" },
+      { id: "ST-ENGINEERS", label: "engineers", value: V2.engineers, capture: "measured" },
+      { id: "ST-DESIGN", label: "design_research", value: V2.designResearch, capture: "measured" },
+      { id: "ST-AGENTS", label: "agents", value: V2.agents, capture: "measured" },
+      { id: "ST-PRODUCTS", label: "products", value: V2.products, capture: "measured" },
+      // Client/capability/service taxonomy is not derivable from git — still --src.
       { id: "ST-CLIENTS", label: "clients", value: t.clients, capture: "measured" },
-      { id: "ST-COMMITS", label: "commits", value: t.commits, capture: "measured" },
-      { id: "ST-LOC", label: "lines_of_code", value: t.linesOfCode, capture: "measured" },
-      { id: "ST-SKILLS", label: "skills", value: t.skills, capture: "measured" },
+      { id: "ST-COMMITS", label: "commits", value: V2.commits, capture: "measured" },
+      { id: "ST-LOC", label: "lines_of_code", value: V2.linesOfCode, capture: "measured" },
+      // v1 ledgered skills against 4-of-5 products; v2 estimates them from LOC
+      // across all 86 repos, so the capture tier drops to modeled.
+      { id: "ST-SKILLS", label: "skills", value: V2.skills, capture: "modeled" },
       { id: "ST-CAPS", label: "capabilities", value: t.capabilities, capture: "measured" },
       { id: "ST-SERVICES", label: "services", value: t.services, capture: "measured" },
-      { id: "ST-HOURS", label: "human_hours", value: 9560, capture: "modeled" },
-      { id: "ST-TOKENS", label: "tokens_consumed", value: 1382241882, capture: "modeled" },
+      { id: "ST-HOURS", label: "human_hours", value: V2.humanHours, capture: "modeled" },
+      { id: "ST-TOKENS", label: "tokens_consumed", value: V2.tokens, capture: "modeled" },
     ],
     maturity_tiers: capabilities.tiers || [],
     progression: (capabilities.progression || []).map((p) => ({
