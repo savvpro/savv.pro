@@ -1,0 +1,177 @@
+<!doctype html>
+<!--
+  business-profile.html
+  What:     Public business-identity page (owner name, company, phone, email,
+            primary address) used as a verification URL for third-party
+            account checks (e.g. Payoneer). NOT an SEO page.
+  Requires: ./css/style.css (shared design tokens + .kv rows), ./favicon.svg,
+            ./config.js + ./js/app.js (shared header/⌘K behaviour).
+  Used by:  Submitted manually as a URL; deliberately NOT linked from any
+            page, NOT listed in sitemap.xml, and Disallowed in robots.txt.
+  Exports:  none (static page).
+  Keep in sync: the address must match the Payoneer profile settings exactly.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Business profile — SavvPro</title>
+
+    <!-- Not an SEO page: keep out of search indexes, caches and link graphs.
+         No description / og / twitter tags on purpose. -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
+
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Page-only override: values here (address, email) are long, so let them
+         wrap on narrow screens instead of overflowing the shared nowrap rows. -->
+    <style>
+      .kv { flex-wrap: wrap; }
+      .kv__value { white-space: normal; overflow-wrap: anywhere; }
+      .kv__value a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+      @media (max-width: 600px) { .kv__dots { display: none; } .kv__value { flex-basis: 100%; text-align: left; } }
+    </style>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#profile">Skip to content</a>
+
+    <header class="header">
+      <div class="header__inner">
+        <a href="./index.html" class="brand" aria-label="SavvPro home">
+          SAVV<span class="brand__dot">·</span>PRO
+        </a>
+
+        <button class="menu-btn" aria-label="Menu" type="button">Menu</button>
+
+        <nav class="nav" aria-label="Primary">
+          <a class="nav__link nav__ext" href="https://github.com/savvpro/savv.pro/tree/main/library" target="_blank" rel="noopener">Doctrines</a>
+          <a class="nav__link nav__ext" href="https://github.com/savvpro/savv.pro" target="_blank" rel="noopener">Source</a>
+          <a class="nav__link" href="./join.html">Join</a>
+          <button class="nav__cmdk" type="button" aria-label="Open command palette">
+            <kbd>⌘</kbd><kbd>K</kbd>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+
+      <!-- ▸ 00 / PROFILE ─────────────────────────────────────── -->
+      <section class="section" id="profile">
+        <div class="section__head">
+          <span class="section__label">▸ 00 / Business profile</span>
+          <span class="section__meta">owner · company · contact</span>
+        </div>
+
+        <h1 class="hero__title">
+          Fasih Ul Haq.<br />
+          founder of <span class="wine">Savv.Pro</span>.
+        </h1>
+        <p class="hero__sub">
+          Business identity details for Savv.Pro, a remote-first technology company
+          building AI agents and software for businesses.
+        </p>
+      </section>
+
+      <!-- ▸ 01 / IDENTITY ────────────────────────────────────── -->
+      <section class="section" id="identity">
+        <div class="section__head">
+          <span class="section__label">▸ 01 / Identity</span>
+          <span class="section__meta">name · company</span>
+        </div>
+
+        <div>
+          <div class="kv">
+            <span class="kv__key">full_name</span>
+            <span class="kv__dots"></span>
+            <span class="kv__value">Fasih Ul Haq</span>
+          </div>
+          <div class="kv">
+            <span class="kv__key">company_name</span>
+            <span class="kv__dots"></span>
+            <span class="kv__value">Savv.Pro</span>
+          </div>
+          <div class="kv">
+            <span class="kv__key">website</span>
+            <span class="kv__dots"></span>
+            <span class="kv__value"><a href="https://savv.pro">savv.pro</a></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ▸ 02 / CONTACT ─────────────────────────────────────── -->
+      <section class="section" id="contact">
+        <div class="section__head">
+          <span class="section__label">▸ 02 / Contact</span>
+          <span class="section__meta">phone · email</span>
+        </div>
+
+        <div>
+          <div class="kv">
+            <span class="kv__key">phone</span>
+            <span class="kv__dots"></span>
+            <span class="kv__value"><a href="tel:+923165477374">+92 316 5477374</a></span>
+          </div>
+          <div class="kv">
+            <span class="kv__key">email</span>
+            <span class="kv__dots"></span>
+            <span class="kv__value"><a href="mailto:fasih682@gmail.com">fasih682@gmail.com</a></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ▸ 03 / ADDRESS ─────────────────────────────────────── -->
+      <section class="section" id="address">
+        <div class="section__head">
+          <span class="section__label">▸ 03 / Primary address</span>
+          <span class="section__meta">matches Payoneer profile</span>
+        </div>
+
+        <!-- Semantic <address> wrapper; rows mirror the Payoneer profile fields. -->
+        <address style="font-style: normal;">
+          <div class="kv">
+            <span class="kv__key">address_line_1</span>
+            <span class="kv__dots"></span>
+            <span class="kv__value">SN-326/A, Street 8, Near Bilal Colony,</span>
+          </div>
+          <div class="kv">
+            <span class="kv__key">address_line_2</span>
+            <span class="kv__dots"></span>
+            <span class="kv__value">Ojri Camp, Shamsabad, Rawalpindi,</span>
+          </div>
+          <div class="kv">
+            <span class="kv__key">city_town</span>
+            <span class="kv__dots"></span>
+            <span class="kv__value">Rawalpindi</span>
+          </div>
+          <div class="kv">
+            <span class="kv__key">postal_zip_code</span>
+            <span class="kv__dots"></span>
+            <span class="kv__value">46000</span>
+          </div>
+          <div class="kv">
+            <span class="kv__key">country</span>
+            <span class="kv__dots"></span>
+            <span class="kv__value">Pakistan</span>
+          </div>
+        </address>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__line">
+        <div class="footer__line-inner">
+          <span>Savv.Pro · Fasih Ul Haq</span>
+          <span><a href="./index.html">savv.pro</a></span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./config.js"></script>
+    <script src="./js/app.js" defer></script>
+  </body>
+</html>

@@ -1,23 +1,30 @@
 # SavvPro explicitly welcomes AI agents.
 # For structured context, see /llms.txt and /data/org-state.json
 # Source: github.com/savvpro/savv.pro
+# /business-profile.html is a private verification page: Disallowed in every group.
 
 User-agent: *
 Allow: /
+Disallow: /business-profile.html
 
 User-agent: GPTBot
 Allow: /
+Disallow: /business-profile.html
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /business-profile.html
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /business-profile.html
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /business-profile.html
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /business-profile.html
 
 Sitemap: https://savv.pro/sitemap.xml
